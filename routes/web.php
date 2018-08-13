@@ -25,6 +25,8 @@ Route::get('/add', 'HomeController@add')
 	->name('add');
 Route::get('/modify', 'HomeController@modify')
 	->name('modify');
+Route::get('/help', 'HomeController@help')
+	->name('help');
 
 Route::get('/api/questions', 'QuestionController@questionsJSON')
 	->name('api.questions');
