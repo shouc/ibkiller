@@ -34,6 +34,9 @@ class HomeController extends Controller
         return view('home')
             ->with('res',[count($question),count($paper)]);
     }
+    public function help(){
+        redirect('https://kotobukki.github.io/admin/');
+    }
     public function add()
     {
         $paper = DB::table('questions')
