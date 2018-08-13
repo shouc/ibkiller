@@ -1,60 +1,38 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+### Terms
+**paper: ** To make users to select the questions they are going to practice much easier, every ten questions (Multiple Choice) or three questions (Short Answer) of same chapter but different type would be put into one paper.    
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+**question type:** 1 is multiple choice question; 2 is short answer question; 3 is long answer question.
 
-## About Laravel
+**reference code (定位码): ** An unique code to identify the question. Its form is {question creator}@{question characteristics}@{chapter}@{unique random code}.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+### Logic
+The App starts with a screen that fills with subjects (i.e. Chemistry). The user could press on one subject and then the App would take them to the category screen. In such screen, the user could select the *paper*. After selected, the App would judge the *question type* and take them to one of the three screens (Multiple choice/Short/Long). As soon as the users finish, the App would bring them towards check screen, where they could see both markschemes and their answers.
+### Todos
+1. Picture upload module
+2. Register Validation
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
-
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Freelancers
+The system location is http://admin.ibkiller.com:8000/ Please use computer to visit the system.
+#### Bulk Validation
+Here, freelancers could validate 10 questions in one page. The purpose of creating this page is to help freelancers identify errors in MathJax and HTML.
+## Developers
+System is based on Laravel, with Auth module enabled, on Centos 7 (Qcloud).
+#### Database Structure
+| Name  | Type  | Description  |
+| :------------: | :------------: | :------------: |
+|  question  | TEXT  | the content of the question (HTML)  |
+|  chapter  |  VARCHAR 8  |  the chapter of the queston (i.e. 1.1)  |
+|  type  |  INT 11  |  *question type*  |
+|  mark  |  INT 11  | the mark of the queston (i.e. 1)  |
+|  paper  |  TEXT  | the paper of the queston (i.e. Intro 1)  |
+|  ref  |  VARCHAR 80  |  *reference code*  |
+|  ok_by  |  TEXT  |  the creator and validator of the question  |
+#### Controllers
+`HomeController@index`
+`HomeController@add`
+`HomeController@modify`
+`HomeController@bulk`
+`QuestionController@val`
+`QuestionController@add`
+`QuestionController@modify`
+`QuestionController@stats`
