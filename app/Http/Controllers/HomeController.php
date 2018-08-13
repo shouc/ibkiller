@@ -35,7 +35,7 @@ class HomeController extends Controller
             ->with('res',[count($question),count($paper)]);
     }
     public function help(){
-        redirect('https://kotobukki.github.io/admin/');
+        return redirect('https://kotobukki.github.io/admin/');
     }
     public function add()
     {
