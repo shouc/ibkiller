@@ -32,9 +32,17 @@ Route::get('/api/questions', 'QuestionController@questionsJSON')
 	->name('api.questions');
 Route::get('/api/stats', 'QuestionController@stats')
 	->name('api.stats');
-Route::get('/api/modify', 'QuestionController@modify')
+Route::post('/api/modify', 'QuestionController@modify')
 	->name('api.modify');
-Route::get('/api/add', 'QuestionController@add')
+Route::post('/api/add', 'QuestionController@add')
 	->name('api.add');
 Route::get('/api/val', 'QuestionController@val')
 	->name('api.val');
+Route::post('/api/pic_upload', 'QuestionController@upload')
+	->name('api.upload');
+Route::get('/api/papers', 'QuestionController@papersJSON')
+	->name('api.papers');
+Route::get('/api/paperModify', 'QuestionController@paperModify')
+	->name('api.pm');
+Route::get('/api/del', 'QuestionController@del')
+	->name('api.del');

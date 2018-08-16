@@ -22,17 +22,49 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $question = DB::table('questions')
-            ->select('paper')
-            ->get();
-        $paper = DB::table('questions')
-            ->select('paper')
+
+        $sub = $request->subject ? request()->subject : 'Chemistry';
+        $fsubject = DB::table('groups')
+            ->where('cat', $sub)
             ->distinct()
             ->get();
+        $arr = array();
+        foreach($fsubject as $value){
+            $cat = DB::table('papers')
+                ->where('group_id',$value->group_id)
+                ->select('paper')
+                ->distinct()
+                ->get();
+            foreach($cat as $svalue){
+                array_push($arr, $svalue->paper);
+            }
+            
+        };
+        $counter = array();
+        foreach($arr as $tvalue){
+            $question = DB::table('questions')
+                ->where('paper',$tvalue)
+                ->get();
+            foreach($question as $fvalue){
+                array_push($counter, $fvalue->ref);
+            }
+
+        }
+        
+        $subject = DB::table('groups')
+            ->select('cat')
+            ->distinct()
+            ->get();
+        $types = DB::table('groups')
+            ->where('cat', $sub)
+            ->get();
+        
         return view('home')
-            ->with('res',[count($question),count($paper)]);
+            ->with('res',[count($counter),count($arr)])
+            ->with('data', $subject)
+            ->with('types', $types);
     }
     public function help(){
         return redirect('/help.html');

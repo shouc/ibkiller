@@ -6,7 +6,7 @@
     <div class="row justify-content-md-center">
         <div class="col-md-6">
             <div class="card top">
-                <div class="card-header login_title">{{ __('Register') }}</div>
+                <div class="card-header login_title">Internal User Register</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}" aria-label="{{ __('Register') }}">

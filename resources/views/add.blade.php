@@ -1,25 +1,36 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
 <h3>添加题目</h3>
 <br>
 <h5 style="font-weight: 100;">试题内容</h5>
-<form action="{{route('api.add')}}" method="get">
-<textarea class="form-control" id="ta" name="question" rows="10" onkeyup="update()">
-This is an example<br><strong>A.</strong> $ {Na}(g) \to {Na}(s) $<br><strong>B.</strong> $ 4{K}(s) + {O_2}(g) \to 2{K_2O}(s) $<br><strong>C.</strong> $ {H_2O}(s) \to {H_2O}(g) $<br><strong>D.</strong> $ {BaCO_3}(s) + 2{HCl}(aq) \to {BaCl_2}(l) + {CO_2}(g) + {H_2O}(aq) $<br>
-</textarea>
+<form action="{{route('api.add')}}" method="post">
+<br>
+<div id="question" >  
+<textarea id="ta" name="question"><img style="width: 30px; height: 30px" src=http://admin.ibkiller.com/storage/2018-08-13-12-26-11.png>
+<br>
+This is an example<br><strong>A.</strong> $ {Na}(g) \to {Na}(s) $<br><strong>B.</strong> $ 4{K}(s) + {O_2}(g) \to 2{K_2O}(s) $<br><strong>C.</strong> $ {H_2O}(s) \to {H_2O}(g) $<br><strong>D.</strong> $ {BaCO_3}(s) + 2{HCl}(aq) \to {BaCl_2}(l) + {CO_2}(g) + {H_2O}(aq) $<br></textarea>
+</div>
+
+
+<br>
+<h5 style="font-weight: 100;">答案</h5>
+<input class="form-control" onkeyup="update()" id="answer" name="answer" type="" value="A" name="">
 <br>
 <div class="alert alert-success">
 	实时预览
 </div>
 <div id="show">
-	This is an example<br><strong>A.</strong> $ {Na}(g) \to {Na}(s) $<br><strong>B.</strong> $ 4{K}(s) + {O_2}(g) \to 2{K_2O}(s) $<br><strong>C.</strong> $ {H_2O}(s) \to {H_2O}(g) $<br><strong>D.</strong> $ {BaCO_3}(s) + 2{HCl}(aq) \to {BaCl_2}(l) + {CO_2}(g) + {H_2O}(aq) $<br>
-</div>
-<br><br>
-<h5 style="font-weight: 100;">答案</h5>
-<input class="form-control" name="answer" type="" value="A" name="">
+<img style="width: 30px; height: 30px" src=http://admin.ibkiller.com/storage/2018-08-13-12-26-11.png>
 <br>
+This is an example<br><strong>A.</strong> $ {Na}(g) \to {Na}(s) $<br><strong>B.</strong> $ 4{K}(s) + {O_2}(g) \to 2{K_2O}(s) $<br><strong>C.</strong> $ {H_2O}(s) \to {H_2O}(g) $<br><strong>D.</strong> $ {BaCO_3}(s) + 2{HCl}(aq) \to {BaCl_2}(l) + {CO_2}(g) + {H_2O}(aq) $
+<br>
+<br><strong>Answer: </strong>A
+</div>
+<br>
+
 <h5 style="font-weight: 100;">章节</h5>
 <input class="form-control" name="chapter" type="" value="1.1" name="">
 <br>
@@ -49,14 +60,43 @@ This is an example<br><strong>A.</strong> $ {Na}(g) \to {Na}(s) $<br><strong>B.<
 </div>
 <script type="text/javascript">
 	function update() {
-		document.getElementById("show").innerHTML = document.getElementById("ta").value;
-		renderMathInElement(document.body, {delimiters:[
-          {left: "$", right: "$", display: false},
-        ]});
+		
 	}
 	function change(res) {
 		document.getElementById("paper").value = res;
 		
 	}
+</script>
+<script src="static/js/jquery.min.js"></script>
+<script src="editor/editormd.js"></script>   
+<script type="text/javascript">
+	function update(){
+		document.getElementById("show").innerHTML = document.getElementById("ta").value + "<br><strong>Answer: </strong>" + document.getElementById("answer").value;
+		renderMathInElement(document.body, {delimiters:[
+		          {left: "$", right: "$", display: false},
+		        ]});
+	}
+	var question;
+
+    $(function() {
+        question = editormd("question", {
+        	width: '97%',
+            height: 340,
+            path : 'editor/lib/',
+            theme : "day",
+            watch            : true,
+            codeFold         : true,
+            searchReplace    : true,
+            imageUpload    : true,
+		    imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+		    imageUploadURL : "{{route('api.upload')}}",
+            onchange : function() {
+            	update();
+				
+            }
+        });
+        
+    });
+
 </script>
 @endsection
