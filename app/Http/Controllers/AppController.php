@@ -28,6 +28,12 @@ class AppController extends Controller
         $allCat = DB::table('groups')
             ->where('cat', $_cat)
             ->get();
+        $paperStatus = DB::table('records')
+            ->where('session', $_session)
+            ->select('paper')
+            ->get()
+            ->pluck('paper')
+            ->toArray();
         $allCatRes = array();
         foreach ($allCat as $i) {
             $allPaperInGID = DB::table('papers')
@@ -36,13 +42,7 @@ class AppController extends Controller
             $allPaperTemp = array();
             foreach ($allPaperInGID as $j) {
                 if ($j->condition == 1){
-                    $paperStatus = DB::table('records')
-                        ->where([
-                            ['paper', $j->paper],
-                            ['session', $_session],
-                        ])
-                        ->get();
-                    if ($paperStatus){
+                    if (in_array($j->paper, $paperStatus)){
                         array_push($allPaperTemp, [$j->paper,$j->totalQuestionNum,0,true, $j->_type]);
                             
                     } else {
@@ -55,10 +55,10 @@ class AppController extends Controller
                     'catName' => $i->group_name,
                     'paper' => $allPaperTemp,
                 ]);
-                unset($allCatRes);
-                unset($allPaperTemp);
+                
             }
         }
+        return ["result" => $allCatRes];
     }
 
 

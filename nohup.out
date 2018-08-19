@@ -16201,3 +16201,5 @@ Laravel development server started: <http://0.0.0.0:8000>
 [Sun Aug 19 10:06:53 2018] 218.1.134.111:60438 [200]: /js/app.js
 [Sun Aug 19 10:06:53 2018] 218.1.134.111:60440 [200]: /static/img/icon.png
 [Sun Aug 19 10:06:57 2018] 218.1.134.111:60442 [200]: /favicon.ico
+Laravel development server started: <http://0.0.0.0:8000>
+Laravel development server started: <http://0.0.0.0:80>
