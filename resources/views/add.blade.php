@@ -9,7 +9,7 @@
 <form action="{{route('api.add')}}" method="post">
 <br>
 <div id="question" >  
-<textarea id="ta" name="question"><img style="width: 30px; height: 30px" src=http://admin.ibkiller.com/storage/2018-08-13-12-26-11.png>
+<textarea id="ta" name="question"><img style="width: 30px; height: 30px" src=http://admin.ibkiller.com:8000/storage/2018-08-19-01-56-05.png>
 <br>
 This is an example<br><strong>A.</strong> $ {Na}(g) \to {Na}(s) $<br><strong>B.</strong> $ 4{K}(s) + {O_2}(g) \to 2{K_2O}(s) $<br><strong>C.</strong> $ {H_2O}(s) \to {H_2O}(g) $<br><strong>D.</strong> $ {BaCO_3}(s) + 2{HCl}(aq) \to {BaCl_2}(l) + {CO_2}(g) + {H_2O}(aq) $<br></textarea>
 </div>
@@ -23,7 +23,7 @@ This is an example<br><strong>A.</strong> $ {Na}(g) \to {Na}(s) $<br><strong>B.<
 	实时预览
 </div>
 <div id="show">
-<img style="width: 30px; height: 30px" src=http://admin.ibkiller.com/storage/2018-08-13-12-26-11.png>
+<img style="width: 30px; height: 30px" src=http://admin.ibkiller.com:8000/storage/2018-08-19-01-56-05.png>
 <br>
 This is an example<br><strong>A.</strong> $ {Na}(g) \to {Na}(s) $<br><strong>B.</strong> $ 4{K}(s) + {O_2}(g) \to 2{K_2O}(s) $<br><strong>C.</strong> $ {H_2O}(s) \to {H_2O}(g) $<br><strong>D.</strong> $ {BaCO_3}(s) + 2{HCl}(aq) \to {BaCl_2}(l) + {CO_2}(g) + {H_2O}(aq) $
 <br>
