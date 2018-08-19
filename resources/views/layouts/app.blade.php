@@ -139,9 +139,9 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
-                <img src="static/img/icon.png" class="nav-img" />
+                <img src="/static/img/icon.png" class="nav-img" />
                 <a class="navbar-brand nav-title-left" href="{{ url('/') }}">
-                    IBKiller
+                    IBKiller Admin
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
