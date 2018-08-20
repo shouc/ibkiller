@@ -11,7 +11,7 @@
     <title> IBKiller </title>
 
     <!-- Scripts -->
-    <link rel="stylesheet" href="editor/css/editormd.css" />
+    <link rel="stylesheet" href="/editor/css/editormd.css" />
     <script href="/editor/editormd.js"></script>
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>

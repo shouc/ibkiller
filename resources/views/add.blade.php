@@ -9,7 +9,7 @@
 <form action="{{route('api.add')}}" method="post">
 <br>
 <div id="question" >  
-<textarea id="ta" name="question"><img style="width: 30px; height: 30px" src=http://admin.ibkiller.com:8000/storage/2018-08-19-01-56-05.png>
+<textarea id="ta" name="question"><img style="width: 30px; height: 30px" src=https://ibkiller.com/storage/2018-08-19-01-56-05.png>
 <br>
 This is an example<br><strong>A.</strong> $ {Na}(g) \to {Na}(s) $<br><strong>B.</strong> $ 4{K}(s) + {O_2}(g) \to 2{K_2O}(s) $<br><strong>C.</strong> $ {H_2O}(s) \to {H_2O}(g) $<br><strong>D.</strong> $ {BaCO_3}(s) + 2{HCl}(aq) \to {BaCl_2}(l) + {CO_2}(g) + {H_2O}(aq) $<br></textarea>
 </div>
@@ -23,7 +23,7 @@ This is an example<br><strong>A.</strong> $ {Na}(g) \to {Na}(s) $<br><strong>B.<
 	实时预览
 </div>
 <div id="show">
-<img style="width: 30px; height: 30px" src=http://admin.ibkiller.com:8000/storage/2018-08-19-01-56-05.png>
+<img style="width: 30px; height: 30px" src=https://ibkiller.com/storage/2018-08-19-01-56-05.png>
 <br>
 This is an example<br><strong>A.</strong> $ {Na}(g) \to {Na}(s) $<br><strong>B.</strong> $ 4{K}(s) + {O_2}(g) \to 2{K_2O}(s) $<br><strong>C.</strong> $ {H_2O}(s) \to {H_2O}(g) $<br><strong>D.</strong> $ {BaCO_3}(s) + 2{HCl}(aq) \to {BaCl_2}(l) + {CO_2}(g) + {H_2O}(aq) $
 <br>
@@ -67,8 +67,8 @@ This is an example<br><strong>A.</strong> $ {Na}(g) \to {Na}(s) $<br><strong>B.<
 		
 	}
 </script>
-<script src="static/js/jquery.min.js"></script>
-<script src="editor/editormd.js"></script>   
+<script src="/static/js/jquery.min.js"></script>
+<script src="/editor/editormd.js"></script>   
 <script type="text/javascript">
 	function update(){
 		document.getElementById("show").innerHTML = document.getElementById("ta").value + "<br><strong>Answer: </strong>" + document.getElementById("answer").value;
@@ -82,7 +82,7 @@ This is an example<br><strong>A.</strong> $ {Na}(g) \to {Na}(s) $<br><strong>B.<
         question = editormd("question", {
         	width: '97%',
             height: 340,
-            path : 'editor/lib/',
+            path : '/editor/lib/',
             theme : "day",
             watch            : true,
             codeFold         : true,

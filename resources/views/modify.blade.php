@@ -62,8 +62,8 @@
 
 	
 </script>
-<script src="static/js/jquery.min.js"></script>
-<script src="editor/editormd.js"></script>   
+<script src="/static/js/jquery.min.js"></script>
+<script src="/editor/editormd.js"></script>   
 <script type="text/javascript">
 	function update(){
 		document.getElementById("show").innerHTML = document.getElementById("ta").value + "<br><strong>Answer: </strong>" + document.getElementById("answer").value;
@@ -77,7 +77,7 @@
         question = editormd("question", {
         	width: '97%',
             height: 340,
-            path : 'editor/lib/',
+            path : '/editor/lib/',
             theme : "day",
             watch            : true,
             codeFold         : true,

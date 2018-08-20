@@ -6,10 +6,10 @@
   <div class="jumbotron">
     <h1 style="font-weight:400">题目管理</h1>
     <h3 style="font-weight:200">Admin Pannel</h3>
-    <a href="bulk?page=1">
+    <a href="/admin/bulk?page=1">
     <button type="button" class="btn btn-primary" style="margin-top:20px">批量审核<span class="badge">Bulk Validation</span></button>
     </a>
-    <a href="help">
+    <a href="/admin/help">
     <button type="button" class="btn btn-secondary" style="margin-top:20px">帮助<span class="badge">Help</span></button>
   </a>
   </div>
@@ -19,7 +19,7 @@
     <button type="button" class="btn btn-primary dropdown-toggle" style="margin-top:10px" data-toggle="dropdown">更换科目<span class="badge">Change Subject</span></button>
     <div class="dropdown-menu" id="dropdown">
       @foreach ($data as $m)
-          <a class="dropdown-item" href="?subject={{$m->cat}}">{{$m->cat}}</a>
+          <a class="dropdown-item" href="/admin/?subject={{$m->cat}}">{{$m->cat}}</a>
       @endforeach
     </div>
   </div>
@@ -35,7 +35,7 @@
 
     
     <button type="button" class="btn btn-secondary" style="margin-top:10px" data-toggle="modal" data-target="#modal2">添加试卷<span class="badge">Add Papers</span></button>&nbsp;
-    <a href="add">
+    <a href="/admin/add">
     <button type="button" class="btn btn-primary" style="margin-top:10px">添加题目<span class="badge">New</span></button>
     </a>
     </a>

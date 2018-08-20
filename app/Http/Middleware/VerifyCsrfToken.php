@@ -14,7 +14,8 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         'http://127.0.0.1:8000/*',
         'http://localhost:8000/*',
-        'http://admin.dev.zwang.internal:8000/*',
-        'http://admin.ibkiller.com:8000/*',
+        'http://*.ibkiller.com/*',
+        'https://ibkiller.com/*',
+        '*',
     ];
 }
