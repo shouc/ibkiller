@@ -16203,3 +16203,11 @@ Laravel development server started: <http://0.0.0.0:8000>
 [Sun Aug 19 10:06:57 2018] 218.1.134.111:60442 [200]: /favicon.ico
 Laravel development server started: <http://0.0.0.0:8000>
 Laravel development server started: <http://0.0.0.0:80>
+[Sun Aug 19 23:07:35 2018] 10.0.2.2:64349 [200]: /js/app.js
+[Sun Aug 19 23:07:35 2018] 10.0.2.2:64351 [200]: /css/app.css
+[Sun Aug 19 23:07:35 2018] 10.0.2.2:64353 [200]: /static/js/jquery.min.js
+[Sun Aug 19 23:07:35 2018] 10.0.2.2:64355 [200]: /static/bootstrap/css/bootstrap.min.css
+[Sun Aug 19 23:07:35 2018] 10.0.2.2:64358 [200]: /static/bootstrap/js/bootstrap.min.js
+[Sun Aug 19 23:07:35 2018] 10.0.2.2:64360 [200]: /static/js/my-login.js
+[Sun Aug 19 23:07:35 2018] 10.0.2.2:64362 [200]: /static/img/icon.png
+[Sun Aug 19 23:07:36 2018] 10.0.2.2:64366 [200]: /static/img/backgroud1.png
