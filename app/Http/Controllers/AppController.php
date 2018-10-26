@@ -77,12 +77,11 @@ class AppController extends Controller
                     } else {
                         array_push($allPaperTemp, [$j->paper,$j->totalQuestionNum,1,false, 0]);
                     }
-                    array_push($allCatRes, [
+		}
+                array_push($allCatRes, [
                         'catName' => $i->group_name,
                         'paper' => $allPaperTemp,
                     ]);
-                    
-                }
             }
             return response()->json(["result" => $allCatRes]);
         }
@@ -212,12 +211,12 @@ class AppController extends Controller
                 ]);
             }
             foreach ($allDataTemp as $key => $i) {
-                if (in_array($key, range(($_range-1)*$_amount, $_range*$_amount)))
+                if (in_array($key, range(($_range-1)*$_amount, $_range*$_amount - 1)))
                 {
                     array_push($allDataTempRes, $i);
                 }
             }
-            return ["result" => $allDataTempRes];
+            return response()->json(["result" => $allDataTempRes]);
         }
     }
 
@@ -231,20 +230,20 @@ class AppController extends Controller
                 ->first();
             if ($userInfo){
                 if (Hash::check($_password, $userInfo->password)){
-                    return ["success" => true, 
+                    return response()->json(["success" => true, 
                         "session" => $userInfo->session,
                         "info" => ""
-                    ];
+                    ]);
                 }
-                return ["success" => false, 
+                return response()->json(["success" => false, 
                         "session" => '',
                         "info" => "Wrong Password"
-                    ];
+                    ]);
             }
-            return ["success" => false, 
+            return response()->json(["success" => false, 
                     "session" => '',
                     "info" => "No Such User"
-                ];
+                ]);
         }
     }
 
@@ -254,25 +253,25 @@ class AppController extends Controller
             $_email = $request->Email;
             $_password = $request->Password;
             if (!$this->checkEmail($_email)){
-                return ["success" => false, 
+                return response()->json(["success" => false, 
                         "session" => '',
                         "info" => "Not an Email"
-                    ];
+                    ]);
             }
             if (!$this->checkPassword($_password)){
-                return ["success" => false, 
+                return response()->json(["success" => false, 
                         "session" => '',
                         "info" => "Password Too Weak"
-                    ];
+                    ]);
             }
             $userInfo = DB::table('app_users')
                 ->where('email', $_email)
                 ->first();
             if ($userInfo){
-                return ["success" => false, 
+                return response()->json(["success" => false, 
                         "session" => '',
                         "info" => "Email Registered"
-                    ];
+                    ]);
             }
             $salt = "EncryptSessionSalt";
             $_session = Hash::make($_email . $_password . $salt . time());
@@ -282,10 +281,10 @@ class AppController extends Controller
                         'password' => Hash::make($_password),
                         'session' => $_session
                     ]);
-            return ["success" => true, 
+            return response()->json(["success" => true, 
                     "session" => $_session,
                     "info" => ''
-                ];
+                ]);
 
         }
     }
