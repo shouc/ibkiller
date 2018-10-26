@@ -48,5 +48,17 @@ Route::prefix('admin')->group(function () {
 		->name('api.del');
 });
 Route::get('/', function () {
-	return view('app');
+	return view('app', ['server' => env('APP_URL')]);
+});
+Route::get('/history', function () {
+	return view('history', ['server' => env('APP_URL')]);
+});
+Route::get('/category', function () {
+	return view('category', ['server' => env('APP_URL')]);
+});
+Route::get('/question', function () {
+	return view('question', ['server' => env('APP_URL')]);
+});
+Route::get('/check', function () {
+	return view('check', ['server' => env('APP_URL')]);
 });
