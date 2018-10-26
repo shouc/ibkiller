@@ -1,1 +1,284 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"> <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> <title>IBKiller | Questionbank for IB Students</title> <link rel="icon" type="image/png" href="https://ibkiller.com/img/icon.png" hreflang="en-us"> <meta property="og:title" content="IBKiller | Questionbank for IB Students"/> <meta property="og:description" content="IBKiller is a free Questionbank for IBDP students."/> <meta property="og:type" content="website"/> <meta property="og:url" content="https://ibkiller.com"/> <meta property="og:site_name" content="IBKiller"/> <meta property="og:image" content="https://ibkiller.com/og.png"/> <meta property="og:image:width" content="1280"/> <meta property="og:image:height" content="800"/> <meta property="og:image:type" content="image/png"/> <meta property="og:locale" content="en_US"> <meta name="description" content="IBKiller is a free Questionbank for IBDP students."> <meta name="keywords" content="ibdp, ibdp past papers, ib prep app, testprep, ib students"> <meta itemprop="name" content="IBKiller | Questionbank for IB Students"> <meta itemprop="description" content="IBKiller is a free Questionbank for IBDP students."> <meta itemprop="image" content="https://ibkiller.com/og.png"> <meta name="theme-color" content="#242433"/> <link rel="canonical" href="https://ibkiller.com"/> <link href="https://fonts.proxy.ustclug.org/css?family=Inconsolata:400,700" rel="stylesheet"> <link href="https://fonts.proxy.ustclug.org/css?family=Source+Sans+Pro" rel="stylesheet"> <link rel="stylesheet" href="https://ibkiller.com/css/main.css" hreflang="en-us"> <script src="https://ibkiller.com/js/sharethis.js"></script> </head> <body> <div id="site"> <div class="switch-wrapper"> <div class="sun"></div> <div class="toggle-wrapper"> <input id="switch" type="checkbox" /> <label for="switch" id="toggle">Toggle</label> </div> <div class="moon"></div> </div> <header class="intro"> <h1 class="intro__hello">Hello! <span class="emoji wave-hand animated"></span> </h1> <h2 class="intro__tagline"> <span class="name"> <img style="margin-bottom:7px;height:42px;width;border-radius:8px" src="https://ibkiller.com/img/icon.png"> IBKiller </span> here, a free Questionbank for IBDP students. </h2> <a class="status" href=""> <img src="https://ibkiller.com/img/appstore.svg"> </a> <h3 class="intro__contact"> <span>Get in touch</span> <span class="emoji pointer"></span> <span> <a href="mailto:ib@zwang.tech?subject=Inquiry about IBKiller" target="_blank" class="highlight-link">ib@zwang.tech</a> </span> </h3> </header> <section class="section background"> <div class="section__title">Introduction</div> <div class="section__content"> <p> IBKiller is a Questionbank for IBDP students. It is free yet carefully designed and filled with questions that resemble those of real exams and exams in IB school. Currently, our freelancers and subcontractors have already worked out all questions for an array of subjects including Chemistry, Chinese L&L, and Economics. We hope you could enjoy using this App. </p> <p> <strong>You can download the App from the App Store now.</strong> For Android, we are still fixing minor issues. </p> </div> </section> <section class="section featured-projects"> <div class="section__title">Features</div> <div class="section__content"> <div class="project reminders"> <figure class="project__pic phones"> <a target="_blank"> <div class="phone"> <img src="https://ibkiller.com/img/featured/question/wel.png" alt="Reminders"> </div> <div class="phone"> <img src="https://ibkiller.com/img/featured/question/cat.png" alt="Reminders"> </div> <div class="phone"> <img src="https://ibkiller.com/img/featured/question/que.png" alt="Reminders"> </div> </a> </figure> <figcaption class="project__caption"> <div class="project__name"> <a target="_blank">Questions</a> </div> <p>We have more than 2000 mutiple choice questions and 800 essay questions for 6 subjects in IBDP.</p> </figcaption> </div> <div class="project tictactoe"> <figure class="project__pic phones"> <a target="_blank"> <div class="phone"> <img src="https://ibkiller.com/img/featured/record/his.png" alt="Pace2D"> </div> <div class="phone"> <img src="https://ibkiller.com/img/featured/record/review1.png" alt="Pace2D"> </div> <div class="phone"> <img src="https://ibkiller.com/img/featured/record/review2.png" alt="Pace2D"> </div> </a> </figure> <figcaption class="project__caption"> <div class="project__name"> <a target="_blank">History</a> </div> <p>Our App employed latest machine learning model to find your weakness for each specific subject based on your working records.</p> </figcaption> </div> </div> </section> <style type="text/css"> @media only screen and (min-width: 768px) { .sharethis-inline-reaction-buttons { float: left; width: 20%; } } @media only screen and (max-width: 768px) { .sharethis-inline-reaction-buttons { display: none; } } </style> <footer class="footer"> <div class="footer__copyright"> <div class="top"> <span>Designed with ❤ by </span> </div> <div class="bottom"> <a href=""> <span>Kelvin Kamau & Shou Chaofan</span></a> </div> </div> <div class="sharethis-inline-reaction-buttons"></div> <div class="footer__links"> <a href="http://zwang.tech" target="_blank" title="company"> <span class="text">company</span> <img src="https://ibkiller.com/img/social/company.svg" alt="company"> </a> <a href="https://github.com/IBKillerDev" target="_blank" title="github"> <span class="text">github</span> <img src="https://ibkiller.com/img/social/github.svg" alt="github"> </a> <a href="http://legal.ibkiller.com/terms.html" target="_blank" title="term"> <span class="text">term</span> <img src="https://ibkiller.com/img/social/term.svg" alt="term"> </a> </div> </footer> <button id="top-button"> <img src="https://ibkiller.com/img/emojis/pointing-up.png" alt=""> </button> </div> <script src='https://ibkiller.com/js/jquery.min.js' type="text/javascript" charset="utf-8"></script> <script src="https://ibkiller.com/js/scrollreveal.min.js"></script> <script src="https://ibkiller.com/js/main.js" type="text/javascript" charset="utf-8"></script> </body> </html>
+@include('header', ['css' => '.css'])
+
+<div id="navbg" class="nav-local-h">
+ <nav class="navbar navbar-expand-sm navbar-light " class="nav-local">
+  <ul class="navbar-nav mr-auto mt-lg-0">
+  <li class="nav-item">
+    <a class="nav-link" href="#">Home</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Help</a>
+  </li>
+  </ul>
+  <form class="form-inline my-2 my-lg-0">
+    <button class="btn btn-success my-2 my-sm-0" type="submit">Register</button>
+    &nbsp;&nbsp;
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+  </form>
+</nav>
+</div>
+ <body> 
+   <header class="intro"> 
+    <h1 class="intro__hello">Hello! <span class="emoji wave-hand animated"></span> </h1> 
+    <h2 class="intro__tagline"> <span class="name"> <img style="margin-bottom:7px;height:42px;width;border-radius:8px" src="{{ $server }}/img/icon.png" /> IBKiller </span> here, a free Questionbank for IBDP students. </h2> 
+    <a class="status" href=""> <img src="{{ $server }}/img/appstore.svg" /> </a> 
+    <h3 class="intro__contact"> <span>Get in touch</span> <span class="emoji pointer"></span> <span> <a href="mailto:ib@zwang.tech?subject=Inquiry about IBKiller" target="_blank" class="highlight-link">ib@zwang.tech</a> </span> </h3> 
+   </header> 
+
+
+
+   <section class="section background"> 
+    <div id="data"></div>
+
+   </section> 
+
+
+
+   <section class="section featured-projects"> 
+    
+   </section> 
+   <footer class="footer"> 
+    <div class="footer__copyright"> 
+     <div class="top"> 
+      <span>Designed with ❤ by </span> 
+     </div> 
+     <div class="bottom"> 
+      <a href=""> <span>Kelvin Kamau &amp; Shou Chaofan</span></a> 
+     </div> 
+    </div> 
+    <div class="sharethis-inline-reaction-buttons"></div> 
+    <div class="footer__links"> 
+     <a href="http://zwang.tech" target="_blank" title="company"><img src="{{ $server }}/img/social/company.svg" alt="company" /> </a> 
+     <a href="https://github.com/IBKillerDev" target="_blank" title="github"><img src="{{ $server }}/img/social/github.svg" alt="github" /> </a> 
+     <a href="http:{{ $server }}/terms.html" target="_blank" title="term"><img src="{{ $server }}/img/social/term.svg" alt="term" /> </a> 
+    </div> 
+   </footer> 
+  </div> 
+  <script src="{{ $server }}/js/jquery.min.js" type="text/javascript" charset="utf-8"></script> 
+  <script>
+$(function() {
+  const body = document.querySelector('body');
+  const introHeight = document.querySelector('.intro').offsetHeight;
+  const hand = document.querySelector('.emoji.wave-hand');
+  function waveOnLoad() {
+    hand.classList.add('wave');
+    setTimeout(function() {
+      hand.classList.remove('wave');
+    }, 2000);
+  }
+  setTimeout(function() {
+    waveOnLoad();
+  }, 1000);
+  hand.addEventListener('mouseover', function() {
+    hand.classList.add('wave');
+  });
+  hand.addEventListener('mouseout', function() {
+    hand.classList.remove('wave');
+  });
+});
+
+$(document).ready(function(){
+    var topH = 90;
+    var navbg = $("#navbg");
+    $(window).scroll(function () {
+        if($(window).scrollTop() > topH){
+          navbg.fadeIn();
+        }else if ($(window).scrollTop() < topH + 20){
+          navbg.fadeOut(70);
+        }
+    });
+});
+
+
+  </script>  
+
+<script type="text/javascript">
+_data = [{"name" : "Your Favorite",
+    "css" : "g1", 
+    "data" : [{
+      "name": "ESS",
+      "picture": "{{ $server }}/app/icon/home_Biology.png"
+    },
+    {
+      "name": "Chemistry",
+      "picture": "{{ $server }}/app/icon/home_Chemistry.png"
+    },
+    {
+      "name": "Biology",
+      "picture": "{{ $server }}/app/icon/home_Geography.png"
+    },
+    {
+      "name": "Biology",
+      "picture": "{{ $server }}/app/icon/home_L.png"
+    },
+    {
+      "name": "Biology",
+      "picture": "{{ $server }}/app/icon/home_L2.png"
+    }
+  ]
+}, 
+
+{"name" : "Group 1", 
+    "css" : "g2", 
+    "data" : [{
+      "name": "ESS",
+      "picture": "c.png"
+    },
+    {
+      "name": "Chemistry",
+      "picture": "c.png"
+    },
+    {
+      "name": "Biology",
+      "picture": "c.png"
+    }
+  ]
+}];
+
+
+function gen(){
+  width = window.innerWidth;
+  code = "";
+  for (gname in _data){
+    gname = _data[gname]
+    code += `<h3 class="bar-local">
+              <span class="tit-icon ${gname["css"]}-l tit-icon-l"></span>
+              <a class="font-local"><font color="#eee">${gname["name"]}</font></a>
+              <span class="tit-icon ${gname["css"]}-r tit-icon-r"></span> 
+            </h3>`
+    //code += `<div class="bar-local"> <a class="groupname-local font-local"><span class="tit-icon g2-l tit-icon-l"></span>${gname["name"]} -</a> </div>`;
+    if (width > 840){
+      for (var i = 0; i <= Math.ceil(gname["data"].length/3) - 1; i++) {
+        //alert(gname["data"].length - (i + 1)* 3 )
+        if (gname["data"].length - (i + 1)* 3 >= 0) {
+          code += `
+          <div class="blc">
+            <div class="three-block-1">
+              <div class="container"> 
+                <div class="block-local"> 
+                  <img class="picture-local" src="${gname["data"][i * 3]["picture"]}" /> 
+                  <p class="name-local">${gname["data"][i * 3]["name"]}</p>
+                </div> 
+              </div>
+            </div>
+            <div class="three-block-2">
+              <div class="container"> 
+                <div class="block-local"> 
+                  <img class="picture-local" src="${gname["data"][i * 3 + 1]["picture"]}" />
+                  <p class="name-local">${gname["data"][i * 3 + 1]["name"]}</p> 
+                </div>
+              </div>
+            </div> 
+            <div class="three-block-3">
+              <div class="container">
+                <div class="block-local"> 
+                  <img class="picture-local" src="${gname["data"][i * 3 + 2]["picture"]}" />
+                  <p class="name-local">${gname["data"][i * 3 + 2]["name"]}</p>
+                </div>
+              </div>
+            </div>
+          </div>`;
+        } 
+        if (gname["data"].length - (i + 1)* 3 == -1) {
+          code += `
+          <div class="blc">
+            <div class="three-block-1">
+              <div class="container"> 
+                <div class="block-local"> 
+                  <img class="picture-local" src="${gname["data"][i * 3]["picture"]}" /> 
+                  <p class="name-local">${gname["data"][i * 3]["name"]}</p>
+                </div>
+              </div>
+            </div>
+            <div class="three-block-2">
+              <div class="container">
+                <div class="block-local">
+                  <img class="picture-local" src="${gname["data"][i * 3 + 1]["picture"]}" />
+                  <p class="name-local">${gname["data"][i * 3 + 1]["name"]}</p>
+                </div>
+              </div>
+            </div>
+          </div>`;
+        } 
+        if (gname["data"].length - (i + 1)* 3 == -2) {
+          code += `
+          <div class="blc">
+            <div class="three-block-1">
+              <div class="container">
+                <div class="block-local">
+                  <img class="picture-local" src="${gname["data"][i * 3]["picture"]}" />
+                  <p>${gname["data"][i * 3]["name"]}</p>
+                </div>
+              </div>
+            </div>
+          </div>`;
+        }
+      }
+    }
+    if (width <= 840 && width > 580){
+      for (var i = 0; i <= Math.ceil(gname["data"].length/2) - 1; i++) {
+        
+        if (gname["data"].length - (i + 1)* 2 >= 0) {
+          code += `
+          <div class="blc">
+            <div class="two-block-1">
+              <div class="container">
+                <div class="block-local">
+                  <img class="picture-local" src="${gname["data"][i * 2]["picture"]}" />
+                  <p class="name-local">${gname["data"][i * 2]["name"]}</p>
+                </div>
+              </div>
+            </div>
+            <div class="two-block-2">
+              <div class="container">
+                <div class="block-local">
+                  <img class="picture-local" src="${gname["data"][i * 2 + 1]["picture"]}" />
+                  <p class="name-local">${gname["data"][i * 2 + 1]["name"]}</p>
+                </div>
+              </div>
+            </div>
+          </div>`;
+        } 
+        if (gname["data"].length - (i + 1)* 2 < 0) {
+          code += `
+          <div class="blc">
+            <div class="two-block-1">
+              <div class="container">
+                <div class="block-local">
+                  <img class="picture-local" src="${gname["data"][i * 2]["picture"]}" />
+                  <p class="name-local">${gname["data"][i * 2]["name"]}</p>
+                </div>
+              </div>
+            </div>
+          </div>`;
+        } 
+      }
+    }
+    if (width < 580){
+      for (var i = 0; i <= Math.ceil(gname["data"].length) - 1; i++) {
+        code += `
+        <div class="blc">
+          <div class="one-block-1">
+            <div class="container">
+              <div class="block-local">
+                <img class="picture-local" src="${gname["data"][i]["picture"]}" />
+                <p class="name-local">${gname["data"][i]["name"]}</p>
+              </div>
+            </div>
+          </div>
+        </div>`;
+      }
+    }
+    $('#data').html(code)
+  }
+}
+gen();
+window.onresize = function(){
+  gen();
+}
+
+
+
+</script> 
+ </body>
+</html>
