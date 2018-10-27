@@ -288,4 +288,43 @@ class AppController extends Controller
 
         }
     }
+    public function addFavorite(Request $request)
+    {
+        if ($request->has(['Name','Session'])) {
+            $_name = $request->Name;
+            $_session = $request->Session;
+            $userInfo = DB::table('favorite')
+                ->where('session', $_session)
+                ->select('name')
+                ->get()
+                ->pluck('name')
+                ->toArray();
+            if (in_array($_name, $userInfo)){
+                return response()->json(["success" => false, 
+                    "info" => 'Already Exist'
+                ]);
+            } else {
+                $subjectInfo = DB::table('subjects')
+                    ->where('name', $_name)
+                    ->first();
+                if (count($subjectInfo)){
+                    DB::table('favorite')->insert([
+                        'session' => $_session, 
+                        'name' => $_name,
+                        'img' => $subjectInfo->img,
+                        'ibg' => $subjectInfo->ibg,
+                    ]);
+                    return response()->json(["success" => true, 
+                        "info" => ''
+                    ]);
+                } else {
+                    return response()->json(["success" => false, 
+                        "info" => 'Unexpected Subject'
+                    ]);
+                }
+                
+            }
+        }
+    }
+    
 }
