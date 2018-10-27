@@ -40,3 +40,6 @@ Route::get('/getDetailOfPID', 'AppController@getDetailOfPID')
 
 Route::get('/getUserPID', 'AppController@getUserPID')
 	->name('getUserPID');
+
+Route::get('/addFavorite', 'AppController@addFavorite')
+    ->name('addFavorite');
