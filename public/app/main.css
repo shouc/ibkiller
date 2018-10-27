@@ -407,7 +407,7 @@ strong {
     right:0;
     top:-100px;
     display:none;
-    z-index: 1000000;
+    z-index: 10;
 
   }
   .nav-local-h {
@@ -439,6 +439,7 @@ strong {
     margin-top: 20px;
     display: flex;
     flex-direction: row;
+    cursor:pointer;
   }
   .three-block-1 {
     width: 28%;

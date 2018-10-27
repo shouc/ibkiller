@@ -31,7 +31,7 @@ a {
   -webkit-transition: all .2s ease-in-out;
   transition: all .2s ease-in-out;
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 200;
 }
 @keyframes poop-dance {
   from, 49% { transform-origin: -50% 100%; }
@@ -72,7 +72,7 @@ a {
   left:0;
   right:0;
   top:-100px;
-  z-index: 1000000;
+  z-index: 10;
 
 }
 .nav-local-h {
@@ -122,4 +122,7 @@ a {
   margin-right: 40px;
   margin-top: 20px;
   margin-left: 40px;
+}
+.card-local {
+  margin-bottom: 20px;
 }

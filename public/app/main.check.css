@@ -70,7 +70,7 @@ a {
   left:0;
   right:0;
   top:-100px;
-  z-index: 1000000;
+  z-index: 10;
 }
 .nav-local-h {
   box-shadow: 1px 10px 15px #eee;
@@ -113,7 +113,7 @@ a {
 .line{
   background-color: #273c75;
   width: 0.3em;
-  height: 2em;
+  height: 1.5em;
   margin-left: 0.725em;
   margin-top: -0.01em;
   margin-bottom: -0.1em;
