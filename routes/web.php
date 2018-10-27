@@ -52,12 +52,15 @@ Route::get('/', 'WebController@home')
 Route::get('/history', function () {
 	return view('history', ['server' => env('APP_URL')]);
 });
-Route::get('/category', function () {
-	return view('category', ['server' => env('APP_URL')]);
-});
-Route::get('/question', function () {
-	return view('question', ['server' => env('APP_URL')]);
-});
-Route::get('/check', function () {
-	return view('check', ['server' => env('APP_URL')]);
-});
+Route::get('/category', 'WebController@category')
+	->name('web.category');
+Route::get('/question', 'WebController@question')
+	->name('web.question');
+Route::get('/check', 'WebController@check')
+	->name('web.check');
+Route::get('/userLogin', 'WebController@userLoginAPI')
+	->name('web.userLogin');
+Route::get('/userRegister', 'WebController@userRegisterAPI')
+	->name('web.userRegister');
+Route::get('/userLogout', 'WebController@userLogoutAPI')
+	->name('web.userLogout');
