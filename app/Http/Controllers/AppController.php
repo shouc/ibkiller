@@ -45,8 +45,7 @@ class AppController extends Controller
     {
         return "3.0.0 (Laravel)";
     }
-
-    public function getPapers(Request $request)
+    public function getPapersAPI(Request $request)
     {
         if ($request->has(['Cat','Session'])) {
             $_cat = $request->Cat;
@@ -77,18 +76,21 @@ class AppController extends Controller
                     } else {
                         array_push($allPaperTemp, [$j->paper,$j->totalQuestionNum,1,false, 0]);
                     }
-		}
+        }
                 array_push($allCatRes, [
                         'catName' => $i->group_name,
                         'paper' => $allPaperTemp,
                     ]);
             }
-            return response()->json(["result" => $allCatRes]);
+            return ["result" => $allCatRes];
         }
-        return response()->json(["result" => "-100"]);
+        return ["result" => "-100"];
     }
-
-    public function getDetailOfPaper(Request $request)
+    public function getPapers(Request $request)
+    {
+        return response()->json($this->getPapersAPI($request));
+    }
+    public function getDetailOfPaperAPI(Request $request)
     {
         if ($request->has(['Paper'])) {
             $_paper = $request->Paper;
@@ -104,11 +106,14 @@ class AppController extends Controller
                     "type" => $i->type];
                 array_push($allQuestionTemp, $questionLine);
             }
-            return response()->json(["result" => $allQuestionTemp]);
+            return ["result" => $allQuestionTemp];
         }
-        return response()->json(["result" => "-100"]);
+        return ["result" => "-100"];
     }
-
+    public function getDetailOfPaper(Request $request)
+    {
+        return response()->json($this->getDetailOfPaperAPI($request));
+    }
     public function commitAnswer(Request $request)
     {
         if ($request->has(['Paper', 'Answer', 'PID', 'Session'])) {
@@ -135,8 +140,7 @@ class AppController extends Controller
         }
         return response()->json(["result" => "-100"]);
     }
-
-    public function getDetailOfPID(Request $request)
+    public function getDetailOfPIDAPI(Request $request)
     {
         if ($request->has(['PID'])) {
             $_pid = $request->PID;
@@ -163,12 +167,16 @@ class AppController extends Controller
                     ]);
                     $score += $i[0]->correct;
                 }
-                return response()->json(["result" => ["score" => $score, 
-                    "info" => $allDataTemp]]);
+                return ["result" => ["score" => $score, 
+                    "info" => $allDataTemp]];
             }
         }
+        return ["result" => "-100"];
     }
-
+    public function getDetailOfPID(Request $request)
+    {
+        return response()->json($this->getDetailOfPIDAPI($request));
+    }
     public function getUserPID(Request $request)
     {
         if ($request->has(['Session','Range','Amount'])) {
@@ -220,7 +228,7 @@ class AppController extends Controller
         }
     }
 
-    public function login(Request $request)
+    public function loginAPI(Request $request)
     {
         if ($request->has(['Email','Password'])) {
             $_email = $request->Email;
@@ -230,48 +238,51 @@ class AppController extends Controller
                 ->first();
             if ($userInfo){
                 if (Hash::check($_password, $userInfo->password)){
-                    return response()->json(["success" => true, 
+                    return ["success" => true, 
                         "session" => $userInfo->session,
                         "info" => ""
-                    ]);
+                    ];
                 }
-                return response()->json(["success" => false, 
+                return ["success" => false, 
                         "session" => '',
                         "info" => "Wrong Password"
-                    ]);
+                    ];
             }
-            return response()->json(["success" => false, 
+            return ["success" => false, 
                     "session" => '',
                     "info" => "No Such User"
-                ]);
+                ];
         }
     }
-
-    public function register(Request $request)
+    public function login(Request $request)
+    {
+        return response()->json($this->loginAPI($request));
+    }
+    public function registerAPI(Request $request)
     {
         if ($request->has(['Email','Password'])) {
             $_email = $request->Email;
             $_password = $request->Password;
             if (!$this->checkEmail($_email)){
-                return response()->json(["success" => false, 
+                return ["success" => false, 
                         "session" => '',
                         "info" => "Not an Email"
-                    ]);
+                    ];
             }
             if (!$this->checkPassword($_password)){
-                return response()->json(["success" => false, 
+                return ["success" => false, 
                         "session" => '',
                         "info" => "Password Too Weak"
-                    ]);
+                    ];
             }
             $userInfo = DB::table('app_users')
                 ->where('email', $_email)
                 ->first();
             if ($userInfo){
-                return response()->json(["success" => false, 
+                return ["success" => false, 
                         "session" => '',
                         "info" => "Email Registered"
-                    ]);
+                    ];
             }
             $salt = "EncryptSessionSalt";
             $_session = Hash::make($_email . $_password . $salt . time());
@@ -281,18 +292,28 @@ class AppController extends Controller
                         'password' => Hash::make($_password),
                         'session' => $_session
                     ]);
-            return response()->json(["success" => true, 
+            return ["success" => true, 
                     "session" => $_session,
                     "info" => ''
-                ]);
+                ];
 
         }
     }
+    public function register(Request $request)
+    {
+        return response()->json($this->registerAPI($request));
+    }
+
     public function addFavorite(Request $request)
     {
         if ($request->has(['Name','Session'])) {
             $_name = $request->Name;
             $_session = $request->Session;
+            if ($this->sessionVal($_session) == "[]"){
+                return response()->json(["success" => false, 
+                    "info" => 'Invalid Session'
+                ]);
+            }
             $userInfo = DB::table('favorite')
                 ->where('session', $_session)
                 ->select('name')
@@ -326,5 +347,26 @@ class AppController extends Controller
             }
         }
     }
-    
+    public function delFavorite(Request $request)
+    {
+        if ($request->has(['Name','Session'])) {
+            $_name = $request->Name;
+            $_session = $request->Session;
+            if ($this->sessionVal($_session) == "[]"){
+                return response()->json(["success" => false, 
+                    "info" => 'Invalid Session'
+                ]);
+            }
+            DB::table('favorite')
+                ->where([
+                    ['name', $_name],
+                    ['session', $_session],
+                ])
+                ->delete();
+            return response()->json(["success" => true, 
+                "info" => ''
+            ]);
+        }
+    }
+
 }

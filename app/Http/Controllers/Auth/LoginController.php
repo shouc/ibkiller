@@ -25,7 +25,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'https://ibkiller.com/admin';
+    protected $redirectTo = 'http://127.0.0.1/admin';
 
     /**
      * Create a new controller instance.
