@@ -76,7 +76,9 @@ $(function() {
     hand.classList.remove('wave');
   });
 });
-
+function go(name){
+  $(location).attr('href', `/category?Cat=${name}`);
+}
 $(document).ready(function(){
     var topH = 90;
     var navbg = $("#navbg");
@@ -93,47 +95,7 @@ $(document).ready(function(){
   </script>  
 
 <script type="text/javascript">
-_data = [{"name" : "Your Favorite",
-    "css" : "g1", 
-    "data" : [{
-      "name": "ESS",
-      "picture": "{{ $server }}/app/icon/home_Biology.png"
-    },
-    {
-      "name": "Chemistry",
-      "picture": "{{ $server }}/app/icon/home_Chemistry.png"
-    },
-    {
-      "name": "Biology",
-      "picture": "{{ $server }}/app/icon/home_Geography.png"
-    },
-    {
-      "name": "Biology",
-      "picture": "{{ $server }}/app/icon/home_L.png"
-    },
-    {
-      "name": "Biology",
-      "picture": "{{ $server }}/app/icon/home_L2.png"
-    }
-  ]
-}, 
-
-{"name" : "Group 1", 
-    "css" : "g2", 
-    "data" : [{
-      "name": "ESS",
-      "picture": "c.png"
-    },
-    {
-      "name": "Chemistry",
-      "picture": "c.png"
-    },
-    {
-      "name": "Biology",
-      "picture": "c.png"
-    }
-  ]
-}];
+_data =  $.parseJSON(window.atob('{{ $data }}'));
 
 
 function gen(){
@@ -153,7 +115,7 @@ function gen(){
         if (gname["data"].length - (i + 1)* 3 >= 0) {
           code += `
           <div class="blc">
-            <div class="three-block-1">
+            <div class="three-block-1" onclick=go('${gname["data"][i * 3]["name"]}')>
               <div class="container"> 
                 <div class="block-local"> 
                   <img class="picture-local" src="${gname["data"][i * 3]["picture"]}" /> 
@@ -161,7 +123,7 @@ function gen(){
                 </div> 
               </div>
             </div>
-            <div class="three-block-2">
+            <div class="three-block-2" onclick=go('${gname["data"][i * 3 + 1]["name"]}')>
               <div class="container"> 
                 <div class="block-local"> 
                   <img class="picture-local" src="${gname["data"][i * 3 + 1]["picture"]}" />
@@ -169,7 +131,7 @@ function gen(){
                 </div>
               </div>
             </div> 
-            <div class="three-block-3">
+            <div class="three-block-3" onclick=go('${gname["data"][i * 3 + 2]["name"]}')>
               <div class="container">
                 <div class="block-local"> 
                   <img class="picture-local" src="${gname["data"][i * 3 + 2]["picture"]}" />
@@ -182,7 +144,7 @@ function gen(){
         if (gname["data"].length - (i + 1)* 3 == -1) {
           code += `
           <div class="blc">
-            <div class="three-block-1">
+            <div class="three-block-1" onclick=go('${gname["data"][i * 3]["name"]}')>
               <div class="container"> 
                 <div class="block-local"> 
                   <img class="picture-local" src="${gname["data"][i * 3]["picture"]}" /> 
@@ -190,7 +152,7 @@ function gen(){
                 </div>
               </div>
             </div>
-            <div class="three-block-2">
+            <div class="three-block-2" onclick=go('${gname["data"][i * 3 + 1]["name"]}')>
               <div class="container">
                 <div class="block-local">
                   <img class="picture-local" src="${gname["data"][i * 3 + 1]["picture"]}" />
@@ -203,7 +165,7 @@ function gen(){
         if (gname["data"].length - (i + 1)* 3 == -2) {
           code += `
           <div class="blc">
-            <div class="three-block-1">
+            <div class="three-block-1" onclick=go('${gname["data"][i * 3]["name"]}')>
               <div class="container">
                 <div class="block-local">
                   <img class="picture-local" src="${gname["data"][i * 3]["picture"]}" />
@@ -221,7 +183,7 @@ function gen(){
         if (gname["data"].length - (i + 1)* 2 >= 0) {
           code += `
           <div class="blc">
-            <div class="two-block-1">
+            <div class="two-block-1" onclick=go('${gname["data"][i * 2]["name"]}')>
               <div class="container">
                 <div class="block-local">
                   <img class="picture-local" src="${gname["data"][i * 2]["picture"]}" />
@@ -229,7 +191,7 @@ function gen(){
                 </div>
               </div>
             </div>
-            <div class="two-block-2">
+            <div class="two-block-2" onclick=go('${gname["data"][i * 2 + 1]["name"]}')>
               <div class="container">
                 <div class="block-local">
                   <img class="picture-local" src="${gname["data"][i * 2 + 1]["picture"]}" />
@@ -242,7 +204,7 @@ function gen(){
         if (gname["data"].length - (i + 1)* 2 < 0) {
           code += `
           <div class="blc">
-            <div class="two-block-1">
+            <div class="two-block-1" onclick=go('${gname["data"][i * 2]["name"]}')>
               <div class="container">
                 <div class="block-local">
                   <img class="picture-local" src="${gname["data"][i * 2]["picture"]}" />
@@ -258,7 +220,7 @@ function gen(){
       for (var i = 0; i <= Math.ceil(gname["data"].length) - 1; i++) {
         code += `
         <div class="blc">
-          <div class="one-block-1">
+          <div class="one-block-1" onclick=go('${gname["data"][i]["name"]}')>
             <div class="container">
               <div class="block-local">
                 <img class="picture-local" src="${gname["data"][i]["picture"]}" />

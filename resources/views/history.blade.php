@@ -9,6 +9,7 @@
       History
   </h1>
 
+
   <div class="line" id="line"></div>
   <div class="content" id="data">
 </div>
@@ -216,3 +217,4 @@ window.onresize = function(){
   gen();
 }
 </script>
+
