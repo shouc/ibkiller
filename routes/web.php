@@ -47,9 +47,8 @@ Route::prefix('admin')->group(function () {
 	Route::get('/api/del', 'QuestionController@del')
 		->name('api.del');
 });
-Route::get('/', function () {
-	return view('app', ['server' => env('APP_URL')]);
-});
+Route::get('/', 'WebController@home')
+	->name('web.home');
 Route::get('/history', function () {
 	return view('history', ['server' => env('APP_URL')]);
 });
