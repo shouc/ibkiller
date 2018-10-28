@@ -2,7 +2,7 @@
   <div id="navbg" class="nav-local-h">
    <nav class="navbar navbar-expand-sm navbar-light " class="nav-local">
     <ul class="navbar-nav mr-auto mt-lg-0">
-      <button class="btn my-2 my-sm-0" type="submit">Leave</button>
+      <button class="btn my-2 my-sm-0" type="submit" onclick="leave()">Leave</button>
       &nbsp;&nbsp;
     </ul>
     <form class="form-inline my-2 my-lg-0" id="notLoginButtons">
@@ -15,6 +15,7 @@
       </button>
     </form>
     <form class="form-inline my-2 my-lg-0" id="loginButtons" action="/userLogout" method="get">
+      @csrf
       <button type="submit" class="btn btn-success my-2 my-sm-0">
         Logout
       </button>
@@ -27,10 +28,10 @@
    <nav class="navbar navbar-expand-sm navbar-light " class="nav-local">
     <ul class="navbar-nav mr-auto mt-lg-0">
     <li class="nav-item">
-      <a class="nav-link" href="#">Home</a>
+      <a class="nav-link" href="/">Home</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">Help</a>
+      <a class="nav-link" href="/help">Help</a>
     </li>
     </ul>
     <form class="form-inline my-2 my-lg-0" id="notLoginButtons">
@@ -43,6 +44,7 @@
       </button>
     </form>
     <form class="form-inline my-2 my-lg-0" id="loginButtons" action="/userLogout" method="get">
+      @csrf
       <button type="submit" class="btn btn-success my-2 my-sm-0">
         Logout
       </button>
@@ -66,6 +68,7 @@
       </div>
       <div class="modal-body">
         <form action="/userLogin" method="get">
+          @csrf
           <div class="alert alert-warning alert-dismissible fade show" role="alert" id="errorLog">
             <h>Error!!!</h>
             <br>
@@ -103,6 +106,7 @@
       </div>
       <div class="modal-body">
         <form action="/userRegister" method="get">
+          @csrf
           <div class="alert alert-warning alert-dismissible fade show" role="alert" id="errorReg">
             <h>Error!!!</h>
             <br>

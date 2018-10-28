@@ -1,12 +1,12 @@
 
 html {
   -webkit-box-sizing: border-box;
-  box-sizing: border-box
+  box-sizing: border-box;
 }
 
 * {
   -webkit-box-sizing: inherit;
-  box-sizing: inherit
+  box-sizing: inherit;
 }
 
 body,html {
@@ -17,7 +17,7 @@ body,html {
   -moz-osx-font-smoothing: grayscale;
   font-family: 'Source Sans Pro',sans-serif;
   line-height: 1.5;
-  width: 100%
+  width: 100%;
 }
 body {
     background-color: #fff;
@@ -25,27 +25,16 @@ body {
 ul {
   list-style: none;
   padding: 0;
-  margin: 0
+  margin: 0;
 }
 a {
   -webkit-transition: all .2s ease-in-out;
   transition: all .2s ease-in-out;
   text-decoration: none;
   font-weight: 600;
-  color: inherit
-}
-@keyframes poop-dance {
-  from, 49% { transform-origin: -50% 100%; }
-  50%, 75%, to { transform-origin: 150% 100%; }
-  25% { transform: rotate(-10deg); }
-  50% { transform: rotate(0deg); }
-  75% { transform: rotate(10deg); }
+  color: inherit;
 }
 
-.poop {
-    animation: poop-dance .8s infinite alternate ease-in-out;
-    display: inline-block;
-}
 .icon-local {
     height: 100px;
     width: 100px;
@@ -112,6 +101,7 @@ a {
   border-color: #999;
   font-size: 20;
   font-weight: 300;
+  margin-right: 10px;
 
 }
 .line{
@@ -136,7 +126,7 @@ a {
 }
 .done {
   background-color: #10ac84;
-  box-shadow: 1px 1px 30px #1dd1a1
+  box-shadow: 1px 1px 30px #1dd1a1;
 }
 .timeline {
     position: fixed;

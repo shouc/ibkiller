@@ -36,20 +36,20 @@ function move(m){
   $("html,body").animate({scrollTop: $('#'+m).offset().top - 100}, 700);
 }
 function size(){
-    mHTML = ""
-    tHTML = ""
+    mHTML = "";
+    tHTML = "";
     for (var i = 0; i < _data.length; i++) {
       mHTML += `
       <li>
-        <a href='#${_data[i]["catName"]}' class="title" onclick=move('${_data[i]["catName"]}')>
+        <a href='#cat${i}' class="title" onclick=move('cat${i}')>
           ${_data[i]["catName"]}
         </a>
-      </li>`
+      </li>`;
       tHTML += `
-      <div id='${_data[i]["catName"]}'>
+      <div id='cat${i}'>
         <h4>${_data[i]["catName"]}</h4>
       </div>
-      <div class="row">`
+      <div class="row">`;
 
       for (var k = 0; k < _data[i]['paper'].length; k++) {
         tHTML += `
@@ -65,19 +65,18 @@ function size(){
                 <br>
                 Paper Type: <em>${_data[i]['paper'][k][4] ? 'Multiple Choice' : 'Short Answer'}</em>
               </p>
-              
-
               <a class="btn btn-primary" href="/question?Paper=${_data[i]['paper'][k][0]}">
                 Get Started
               </a>
             </div>
           </div>
-        </div>`
+        </div>`;
       }
-      tHTML += '</div>'
+      tHTML += '</div>';
     }
-    $('#menu').html(mHTML)
-    $('#content').html(tHTML)
+    $('#menu').html(mHTML);
+    $('#content').html(tHTML);
+    localStorage.setItem('subject', '/category?Cat={{ $subject }}');
     if ($(window).width() > 800){
         $("k").width($(window).width()/4*3);
         $("k").height($(document).height()+10);
@@ -85,7 +84,7 @@ function size(){
         $("bkg").width($(window).width());
         $("bkg").height($(document).height());
         $("ma").show();
-        $('#bo2').addClass("c-local")
+        $('#bo2').addClass("c-local");
     }
     else {
         $("ma").width(0);
@@ -93,8 +92,8 @@ function size(){
         $("ma").hide();
     }
 }
-size()
+size();
 $(window).resize(function() {
-    size()
+    size();
 })
 </script>

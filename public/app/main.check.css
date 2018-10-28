@@ -108,7 +108,7 @@ a {
   border-color: #999;
   font-size: 20;
   font-weight: 300;
-
+  margin-right: 10px;
 }
 .line{
   background-color: #273c75;
@@ -179,4 +179,18 @@ a {
   margin-top: 4px;
   color: #666;
   font-size: 18;
+}
+
+.notlogged {
+  margin-left: 2.5em;
+  text-align: left;
+  display: none;
+}
+@media screen and (max-width:700px) {
+  .notlogged {
+    margin-left: 1em;
+    margin-right: 1em;
+    text-align: left;
+    display: none;
+  }
 }

@@ -49,9 +49,8 @@ Route::prefix('admin')->group(function () {
 });
 Route::get('/', 'WebController@home')
 	->name('web.home');
-Route::get('/history', function () {
-	return view('history', ['server' => env('APP_URL')]);
-});
+Route::get('/history', 'WebController@history')
+	->name('web.history');
 Route::get('/category', 'WebController@category')
 	->name('web.category');
 Route::get('/question', 'WebController@question')
@@ -64,3 +63,9 @@ Route::get('/userRegister', 'WebController@userRegisterAPI')
 	->name('web.userRegister');
 Route::get('/userLogout', 'WebController@userLogoutAPI')
 	->name('web.userLogout');
+Route::get('/userCommitAnswer', 'WebController@userCommitAnswerAPI')
+	->name('web.userCommitAnswer');
+Route::get('/userAddFavorite', 'WebController@userAddFavoriteAPI')
+	->name('web.userAddFavorite');
+Route::get('/userDelFavorite', 'WebController@userDelFavoriteAPI')
+	->name('web.userDelFavorite');

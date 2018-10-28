@@ -114,15 +114,15 @@ class AppController extends Controller
     {
         return response()->json($this->getDetailOfPaperAPI($request));
     }
-    public function commitAnswer(Request $request)
+    public function commitAnswerAPI(Request $request)
     {
         if ($request->has(['Paper', 'Answer', 'PID', 'Session'])) {
-            $_paper = $request->Paper;
+            $_paper = urldecode($request->Paper);
             $_answer = json_decode($request->Answer);
             $_pid = $request->PID;
             $_session = $request->Session;
             if ($this->sessionVal($_session) == "[]"){
-                return response()->json(["result" => "0"]);
+                return ["result" => "0"];
             }
             foreach ($_answer->answer as $key => $i) {
                 DB::table('app_records')->insert(
@@ -136,9 +136,13 @@ class AppController extends Controller
                         'time' => time(),
                     ]);
             };
-            return response()->json(["result" => "1"]);
+            return ["result" => "1"];
         }
-        return response()->json(["result" => "-100"]);
+        return ["result" => "-100"];
+    }
+    public function commitAnswer(Request $request)
+    {
+        return response()->json($this->commitAnswerAPI($request));
     }
     public function getDetailOfPIDAPI(Request $request)
     {
@@ -177,7 +181,7 @@ class AppController extends Controller
     {
         return response()->json($this->getDetailOfPIDAPI($request));
     }
-    public function getUserPID(Request $request)
+    public function getUserPIDAPI(Request $request)
     {
         if ($request->has(['Session','Range','Amount'])) {
             $_session = $request->Session;
@@ -224,10 +228,13 @@ class AppController extends Controller
                     array_push($allDataTempRes, $i);
                 }
             }
-            return response()->json(["result" => $allDataTempRes]);
+            return ["result" => $allDataTempRes];
         }
     }
-
+    public function getUserPID(Request $request)
+    {
+        return response()->json($this->getUserPIDAPI($request));
+    }
     public function loginAPI(Request $request)
     {
         if ($request->has(['Email','Password'])) {
@@ -303,16 +310,15 @@ class AppController extends Controller
     {
         return response()->json($this->registerAPI($request));
     }
-
-    public function addFavorite(Request $request)
+    public function addFavoriteAPI(Request $request)
     {
         if ($request->has(['Name','Session'])) {
             $_name = $request->Name;
             $_session = $request->Session;
             if ($this->sessionVal($_session) == "[]"){
-                return response()->json(["success" => false, 
+                return ["success" => false, 
                     "info" => 'Invalid Session'
-                ]);
+                ];
             }
             $userInfo = DB::table('favorite')
                 ->where('session', $_session)
@@ -321,9 +327,9 @@ class AppController extends Controller
                 ->pluck('name')
                 ->toArray();
             if (in_array($_name, $userInfo)){
-                return response()->json(["success" => false, 
+                return ["success" => false, 
                     "info" => 'Already Exist'
-                ]);
+                ];
             } else {
                 $subjectInfo = DB::table('subjects')
                     ->where('name', $_name)
@@ -335,27 +341,31 @@ class AppController extends Controller
                         'img' => $subjectInfo->img,
                         'ibg' => $subjectInfo->ibg,
                     ]);
-                    return response()->json(["success" => true, 
+                    return ["success" => true, 
                         "info" => ''
-                    ]);
+                    ];
                 } else {
-                    return response()->json(["success" => false, 
+                    return ["success" => false, 
                         "info" => 'Unexpected Subject'
-                    ]);
+                    ];
                 }
                 
             }
         }
     }
-    public function delFavorite(Request $request)
+    public function addFavorite(Request $request)
+    {
+        return response()->json($this->addFavoriteAPI($request));
+    }
+    public function delFavoriteAPI(Request $request)
     {
         if ($request->has(['Name','Session'])) {
             $_name = $request->Name;
             $_session = $request->Session;
             if ($this->sessionVal($_session) == "[]"){
-                return response()->json(["success" => false, 
+                return ["success" => false, 
                     "info" => 'Invalid Session'
-                ]);
+                ];
             }
             DB::table('favorite')
                 ->where([
@@ -363,10 +373,14 @@ class AppController extends Controller
                     ['session', $_session],
                 ])
                 ->delete();
-            return response()->json(["success" => true, 
+            return ["success" => true, 
                 "info" => ''
-            ]);
+            ];
         }
+    }
+    public function delFavorite(Request $request)
+    {
+        return response()->json($this->delFavoriteAPI($request));
     }
 
 }

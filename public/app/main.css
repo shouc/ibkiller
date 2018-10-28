@@ -21,15 +21,22 @@ body,html {
   line-height: 1.5;
   width: 100%
 }
+span {
+  color: #fff;
+}
+h2 {
+  color: #fff;
+}
+h1 {
+  color: #fff;
 
+}
 html {
   background: #242433;
-  color: #fff
 }
 
 body {
   background: #242433;
-  color: #fff
 }
 
 a {
@@ -409,11 +416,13 @@ strong {
     display:none;
     z-index: 10;
 
+
   }
   .nav-local-h {
     box-shadow: 1px 1px 20px #aaa;
     background-color:#FFFFFF;
     margin-top:100px;
+
   }
   .jb-local {
     margin-top: 30px;
@@ -517,6 +526,7 @@ strong {
   }
   .block-local{
     font-size: 18px;
+    height: 100px;
     display:flex;
     flex-direction: row;
   }
@@ -591,4 +601,10 @@ strong {
   .scrollNav{
     visibility: visible;
     position: fixed;left: 0px;top: 0px; right:0px;
+  }
+  .heart-big {
+    text-align: right;
+  }
+  .heart-local {
+    margin-top: -83px;
   }
