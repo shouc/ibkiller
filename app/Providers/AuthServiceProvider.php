@@ -23,8 +23,10 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //URL::forceScheme('https');
-	$this->registerPolicies();
+        if (env('HTTPS')){
+            URL::forceScheme('https');
+        }
+	   $this->registerPolicies();
 
         //
     }

@@ -29,15 +29,12 @@ class AppController extends Controller
         if (strlen($password) < 8) {
             return false;
         }
-
         if (!preg_match("#[0-9]+#", $password)) {
             return false;
         }
-
         if (!preg_match("#[a-zA-Z]+#", $password)) {
             return false;
         }
-
         return true;
     }
 
@@ -45,6 +42,7 @@ class AppController extends Controller
     {
         return "3.0.0 (Laravel)";
     }
+
     public function getPapersAPI(Request $request)
     {
         if ($request->has(['Cat','Session'])) {
@@ -86,10 +84,12 @@ class AppController extends Controller
         }
         return ["result" => "-100"];
     }
+
     public function getPapers(Request $request)
     {
         return response()->json($this->getPapersAPI($request));
     }
+
     public function getDetailOfPaperAPI(Request $request)
     {
         if ($request->has(['Paper'])) {
@@ -110,10 +110,12 @@ class AppController extends Controller
         }
         return ["result" => "-100"];
     }
+
     public function getDetailOfPaper(Request $request)
     {
         return response()->json($this->getDetailOfPaperAPI($request));
     }
+
     public function commitAnswerAPI(Request $request)
     {
         if ($request->has(['Paper', 'Answer', 'PID', 'Session'])) {
@@ -140,10 +142,12 @@ class AppController extends Controller
         }
         return ["result" => "-100"];
     }
+
     public function commitAnswer(Request $request)
     {
         return response()->json($this->commitAnswerAPI($request));
     }
+
     public function getDetailOfPIDAPI(Request $request)
     {
         if ($request->has(['PID'])) {
@@ -177,10 +181,12 @@ class AppController extends Controller
         }
         return ["result" => "-100"];
     }
+
     public function getDetailOfPID(Request $request)
     {
         return response()->json($this->getDetailOfPIDAPI($request));
     }
+
     public function getUserPIDAPI(Request $request)
     {
         if ($request->has(['Session','Range','Amount'])) {
@@ -231,10 +237,12 @@ class AppController extends Controller
             return ["result" => $allDataTempRes];
         }
     }
+
     public function getUserPID(Request $request)
     {
         return response()->json($this->getUserPIDAPI($request));
     }
+
     public function loginAPI(Request $request)
     {
         if ($request->has(['Email','Password'])) {
@@ -247,7 +255,7 @@ class AppController extends Controller
                 if (Hash::check($_password, $userInfo->password)){
                     return ["success" => true, 
                         "session" => $userInfo->session,
-                        "info" => ""
+                        "info" => $userInfo->name
                     ];
                 }
                 return ["success" => false, 
@@ -261,15 +269,18 @@ class AppController extends Controller
                 ];
         }
     }
+
     public function login(Request $request)
     {
         return response()->json($this->loginAPI($request));
     }
+
     public function registerAPI(Request $request)
     {
-        if ($request->has(['Email','Password'])) {
+        if ($request->has(['Email','Password','Name'])) {
             $_email = $request->Email;
             $_password = $request->Password;
+            $_name = $request->Name;
             if (!$this->checkEmail($_email)){
                 return ["success" => false, 
                         "session" => '',
@@ -291,11 +302,21 @@ class AppController extends Controller
                         "info" => "Email Registered"
                     ];
             }
+            $nameInfo = DB::table('app_users')
+                ->where('name', $_name)
+                ->first();
+            if ($nameInfo){
+                return ["success" => false, 
+                        "session" => '',
+                        "info" => "Username Registered"
+                    ];
+            }
             $salt = "EncryptSessionSalt";
             $_session = Hash::make($_email . $_password . $salt . time());
             DB::table('app_users')->insert(
                     [
-                        'email' => $_email, 
+                        'name' => $_name,
+                        'email' => $_email,
                         'password' => Hash::make($_password),
                         'session' => $_session
                     ]);
@@ -306,10 +327,12 @@ class AppController extends Controller
 
         }
     }
+
     public function register(Request $request)
     {
         return response()->json($this->registerAPI($request));
     }
+
     public function addFavoriteAPI(Request $request)
     {
         if ($request->has(['Name','Session'])) {
@@ -353,10 +376,12 @@ class AppController extends Controller
             }
         }
     }
+
     public function addFavorite(Request $request)
     {
         return response()->json($this->addFavoriteAPI($request));
     }
+
     public function delFavoriteAPI(Request $request)
     {
         if ($request->has(['Name','Session'])) {
@@ -378,9 +403,301 @@ class AppController extends Controller
             ];
         }
     }
+
     public function delFavorite(Request $request)
     {
         return response()->json($this->delFavoriteAPI($request));
+    }
+
+    public function addDiscussionAPI(Request $request){
+        //http://127.0.0.1:8000/api/addDiscussion?Session= $2y$10$gImwLd7IqZkRHY2tfKlnceAQ2OlrAjN8cngxmL/cFUdmkApp2rlxe&Paper=1&Question=1&Context=1
+        if ($request->has(['Session', 'Context', 'Paper', 'Question'])) {
+            $_session = $request->Session;
+            $_user = $this->sessionVal($_session)->first();
+            if ($_user == "[]"){
+                return ["success" => false, 
+                    "info" => 'Invalid Session'
+                ];
+            }
+            $_name = $_user->name;
+            $_time = time();
+            $_context = $request->Context;
+            $_paper = $request->Paper;
+            $_question = $request->Question;
+
+            DB::table('discussion')
+                ->insert([
+                    'name' => $_name,
+                    'context' => $_context,
+                    'time' => $_time,
+                    'like'=> 0,
+                    'paper' => $_paper,
+                    'question' => $_question,
+                    'session' => $_session,
+                ]);
+            return ["success" => true, 
+                "info" => ''
+            ];
+        }
+    }
+
+    public function addDiscussion(Request $request){
+        return response()->json($this->addDiscussionAPI($request));
+    }
+
+    public function delDiscussionAPI(Request $request){
+        if ($request->has(['Session', 'ID'])) {
+            $_session = $request->Session;
+            $_user = $this->sessionVal($_session)->first();
+            if ($_user == "[]"){
+                return ["success" => false, 
+                    "info" => 'Invalid Session'
+                ];
+            }
+            $_id = $request->ID;
+            $result = DB::table('discussion')
+                ->where([
+                    ['session', $_session],
+                    ['id', $_id]
+                ])
+                ->get();
+            if ($result == "[]"){
+                DB::table('discussion')
+                ->where([
+                    ['session', $_session],
+                    ['id', $_id]
+                ])
+                ->delete();
+                return ["success" => true, 
+                    "info" => ''
+                ]; 
+            }
+            return ["success" => false, 
+                "info" => 'Not belongs to you!'
+            ];
+        }
+    }
+
+    public function delDiscussion(Request $request){
+        return response()->json($this->delDiscussionAPI($request));
+    }
+
+    public function likeDiscussionAPI(Request $request){
+        if ($request->has(['Session', 'ID'])) {
+            $_session = $request->Session;
+            $_user = $this->sessionVal($_session)->first();
+            if ($_user == "[]"){
+                return ["success" => false, 
+                    "info" => 'Invalid Session'
+                ];
+            }
+            $_id = $request->ID;
+            $_time = time();
+            $discussion = DB::table('discussion')
+                ->where([
+                    ['session', $_session],
+                    ['id', $_id]
+                ])
+                ->get();
+            $likes = DB::table('likes')
+                ->where([
+                    ['session', $_session],
+                    ['discussion_id', $_id]
+                ])
+                ->get();
+            if ($discussion != "[]"){
+                return ["success" => false, 
+                    "info" => 'Do not like yourself!'
+                ];
+            }
+            if ($likes != "[]"){
+                return ["success" => false, 
+                    "info" => 'Do not repeat!'
+                ];
+            }
+            DB::table('discussion')
+                ->where([
+                    ['id', $_id]
+                ])
+                ->increment('like');
+            DB::table('likes')
+                ->insert([
+                    'session' => $_session,
+                    'discussion_id' => $_id,
+                    'time' => $_time
+                ]);
+            return ["success" => true, 
+                "info" => ''
+            ];             
+        }
+    }
+
+    public function likeDiscussion(Request $request){
+        return response()->json($this->likeDiscussionAPI($request));
+    }
+
+    public function unlikeDiscussionAPI(Request $request){
+        if ($request->has(['Session', 'ID'])) {
+            $_session = $request->Session;
+            $_user = $this->sessionVal($_session)->first();
+            if ($_user == "[]"){
+                return ["success" => false, 
+                    "info" => 'Invalid Session'
+                ];
+            }
+            $_id = $request->ID;
+            $likes = DB::table('likes')
+                ->where([
+                    ['session', $_session],
+                    ['discussion_id', $_id]
+                ])
+                ->get();
+            if ($likes == "[]"){
+                return ["success" => false, 
+                    "info" => 'No record'
+                ]; 
+            }
+            DB::table('likes')
+                ->where([
+                    ['session', $_session],
+                    ['discussion_id', $_id]
+                ])
+                ->delete();
+            DB::table('discussion')
+                ->where([
+                    ['id', $_id],
+                ])
+                ->decrement('like');
+            return ["success" => true, 
+                "info" => ''
+            ];
+        }
+    }
+
+    public function unlikeDiscussion(Request $request){
+        return response()->json($this->unlikeDiscussionAPI($request));
+    }
+
+    public function showDiscussionAPI(Request $request){
+        if ($request->has(['Session', 'Paper', 'Question', 'Amount', 'Range'])) {
+            $_amount = $request->Amount;
+            $_range = $request->Range;
+            $_question = $request->Question;
+            $_paper = $request->Paper;
+            $_session = $request->Session;
+            $discussion = DB::table('discussion')
+                ->where([
+                    ['paper', $_paper],
+                    ['question', $_question]
+                ])
+                ->get();
+            $likes = DB::table('likes')
+                ->where([
+                    ['session', $_session],
+                ])
+                ->get();
+            $allDataTempRes = [];
+            foreach ($discussion as $key => $i) {
+                if (in_array($key, range(($_range-1)*$_amount, $_range*$_amount - 1)))
+                {
+                    if ($i->session == $_session){
+                        $i->isMine = true;
+                    } else {
+                        $i->isMine = false;
+                    }
+                    $i->isLiked = false;
+                    foreach ($likes as $like) {
+                        if ($like->discussion_id == $i->id){
+                            $i->isLiked = true;
+                        }
+                    }
+                    unset($i->session);
+                    array_push($allDataTempRes, $i);
+                }
+            }
+            return ["success" => true, 
+                "info" => $allDataTempRes];
+        }
+    }
+
+    public function showDiscussion(Request $request){
+        return response()->json($this->showDiscussionAPI($request));
+    }
+
+    public function addUnreadMessageAPI(Request $request){
+        if ($request->has(['Session', 'To', 'Context'])) {
+            $_session = $request->Session;
+            $_user = $this->sessionVal($_session)->first();
+            if ($_user == "[]"){
+                return ["success" => false, 
+                    "info" => 'Invalid Session'
+                ];
+            }
+            $_to = $request->To;
+            $_context = $request->Context;
+            DB::table('message')
+                ->insert([
+                    'from' => $_session,
+                    'from_name' => $_user->name,
+                    'to' => $_to,
+                    'read' => false,
+                    'context' => $_context,
+                    'time' => time()
+                ]);
+            return ["success" => true, 
+                "info" => ''
+            ];             
+        }
+    }
+
+    public function addUnreadMessage(Request $request){
+        return response()->json($this->addUnreadMessageAPI($request));
+    }
+
+    public function showMessageAPI(Request $request){
+        if ($request->has(['Session', 'Amount', 'Range'])) {
+            $_session = $request->Session;
+            $_amount = $request->Amount;
+            $_range = $request->Range;
+            $allDataTempRes = [];
+            $_user = $this->sessionVal($_session)->first();
+            if ($_user == "[]"){
+                return ["success" => false, 
+                    "info" => 'Invalid Session'
+                ];
+            }
+            $messages = DB::table('message')
+                ->where(['to', $_user->name])
+                ->get();
+            return ["success" => true, 
+                "info" => ''
+            ];
+            foreach ($messages as $key => $i) {
+                    if (in_array($key, range(($_range-1)*$_amount, $_range*$_amount - 1)))
+                    {
+                        array_push($allDataTempRes, $i);
+                    }
+                }
+                return ["success" => true, 
+                    "info" => $allDataTempRes];
+        }
+    }
+
+    public function showMessage(Request $request){
+        return response()->json($this->showMessageAPI($request));
+    }
+
+    public function readMessageAPI(Request $request){
+        //
+    }
+    public function readMessage(Request $request){
+        return response()->json($this->readMessageAPI($request));
+    }
+    public function delMessageAPI(Request $request){
+        //
+    }
+    public function delMessage(Request $request){
+        return response()->json($this->delMessageAPI($request));
     }
 
 }

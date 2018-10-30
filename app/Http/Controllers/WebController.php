@@ -216,7 +216,7 @@ class WebController extends Controller
     }
     public function userRegisterAPI(Request $request)
     {
-        if ($request->has(['Email','Password', 'Username'])) {
+        if ($request->has(['Email','Password', 'Name'])) {
             $api = $this->init();
             $userM = $api->registerAPI($request);
             if ($userM['success']){

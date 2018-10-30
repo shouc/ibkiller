@@ -1,4 +1,4 @@
-<head> 
+fgo<head> 
     <meta charset="UTF-8" /> 
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> 
@@ -34,5 +34,4 @@
 
 
     <link href="https://fonts.proxy.ustclug.org/css?family=Source+Sans+Pro" rel="stylesheet" /> 
-    <script src="{{ $server }}/js/sharethis.js"></script> 
 </head> 

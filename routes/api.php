@@ -44,5 +44,17 @@ Route::get('/getUserPID', 'AppController@getUserPID')
 Route::get('/addFavorite', 'AppController@addFavorite')
     ->name('addFavorite');
 
-Route::get('/delFavorite', 'AppController@delFavorite')
-    ->name('delFavorite');
+Route::get('/addDiscussion', 'AppController@addDiscussion')
+    ->name('addDiscussion');
+
+Route::get('/delDiscussion', 'AppController@delDiscussion')
+    ->name('delDiscussion');
+
+Route::get('/likeDiscussion', 'AppController@likeDiscussion')
+    ->name('likeDiscussion');
+
+Route::get('/unlikeDiscussion', 'AppController@unlikeDiscussion')
+    ->name('unlikeDiscussion');
+
+Route::get('/showDiscussion', 'AppController@showDiscussion')
+    ->name('showDiscussion');
