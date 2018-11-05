@@ -1,4 +1,4 @@
-fgo<head> 
+<head> 
     <meta charset="UTF-8" /> 
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> 
@@ -30,6 +30,8 @@ fgo<head>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
     <script src="{{ $server }}/alert/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="{{ $server }}/alert/sweetalert2.min.css">
+    
+    
 
 
 

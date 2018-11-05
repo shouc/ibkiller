@@ -285,6 +285,16 @@ class WebController extends Controller
             return $result;
         }
     }
+    public function comment(Request $request)
+    {
+        $_session = Cookie::get('ibkiller_session');
+        if ($_session){
+            $isLoggedIn = true;
+        } else {
+            $isLoggedIn = false;
+        }
+        return view('comment', ['server' => env('APP_URL'), 'isLoggedIn' => $isLoggedIn,]);
+    }
 }
 
 
