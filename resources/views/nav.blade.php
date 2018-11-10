@@ -6,6 +6,7 @@
       <button class="btn my-2 my-sm-0" type="submit" onclick="leave()">Leave</button>
       &nbsp;&nbsp;
     </ul>
+    @if(!$isLoggedIn)
     <form class="form-inline my-2 my-lg-0" id="notLoginButtons">
       <button type="button" class="btn btn-success my-2 my-sm-0" data-toggle="modal" data-target="#registerModal">
         Register
@@ -15,12 +16,15 @@
         Login
       </button>
     </form>
+    @endif
+    @if($isLoggedIn)
     <form class="form-inline my-2 my-lg-0" id="loginButtons" action="/userLogout" method="get">
       @csrf
       <button type="submit" class="btn btn-success my-2 my-sm-0">
         Logout
       </button>
     </form>
+    @endif
   </nav>
   </div>
 
@@ -40,6 +44,7 @@
       </li>
     @endif
     </ul>
+    @if(!$isLoggedIn)
     <form class="form-inline my-2 my-lg-0" id="notLoginButtons">
       <button type="button" class="btn btn-success my-2 my-sm-0" data-toggle="modal" data-target="#registerModal">
         Register
@@ -49,12 +54,15 @@
         Login
       </button>
     </form>
+    @endif
+    @if($isLoggedIn)
     <form class="form-inline my-2 my-lg-0" id="loginButtons" action="/userLogout" method="get">
       @csrf
       <button type="submit" class="btn btn-success my-2 my-sm-0">
         Logout
       </button>
     </form>
+    @endif
     
   </nav>
   </div>
@@ -156,11 +164,7 @@
 <script>
   $("#errorLog").hide();
   $("#errorReg").hide();
-  if ({{ $isLoggedIn ? 1 : 0}}){
-    $('#notLoginButtons').hide();
-  } else {
-    $('#loginButtons').hide();
-  }
+  
 
   @if (count($errors)>0)
   if('{{ $errors->first() }}' == 'login'){

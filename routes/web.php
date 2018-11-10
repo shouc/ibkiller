@@ -69,5 +69,5 @@ Route::get('/userAddFavorite', 'WebController@userAddFavoriteAPI')
 	->name('web.userAddFavorite');
 Route::get('/userDelFavorite', 'WebController@userDelFavoriteAPI')
 	->name('web.userDelFavorite');
-Route::get('/comment', 'WebController@comment')
-	->name('web.comment');
+Route::get('/showDiscussion', 'WebController@showDiscussionAPI')
+	->name('web.showDiscussion');
