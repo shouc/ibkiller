@@ -14,9 +14,7 @@
 
 Route::prefix('admin')->group(function () {
 	Route::post('login', ['uses' => 'AuthController@login']);
-
 	Auth::routes();
-
 	Route::get('/', 'HomeController@index')
 		->name('home');
 	Route::get('/bulk', 'HomeController@bulk')
@@ -27,7 +25,6 @@ Route::prefix('admin')->group(function () {
 		->name('modify');
 	Route::get('/help', 'HomeController@help')
 		->name('help');
-
 	Route::get('/api/questions', 'QuestionController@questionsJSON')
 		->name('api.questions');
 	Route::get('/api/stats', 'QuestionController@stats')
@@ -47,6 +44,7 @@ Route::prefix('admin')->group(function () {
 	Route::get('/api/del', 'QuestionController@del')
 		->name('api.del');
 });
+
 Route::get('/', 'WebController@home')
 	->name('web.home');
 Route::get('/history', 'WebController@history')
@@ -71,3 +69,12 @@ Route::get('/userDelFavorite', 'WebController@userDelFavoriteAPI')
 	->name('web.userDelFavorite');
 Route::get('/showDiscussion', 'WebController@showDiscussionAPI')
 	->name('web.showDiscussion');
+Route::get('/addDiscussion', 'WebController@addDiscussionAPI')
+	->name('web.addDiscussion');
+Route::get('/delDiscussion', 'WebController@delDiscussionAPI')
+	->name('web.delDiscussion');
+Route::get('/likeDiscussion', 'WebController@likeDiscussionAPI')
+	->name('web.likeDiscussion');
+Route::get('/unlikeDiscussion', 'WebController@unlikeDiscussionAPI')
+	->name('web.unlikeDiscussion');
+

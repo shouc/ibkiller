@@ -28,10 +28,7 @@
         <button class="btn btn-back" id="goNext">Next</button>
     </div>
 </body>
-<timeline class="timeline">
-
-
-</timeline>
+<timeline class="timeline"></timeline>
 <script type="text/javascript">
     $("#notlogged").hide();
     question = $.parseJSON(window.atob('{{ $data }}'))["info"];

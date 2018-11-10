@@ -16,6 +16,13 @@ class AppController extends Controller
             ->get();
     }
 
+    public function getQuestionNum($paper)
+    {
+        return count(DB::table('questions')
+            ->where('paper' , $paper)
+            ->get());
+    }
+
     public function checkEmail($email)
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)){

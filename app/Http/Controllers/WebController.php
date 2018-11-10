@@ -20,6 +20,7 @@ class WebController extends Controller
     {
         return new AppController();
     }
+
     public function favorite($favorites, $subject){
         foreach ($favorites as $l=>&$favorite) {
             if ($favorite->name == $subject->name){
@@ -28,6 +29,7 @@ class WebController extends Controller
         }
         return 0;
     }
+
     public function home(Request $request)
     {
         $_session = Cookie::get('ibkiller_session');
@@ -92,6 +94,7 @@ class WebController extends Controller
             'isLoggedIn' => $isLoggedIn,
         ]);
     }
+
     public function category(Request $request)
     {
         if ($request->has(['Cat'])) {
@@ -123,6 +126,7 @@ class WebController extends Controller
             return redirect('/');
         }
     }
+
     public function question(Request $request)
     {
         if ($request->has(['Paper'])) {
@@ -149,6 +153,7 @@ class WebController extends Controller
             return redirect('/');
         }
     }
+
     public function check(Request $request)
     {
         if ($request->has(['PID'])) {
@@ -176,6 +181,7 @@ class WebController extends Controller
             return redirect('/');
         }
     }
+
     public function history(Request $request)
     {
         if ($request->has(['Page'])) {
@@ -202,6 +208,7 @@ class WebController extends Controller
             'isLoggedIn' => $isLoggedIn,
         ]);
     }
+
     public function userLoginAPI(Request $request)
     {
         if ($request->has(['Email','Password'])) {
@@ -217,6 +224,7 @@ class WebController extends Controller
             }
         }
     }
+
     public function userRegisterAPI(Request $request)
     {
         if ($request->has(['Email','Password', 'Name'])) {
@@ -232,12 +240,14 @@ class WebController extends Controller
             }
         }
     }
+
     public function userLogoutAPI(Request $request)
     {
         $cookie = Cookie::forget('ibkiller_session');
         return back()
             ->withCookie($cookie);
     }
+
     public function userCommitAnswerAPI(Request $request)
     {
         if ($request->has(['Paper','Answer'])) {
@@ -262,6 +272,7 @@ class WebController extends Controller
             }
         }
     }
+
     public function userAddFavoriteAPI(Request $request)
     {
         if ($request->has(['Name'])) {
@@ -275,6 +286,7 @@ class WebController extends Controller
             return $result;
         }
     }
+
     public function userDelFavoriteAPI(Request $request)
     {
         if ($request->has(['Name'])) {
@@ -288,15 +300,99 @@ class WebController extends Controller
             return $result;
         }
     }
-    public function comment(Request $request)
+
+    public function showDiscussionAPI(Request $request)
     {
-        $_session = Cookie::get('ibkiller_session');
-        if ($_session){
-            $isLoggedIn = true;
-        } else {
-            $isLoggedIn = false;
+        if ($request->has(['Paper', 'Range'])) {
+            $_session = Cookie::get('ibkiller_session');
+            $api = $this->init();
+            $_range = $request->Range;
+            $_paper = $request->Paper;
+            $_length = $api->getQuestionNum($_paper);
+            $result = [];
+            for ($qnum = 0; $qnum < $_length; $qnum++) { 
+                $discussionReq = new Request();
+                $discussionReq->offsetSet('Paper', $_paper);
+                $discussionReq->offsetSet('Range', $_range);
+                $discussionReq->offsetSet('Session', $_session);
+                $discussionReq->offsetSet('Question', $qnum);
+                $discussionReq->offsetSet('Amount', 25);
+                $resultTemp = $api->showDiscussionAPI($discussionReq);
+                if (count($resultTemp['info'])){
+                    $resultTemp['isDiscussed'] = true;
+                } else {
+                    $resultTemp['isDiscussed'] = false;
+                }
+                array_push($result, $resultTemp);
+                unset($resultTemp);
+                unset($discussionReq);
+            }
+            return $result;
         }
-        return view('comment', ['server' => env('APP_URL'), 'isLoggedIn' => $isLoggedIn,]);
+    }
+
+    public function addDiscussionAPI(Request $request)
+    {
+        if ($request->has(['Context', 'Paper', 'Question'])) {
+            $_session = Cookie::get('ibkiller_session');
+            $api = $this->init();
+            if (!$_session) {
+                return ["success" => false, 
+                        "info" => "Not Logged In"
+                    ];
+            }
+            $request->offsetSet('Session', $_session);
+            $result = $api->addDiscussionAPI($request);
+            return $result;
+        }
+    }
+
+    public function delDiscussionAPI(Request $request)
+    {
+        if ($request->has(['ID'])) {
+            $_session = Cookie::get('ibkiller_session');
+            $api = $this->init();
+            if (!$_session) {
+                return ["success" => false, 
+                        "info" => "Not Logged In"
+                    ];
+            }
+            $request->offsetSet('Session', $_session);
+            $result = $api->delDiscussionAPI($request);
+            return $result;
+        }
+    }
+
+    public function likeDiscussionAPI(Request $request)
+    {
+        if ($request->has(['ID'])) {
+            $_session = Cookie::get('ibkiller_session');
+            $api = $this->init();
+            if (!$_session) {
+                return ["success" => false, 
+                        "info" => "Not Logged In"
+                    ];
+            }
+            $request->offsetSet('Session', $_session);
+            $result = $api->likeDiscussionAPI($request);
+            return $result;
+        }
+    }
+
+    public function unlikeDiscussionAPI(Request $request)
+    {
+        if ($request->has(['ID'])) {
+            $_session = Cookie::get('ibkiller_session');
+            $api = $this->init();
+            if (!$_session) {
+                return ["success" => false, 
+                        "info" => "Not Logged In"
+                    ];
+            }
+            $request->offsetSet('Session', $_session);
+            $result = $api->unlikeDiscussionAPI($request);
+            return $result;
+        }
     }
 }
 

@@ -131,8 +131,8 @@
 
           </div>
           <div class="form-group">
-            <label>Nick Name</label>
-            <input type="name" name="NickName" class="form-control" aria-describedby="emailHelp" placeholder="Enter your username">
+            <label>Username</label>
+            <input type="name" name="Name" class="form-control" aria-describedby="emailHelp" placeholder="Enter your username">
             <small id="emailHelp" class="form-text text-muted">This may be shown to other users. Make it pretty!</small>
           </div>
           <div class="form-group">

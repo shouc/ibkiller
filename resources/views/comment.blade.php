@@ -29,6 +29,8 @@
 <script type="text/javascript">
     commentData = [{"id":7,"name":"Sir Unknown","context":"1","time":"1540787334","like":0,"paper":"1","question":"1","isMine":true,"isLiked":false},{"id":8,"name":"Sir Unknown","context":"1","time":"1540787336","like":0,"paper":"1","question":"1","isMine":false,"isLiked":false},{"id":9,"name":"Sir Unknown","context":"1","time":"1540787336","like":0,"paper":"1","question":"1","isMine":false,"isLiked":true},{"id":10,"name":"Sir Unknown","context":"1","time":"1540787336","like":0,"paper":"1","question":"1","isMine":false,"isLiked":false},{"id":11,"name":"Sir Unknown","context":"1","time":"1540787336","like":0,"paper":"1","question":"1","isMine":true,"isLiked":false},{"id":12,"name":"Sir Unknown","context":"1","time":"1540787336","like":0,"paper":"1","question":"1","isMine":true,"isLiked":false},{"id":13,"name":"Sir Unknown","context":"1","time":"1540787336","like":0,"paper":"1","question":"1","isMine":true,"isLiked":false},{"id":14,"name":"Sir Unknown","context":"1","time":"1540787336","like":0,"paper":"1","question":"1","isMine":true,"isLiked":false}]
     height = document.body.scrollHeight;
+    width = document.body.scrollWidth;
+
     if ($("#q-container").height() < height && height >= 600){
         height = $(document).height();
     }
@@ -37,6 +39,17 @@
         return timestamp.toLocaleDateString().replace(/\//g, ".");
     }
     $("#comment").height(height);
+    if (width > 1000){
+        $("#comment").width('30%');
+    } else if (width > 800) {
+        $("#comment").width('45%');
+
+    } else if (width > 500) {
+        $("#comment").width('60%');
+    } else {
+        $("#comment").width('100%');
+    }
+
     $("#dark-background").height(height);
 
     
