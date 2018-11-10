@@ -140,6 +140,9 @@ class WebController extends Controller
                 'data' => base64_encode(json_encode(
                     $api->getDetailOfPaperAPI($questionReq)['result']
                 )),
+                'session' => base64_encode(json_encode(
+                    $_session
+                )),
                 'isLoggedIn' => $isLoggedIn,
             ]);
         } else {

@@ -1,4 +1,5 @@
 @if ($q)
+  <link rel="stylesheet" type="text/css" href="{{ $server }}/app/main.comment.css">
   <div id="navbg" class="nav-local-h">
    <nav class="navbar navbar-expand-sm navbar-light " class="nav-local">
     <ul class="navbar-nav mr-auto mt-lg-0">
@@ -33,6 +34,11 @@
     <li class="nav-item">
       <a class="nav-link" href="/help">Help</a>
     </li>
+    @if($isLoggedIn)
+      <li class="nav-item">
+        <a class="nav-link" href="/history">History</a>
+      </li>
+    @endif
     </ul>
     <form class="form-inline my-2 my-lg-0" id="notLoginButtons">
       <button type="button" class="btn btn-success my-2 my-sm-0" data-toggle="modal" data-target="#registerModal">

@@ -2,6 +2,7 @@
 @include('header', ['css' => '.question.css']);
 
 @include('nav', ['q' => true]);
+@include('comment');
 
 
 <body>

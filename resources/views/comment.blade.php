@@ -1,5 +1,3 @@
-@include('header', ['css' => '.comment.css'])
-
 <div class="comment-ball" onclick="openComment()">
     <i class="far fa-comment comment-icon click"></i>
 </div>
@@ -8,6 +6,8 @@
     <div>
         <i class="fas fa-times cross click" onclick="closeComment()"></i>
     </div>
+    <br>
+    @if($isLoggedIn)
     <div class="list">
         <div id="beforeComment" onclick="makeComment('')">
             <button class="btn btn-primary btn-start-comment">Make your comment!</button>
@@ -23,10 +23,11 @@
         </div>
         
     </div>
+    @endif
     <ul class="list" id="comment-content"></ul>
 </div>
 <script type="text/javascript">
-    data = [{"id":7,"name":"Sir Unknown","context":"1","time":"1540787334","like":0,"paper":"1","question":"1","isMine":true,"isLiked":false},{"id":8,"name":"Sir Unknown","context":"1","time":"1540787336","like":0,"paper":"1","question":"1","isMine":false,"isLiked":false},{"id":9,"name":"Sir Unknown","context":"1","time":"1540787336","like":0,"paper":"1","question":"1","isMine":false,"isLiked":true},{"id":10,"name":"Sir Unknown","context":"1","time":"1540787336","like":0,"paper":"1","question":"1","isMine":false,"isLiked":false},{"id":11,"name":"Sir Unknown","context":"1","time":"1540787336","like":0,"paper":"1","question":"1","isMine":true,"isLiked":false},{"id":12,"name":"Sir Unknown","context":"1","time":"1540787336","like":0,"paper":"1","question":"1","isMine":true,"isLiked":false},{"id":13,"name":"Sir Unknown","context":"1","time":"1540787336","like":0,"paper":"1","question":"1","isMine":true,"isLiked":false},{"id":14,"name":"Sir Unknown","context":"1","time":"1540787336","like":0,"paper":"1","question":"1","isMine":true,"isLiked":false}]
+    commentData = [{"id":7,"name":"Sir Unknown","context":"1","time":"1540787334","like":0,"paper":"1","question":"1","isMine":true,"isLiked":false},{"id":8,"name":"Sir Unknown","context":"1","time":"1540787336","like":0,"paper":"1","question":"1","isMine":false,"isLiked":false},{"id":9,"name":"Sir Unknown","context":"1","time":"1540787336","like":0,"paper":"1","question":"1","isMine":false,"isLiked":true},{"id":10,"name":"Sir Unknown","context":"1","time":"1540787336","like":0,"paper":"1","question":"1","isMine":false,"isLiked":false},{"id":11,"name":"Sir Unknown","context":"1","time":"1540787336","like":0,"paper":"1","question":"1","isMine":true,"isLiked":false},{"id":12,"name":"Sir Unknown","context":"1","time":"1540787336","like":0,"paper":"1","question":"1","isMine":true,"isLiked":false},{"id":13,"name":"Sir Unknown","context":"1","time":"1540787336","like":0,"paper":"1","question":"1","isMine":true,"isLiked":false},{"id":14,"name":"Sir Unknown","context":"1","time":"1540787336","like":0,"paper":"1","question":"1","isMine":true,"isLiked":false}]
     height = document.body.scrollHeight;
     if ($("#q-container").height() < height && height >= 600){
         height = $(document).height();
@@ -45,19 +46,19 @@
     function genComments(){
         cHTML = "";
 
-        for (var i = 0; i < data.length; i++) {
+        for (var i = 0; i < commentData.length; i++) {
             cHTML += `<li class="media card card-local">
                 <div class="media-body card-body">
-                  <h5 class="mt-0 mb-1">${ data[i]["name"] }</h5>
-                  ${ data[i]["context"] }
-                  <p class="card-text">${ data[i]["isMine"] ? 
-                    `<i class="fas fa-heart"></i> / ${ data[i]["like"] } likes / 
-                    <i class="click far fa-trash-alt" onclick="del('${ data[i]["id"] }')"></i> /` : 
-                    `<i class="click fa${ data[i]["isLiked"] ? "s" : "r" } fa-heart" onclick="like('${ data[i]["id"] }')">
+                  <h5 class="mt-0 mb-1">${ commentData[i]["name"] }</h5>
+                  ${ commentData[i]["context"] }
+                  <p class="card-text">${ commentData[i]["isMine"] ? 
+                    `<i class="fas fa-heart"></i> / ${ commentData[i]["like"] } likes / 
+                    <i class="click far fa-trash-alt" onclick="del('${ commentData[i]["id"] }')"></i> /` : 
+                    `<i class="click fa${ commentData[i]["isLiked"] ? "s" : "r" } fa-heart" onclick="like('${ commentData[i]["id"] }')">
                     </i> 
-                    / ${ data[i]["like"] } likes /
-                    <i class="fas fa-at click" onclick="makeComment('@${ data[i]["name"] } ')"></i> /` }
-                    ${ showTime(data[i]["time"]) }</p>
+                    / ${ commentData[i]["like"] } likes /
+                    <i class="fas fa-at click" onclick="makeComment('@${ commentData[i]["name"] } ')"></i> /` }
+                    ${ showTime(commentData[i]["time"]) }</p>
                 </div>
               </li>`
         }
@@ -65,18 +66,18 @@
     }
 
     function like(id){
-        for (var i = 0; i < data.length; i++) {
-            if (data[i]["id"] == id){
-                data[i]["isLiked"] ? data[i]["like"] -= 1 : data[i]["like"] += 1;
-                data[i]["isLiked"] = !data[i]["isLiked"];
+        for (var i = 0; i < commentData.length; i++) {
+            if (commentData[i]["id"] == id){
+                commentData[i]["isLiked"] ? commentData[i]["like"] -= 1 : commentData[i]["like"] += 1;
+                commentData[i]["isLiked"] = !commentData[i]["isLiked"];
                 genComments();
             }
         }
     }
     function del(id){
-        for (var i = 0; i < data.length; i++) {
-            if (data[i]["id"] == id){
-                data.splice(i, 1);
+        for (var i = 0; i < commentData.length; i++) {
+            if (commentData[i]["id"] == id){
+                commentData.splice(i, 1);
                 genComments();
             }
         }
