@@ -31,7 +31,6 @@ a {
   -webkit-transition: all .2s ease-in-out;
   transition: all .2s ease-in-out;
   text-decoration: none;
-  font-weight: 600;
 }
 @keyframes poop-dance {
   from, 49% { transform-origin: -50% 100%; }
@@ -133,8 +132,7 @@ a {
   }
 
   .font-local {
-    font-family: "Permanent Marker";
-    color:#fff;
+    color:#ccc;
     font-size: 35px;
   }
   .blc {
@@ -197,7 +195,6 @@ a {
       vertical-align: bottom;
       width: 56px;
       height: 36px;
-      background: url(https://www.imooc.com/static/img/index/icon.png) no-repeat;
       background-size: 100%
   }
 
@@ -227,9 +224,12 @@ a {
     width: 55px;
   }
   .score {
-    font-size: 65px;
     margin-left: 5px;
-    font-weight: lighter;
+  }
+  .score-text {
+    font-size: 65px;
+    font-weight: 200;
+    
   }
   .ttq {
     font-size: 15px;

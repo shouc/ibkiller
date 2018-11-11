@@ -17,7 +17,7 @@
                 <textarea class="form-control comment-input" id="comment-area" focus></textarea>
             </div>
             <div class="send-btn">
-                <button class="btn btn-primary">Send</button>
+                <button class="btn btn-primary" onclick="sendComment()">Send</button>
                 <button class="btn btn-secondary" onclick="endComment()">Cancel</button>
             </div>
         </div>
@@ -27,7 +27,6 @@
     <ul class="list" id="comment-content"></ul>
 </div>
 <script type="text/javascript">
-    commentData = [{"id":7,"name":"Sir Unknown","context":"1","time":"1540787334","like":0,"paper":"1","question":"1","isMine":true,"isLiked":false},{"id":8,"name":"Sir Unknown","context":"1","time":"1540787336","like":0,"paper":"1","question":"1","isMine":false,"isLiked":false},{"id":9,"name":"Sir Unknown","context":"1","time":"1540787336","like":0,"paper":"1","question":"1","isMine":false,"isLiked":true},{"id":10,"name":"Sir Unknown","context":"1","time":"1540787336","like":0,"paper":"1","question":"1","isMine":false,"isLiked":false},{"id":11,"name":"Sir Unknown","context":"1","time":"1540787336","like":0,"paper":"1","question":"1","isMine":true,"isLiked":false},{"id":12,"name":"Sir Unknown","context":"1","time":"1540787336","like":0,"paper":"1","question":"1","isMine":true,"isLiked":false},{"id":13,"name":"Sir Unknown","context":"1","time":"1540787336","like":0,"paper":"1","question":"1","isMine":true,"isLiked":false},{"id":14,"name":"Sir Unknown","context":"1","time":"1540787336","like":0,"paper":"1","question":"1","isMine":true,"isLiked":false}]
     height = document.body.scrollHeight;
     width = document.body.scrollWidth;
 
@@ -56,44 +55,91 @@
     $("#afterComment").hide();
     $("#comment").hide();
 
-    function genComments(){
-        cHTML = "";
-
-        for (var i = 0; i < commentData.length; i++) {
-            cHTML += `<li class="media card card-local">
-                <div class="media-body card-body">
-                  <h5 class="mt-0 mb-1">${ commentData[i]["name"] }</h5>
-                  ${ commentData[i]["context"] }
-                  <p class="card-text">${ commentData[i]["isMine"] ? 
-                    `<i class="fas fa-heart"></i> / ${ commentData[i]["like"] } likes / 
-                    <i class="click far fa-trash-alt" onclick="del('${ commentData[i]["id"] }')"></i> /` : 
-                    `<i class="click fa${ commentData[i]["isLiked"] ? "s" : "r" } fa-heart" onclick="like('${ commentData[i]["id"] }')">
-                    </i> 
-                    / ${ commentData[i]["like"] } likes /
-                    <i class="fas fa-at click" onclick="makeComment('@${ commentData[i]["name"] } ')"></i> /` }
-                    ${ showTime(commentData[i]["time"]) }</p>
-                </div>
-              </li>`
+    currentPage = 1;
+    function commentErrors(data){
+        if (data['success']){
+            swal({
+              title: 'Success',
+              type: 'success',
+              showCancelButton: false,
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'Yes'
+            });
+        } else {
+            swal({
+              title: 'Error',
+              type: 'warning',
+              text: data['info'],
+              showCancelButton: false,
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'Yes'
+            });
         }
-        $("#comment-content").html(cHTML);
+    }
+    function commentMinorErrors(data){
+        if (data['success']){
+            //pass
+        } else {
+            swal({
+              title: 'Error',
+              type: 'warning',
+              text: data['info'],
+              showCancelButton: false,
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'Yes'
+            });
+        }
+    }
+    function genComments(range){
+        $.get(`/showDiscussion?Paper={{$paper}}&Range=${range}&Question=${localStorage.getItem("qnum")}`,
+            function(data,status){
+                commentData = data['info'];
+                isDiscussed = data['isDiscussed'];
+                cHTML = "";
+                if (isDiscussed){
+                    for (var i = 0; i < commentData.length; i++) {
+                        cHTML += `<li class="media card card-local">
+                            <div class="media-body card-body">
+                              <h5 class="mt-0 mb-1">${ commentData[i]["name"] }</h5>
+                              ${ commentData[i]["context"] }
+                              <p class="card-text">${ commentData[i]["isMine"] ? 
+                                `<i class="fas fa-heart"></i> / ${ commentData[i]["like"] } likes / 
+                                <i class="click far fa-trash-alt" onclick="del('${ commentData[i]["id"] }')"></i> /` : 
+                                `<i class="click fa${ commentData[i]["isLiked"] ? "s" : "r" } fa-heart" onclick="like('${ commentData[i]["id"] }')">
+                                </i> 
+                                / ${ commentData[i]["like"] } likes /
+                                <i class="fas fa-at click" onclick="makeComment('@${ commentData[i]["name"] } ')"></i> /` }
+                                ${ showTime(commentData[i]["time"]) }</p>
+                            </div>
+                          </li>`
+                    }
+                    $("#comment-content").html(cHTML);
+                } else {
+                    $("#comment-content").html(`
+                        <li class="card-local" style="text-align: center">
+                            Nothing Here<br>Be the first one to <strong class="click" onclick="makeComment()">comment</strong><br>🎉🎉
+                        </li>
+
+                        `);
+                }
+                
+                commentMinorErrors(data);
+            }
+        );
     }
 
     function like(id){
         for (var i = 0; i < commentData.length; i++) {
             if (commentData[i]["id"] == id){
-                commentData[i]["isLiked"] ? commentData[i]["like"] -= 1 : commentData[i]["like"] += 1;
-                commentData[i]["isLiked"] = !commentData[i]["isLiked"];
-                genComments();
+                commentData[i]["isLiked"] ? $.get(`/unlikeDiscussion?ID=${id}`, function(data,status){ commentMinorErrors(data) }) : $.get(`/likeDiscussion?ID=${id}`, function(data,status){ commentMinorErrors(data) });
+                genComments(currentPage);
             }
         }
     }
     function del(id){
-        for (var i = 0; i < commentData.length; i++) {
-            if (commentData[i]["id"] == id){
-                commentData.splice(i, 1);
-                genComments();
-            }
-        }
+        $.get(`/delDiscussion?ID=${id}`, function(data,status){ commentErrors(data) });
+        genComments(currentPage);
+
     }
     function makeComment(s){
         $("#comment-area").val(s);
@@ -101,17 +147,21 @@
         $("#afterComment").fadeIn();
         document.getElementById("comment-area").focus();
     }
+    function sendComment(){
+        $.get(`/addDiscussion?Paper={{$paper}}&Context=${$('#comment-area').val()}&Question=${localStorage.getItem("qnum")}`, function(data,status){ commentErrors(data) });
+        genComments(currentPage);
+    }
     function endComment(){
         $("#comment-area").val('');
         $("#beforeComment").fadeIn();
         $("#afterComment").hide();
     }
     function closeComment(){
+        $("#comment-content").html('Loading');
         $("#comment").fadeOut("fast");
     }
     function openComment(){
-
         $("#comment").fadeIn("fast");
-        genComments();
+        genComments(currentPage);
     }
 </script>

@@ -28,7 +28,7 @@
       <span>Developed with ❤ by </span> 
      </div> 
      <div class="bottom"> 
-      <a href=""> <span>Shou Chaofan</span></a> 
+      <a href=""> <span>Zhanwang Tech.</span></a> 
      </div> 
     </div> 
     <div class="sharethis-inline-reaction-buttons"></div> 
@@ -41,6 +41,9 @@
   </div> 
   <script src="{{ $server }}/js/jquery.min.js" type="text/javascript" charset="utf-8"></script> 
   <script>
+@if($isLoggedIn)
+$("html, body").animate({ scrollTop: $("#data").offset().top }, {duration: 100,easing: "swing"});
+@endif
 $(function() {
   const body = document.querySelector('body');
   const introHeight = document.querySelector('.intro').offsetHeight;

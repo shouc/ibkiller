@@ -183,7 +183,8 @@ class AppController extends Controller
                     $score += $i[0]->correct;
                 }
                 return ["result" => ["score" => $score, 
-                    "info" => $allDataTemp]];
+                    "info" => $allDataTemp,
+                    "paper" => $pidInfo[0]->paper]];
             }
         }
         return ["result" => "-100"];
@@ -241,7 +242,11 @@ class AppController extends Controller
                     array_push($allDataTempRes, $i);
                 }
             }
-            return ["result" => $allDataTempRes];
+            if (count($allDataTempRes)){
+                return ["result" => $allDataTempRes, "isExist" => true];
+            } else {
+                return ["result" => $allDataTempRes, "isExist" => false];
+            }
         }
     }
 
@@ -468,7 +473,7 @@ class AppController extends Controller
                     ['id', $_id]
                 ])
                 ->get();
-            if ($result == "[]"){
+            if ($result != "[]"){
                 DB::table('discussion')
                 ->where([
                     ['session', $_session],

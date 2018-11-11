@@ -84,18 +84,16 @@ function gen(){
   code = "";
   for (gname in _data){
     gname = _data[gname];
-    code += `<h3 class="bar-local"> <a class="font-local"><font color="#333">${gname["name"]}</font></a></h3>`;
-    //code += `<div class="bar-local"> <a class="groupname-local font-local"><span class="tit-icon g2-l tit-icon-l"></span>${gname["name"]} -</a> </div>`;
+    code += `<h3 class="bar-local"> <a class="font-local">${gname["name"]}</a></h3>`;
     if (width > 840){
       for (var i = 0; i <= Math.ceil(gname["data"].length/3) - 1; i++) {
-        //alert(gname["data"].length - (i + 1)* 3 )
         if (gname["data"].length - (i + 1)* 3 >= 0) {
           code += `
           <div class="blc">
             <div class="three-block-1" onclick="go('${gname["data"][i * 3]['pid']}')">
               <div class="container">
                 <div class="block-local"> 
-                  <div class="score">${gname["data"][i * 3]["score"]}<a class="ttq">/${gname["data"][i * 3]["totalQuestionNum"]}</a></div> 
+                  <div class="score"><a class="score-text">${gname["data"][i * 3]["score"]}<a><a class="ttq">/${gname["data"][i * 3]["totalQuestionNum"]}</a></div> 
                     <div class="name-local">${gname["data"][i * 3]["paperName"]}</div>
                 </div>
               </div>
@@ -103,7 +101,7 @@ function gen(){
             <div class="three-block-2" onclick="go('${gname["data"][i * 3 + 1]['pid']}')">
               <div class="container">
                 <div class="block-local"> 
-                  <div class="score">${gname["data"][i * 3 + 1]["score"]}<a class="ttq">/${gname["data"][i * 3 + 1]["totalQuestionNum"]}</a></div> 
+                  <div class="score"><a class="score-text">${gname["data"][i * 3 + 1]["score"]}<a><a class="ttq">/${gname["data"][i * 3 + 1]["totalQuestionNum"]}</a></div> 
                     <div class="name-local">${gname["data"][i * 3 + 1]["paperName"]}</div>
                 </div>
               </div>
@@ -111,7 +109,7 @@ function gen(){
             <div class="three-block-3" onclick="go('${gname["data"][i * 3 + 2]['pid']}')">
               <div class="container">
                 <div class="block-local"> 
-                  <div class="score">${gname["data"][i * 3 + 2]["score"]}<a class="ttq">/${gname["data"][i * 3 + 2]["totalQuestionNum"]}</a></div> 
+                  <div class="score"><a class="score-text">${gname["data"][i * 3 + 2]["score"]}<a><a class="ttq">/${gname["data"][i * 3 + 2]["totalQuestionNum"]}</a></div> 
                     <div class="name-local">${gname["data"][i * 3 + 2]["paperName"]}</div>
                 </div>
               </div>
@@ -124,7 +122,7 @@ function gen(){
             <div class="three-block-1" onclick="go('${gname["data"][i * 3]['pid']}')">
               <div class="container">
                 <div class="block-local"> 
-                  <div class="score">${gname["data"][i * 3]["score"]}<a class="ttq">/${gname["data"][i * 3 + 1]["totalQuestionNum"]}</a></div> 
+                  <div class="score"><a class="score-text">${gname["data"][i * 3]["score"]}<a><a class="ttq">/${gname["data"][i * 3 + 1]["totalQuestionNum"]}</a></div> 
                     <div class="name-local">${gname["data"][i * 3]["paperName"]}</div>
                 </div>
               </div>
@@ -132,7 +130,7 @@ function gen(){
             <div class="three-block-2" onclick="go('${gname["data"][i * 3 + 1]['pid']}')">
               <div class="container">
                 <div class="block-local"> 
-                  <div class="score">${gname["data"][i * 3 + 1]["score"]}<a class="ttq">/${gname["data"][i * 3 + 1]["totalQuestionNum"]}</a></div> 
+                  <div class="score"><a class="score-text">${gname["data"][i * 3 + 1]["score"]}<a><a class="ttq">/${gname["data"][i * 3 + 1]["totalQuestionNum"]}</a></div> 
                     <div class="name-local">${gname["data"][i * 3 + 1]["paperName"]}</div>
                 </div>
               </div>
@@ -145,7 +143,7 @@ function gen(){
             <div class="three-block-1" onclick="go('${gname["data"][i * 3]['pid']}')">
               <div class="container">  
                 <div class="block-local"> 
-                  <div class="score">${gname["data"][i * 3]["score"]}<a class="ttq">/${gname["data"][i * 3]["totalQuestionNum"]}</a></div> 
+                  <div class="score"><a class="score-text">${gname["data"][i * 3]["score"]}<a><a class="ttq">/${gname["data"][i * 3]["totalQuestionNum"]}</a></div> 
                     <div class="name-local">${gname["data"][i * 3]["paperName"]}</div>
                 </div>
               </div>
@@ -162,7 +160,7 @@ function gen(){
             <div class="two-block-1" onclick="go('${gname["data"][i * 2]['pid']}')">
               <div class="container">
                 <div class="block-local"> 
-                  <div class="score">${gname["data"][i * 2]["score"]}<a class="ttq">/${gname["data"][i * 2]["totalQuestionNum"]}</a></div> 
+                  <div class="score"><a class="score-text">${gname["data"][i * 2]["score"]}<a><a class="ttq">/${gname["data"][i * 2]["totalQuestionNum"]}</a></div> 
                     <div class="name-local">${gname["data"][i * 2]["paperName"]}</div>
                 </div>
               </div>
@@ -170,7 +168,7 @@ function gen(){
             <div class="two-block-2" onclick="go('${gname["data"][i * 2 + 1]['pid']}')">
               <div class="container">
                 <div class="block-local"> 
-                  <div class="score">${gname["data"][i * 2 + 1]["score"]}<a class="ttq">/${gname["data"][i * 2 + 1]["totalQuestionNum"]}</a></div> 
+                  <div class="score"><a class="score-text">${gname["data"][i * 2 + 1]["score"]}<a><a class="ttq">/${gname["data"][i * 2 + 1]["totalQuestionNum"]}</a></div> 
                     <div class="name-local">${gname["data"][i * 2 + 1]["paperName"]}</div>
                 </div>
               </div>
@@ -183,7 +181,7 @@ function gen(){
             <div class="two-block-1" onclick="go('${gname["data"][i * 2]['pid']}')">
               <div class="container">
                 <div class="block-local"> 
-                  <div class="score">${gname["data"][i * 2]["score"]}<a class="ttq">/${gname["data"][i * 2]["totalQuestionNum"]}</a></div> 
+                  <div class="score"><a class="score-text">${gname["data"][i * 2]["score"]}<a><a class="ttq">/${gname["data"][i * 2]["totalQuestionNum"]}</a></div> 
                     <div class="name-local">${gname["data"][i * 2]["paperName"]}</div>
                 </div>
               </div>
@@ -200,7 +198,7 @@ function gen(){
           <div class="one-block-1" onclick="go('${gname["data"][i]['pid']}')">
             <div class="container">
               <div class="block-local"> 
-                  <div class="score">${gname["data"][i]["score"]}<a class="ttq">/${gname["data"][i]["totalQuestionNum"]}</a></div> 
+                  <div class="score"><a class="score-text">${gname["data"][i]["score"]}<a><a class="ttq">/${gname["data"][i]["totalQuestionNum"]}</a></div> 
                     <div class="name-local">${gname["data"][i]["paperName"]}</div>
                 </div>
             </div>
@@ -211,9 +209,19 @@ function gen(){
     $('#data').html(code);
   }
 }
-gen();
-window.onresize = function(){
+$('#data').html(`
+  Nothing here!<br>
+  Get something done and come back!<br>
+  😒😒😒
+  `);
+@if($isExist)
   gen();
-}
+  window.onresize = function(){
+    gen();
+  }
+@endif
+
+
+
 </script>
 

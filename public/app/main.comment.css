@@ -126,7 +126,7 @@ a {
 }
 
 .comment {
-  z-index: 10000;
+  z-index: 10;
   overflow: auto;
   position: fixed;
   right: 0;

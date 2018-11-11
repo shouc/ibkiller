@@ -1,7 +1,7 @@
-
 @include('header', ['css' => '.check.css'])
 
 @include('nav', ['q' => true])
+@include('comment');
 
 <body>
     <div class="question bo" id="question">
@@ -164,6 +164,7 @@
             $("ua").html(convertNum(question[parseInt(localStorage.getItem("qnum")) + 1]["userAnswer"]));
             $("ca").html(convertNum(question[parseInt(localStorage.getItem("qnum")) + 1]["correct"]));
             localStorage.setItem("qnum", parseInt(localStorage.getItem("qnum")) + 1);
+            closeComment();
         } else {
             submit();
         }

@@ -148,6 +148,7 @@ class WebController extends Controller
                     $_session
                 )),
                 'isLoggedIn' => $isLoggedIn,
+                'paper' => $_paper,
             ]);
         } else {
             return redirect('/');
@@ -176,6 +177,8 @@ class WebController extends Controller
                     $result
                 )),
                 'isLoggedIn' => $isLoggedIn,
+                'paper' => $result['paper'],
+
             ]);
         } else {
             return redirect('/');
@@ -200,12 +203,13 @@ class WebController extends Controller
         $request->offsetSet('Session', $_session);
         $request->offsetSet('Range', $_page);
         $request->offsetSet('Amount', 20);
-        $result = $api->getUserPIDAPI($request)['result'];
+        $result = $api->getUserPIDAPI($request);
         return view('history', ['server' => env('APP_URL'), 
             'data' => base64_encode(json_encode(
-                $result
+                $result['result']
             )),
             'isLoggedIn' => $isLoggedIn,
+            'isExist' => $result['isExist']
         ]);
     }
 
@@ -303,29 +307,24 @@ class WebController extends Controller
 
     public function showDiscussionAPI(Request $request)
     {
-        if ($request->has(['Paper', 'Range'])) {
+        if ($request->has(['Paper', 'Range', 'Question'])) {
             $_session = Cookie::get('ibkiller_session');
             $api = $this->init();
             $_range = $request->Range;
             $_paper = $request->Paper;
+            $_question = $request->Question;
             $_length = $api->getQuestionNum($_paper);
-            $result = [];
-            for ($qnum = 0; $qnum < $_length; $qnum++) { 
-                $discussionReq = new Request();
-                $discussionReq->offsetSet('Paper', $_paper);
-                $discussionReq->offsetSet('Range', $_range);
-                $discussionReq->offsetSet('Session', $_session);
-                $discussionReq->offsetSet('Question', $qnum);
-                $discussionReq->offsetSet('Amount', 25);
-                $resultTemp = $api->showDiscussionAPI($discussionReq);
-                if (count($resultTemp['info'])){
-                    $resultTemp['isDiscussed'] = true;
-                } else {
-                    $resultTemp['isDiscussed'] = false;
-                }
-                array_push($result, $resultTemp);
-                unset($resultTemp);
-                unset($discussionReq);
+            $discussionReq = new Request();
+            $discussionReq->offsetSet('Paper', $_paper);
+            $discussionReq->offsetSet('Range', $_range);
+            $discussionReq->offsetSet('Session', $_session);
+            $discussionReq->offsetSet('Question', $_question);
+            $discussionReq->offsetSet('Amount', 25);
+            $result = $api->showDiscussionAPI($discussionReq);
+            if (count($result['info'])){
+                $result['isDiscussed'] = true;
+            } else {
+                $result['isDiscussed'] = false;
             }
             return $result;
         }
