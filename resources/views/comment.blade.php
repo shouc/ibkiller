@@ -27,9 +27,8 @@
     <ul class="list" id="comment-content"></ul>
 </div>
 <script type="text/javascript">
-    height = document.body.scrollHeight;
+    height = $(window).height();
     width = document.body.scrollWidth;
-
     if ($("#q-container").height() < height && height >= 600){
         height = $(document).height();
     }
@@ -164,4 +163,5 @@
         $("#comment").fadeIn("fast");
         genComments(currentPage);
     }
+
 </script>

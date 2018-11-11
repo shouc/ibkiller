@@ -31,6 +31,21 @@ class AppController extends Controller
         return true;
     }
 
+    public function addUnreadMessageLocalAPI($_session, $_to, $_context){
+        DB::table('message')
+            ->insert([
+                'from' => $_session,
+                'from_name' => $_user->name,
+                'to' => $_to,
+                'read' => 0,
+                'context' => $_context,
+                'time' => time()
+            ]);
+        return ["success" => true, 
+            "info" => ''
+        ];             
+    }
+
     public function checkPassword($password)
     {
         if (strlen($password) < 8) {
@@ -652,7 +667,7 @@ class AppController extends Controller
                     'from' => $_session,
                     'from_name' => $_user->name,
                     'to' => $_to,
-                    'read' => false,
+                    'read' => 0,
                     'context' => $_context,
                     'time' => time()
                 ]);
@@ -679,7 +694,7 @@ class AppController extends Controller
                 ];
             }
             $messages = DB::table('message')
-                ->where(['to', $_user->name])
+                ->where('to', $_user->name)
                 ->get();
             return ["success" => true, 
                 "info" => ''
@@ -700,16 +715,51 @@ class AppController extends Controller
     }
 
     public function readMessageAPI(Request $request){
-        //
+        if ($request->has(['Session', 'ID'])) {
+            $_session = $request->Session;
+            $_id = $request->ID;
+            $_user = $this->sessionVal($_session)->first();
+            if ($_user == "[]"){
+                return ["success" => false, 
+                    "info" => 'Invalid Session'
+                ];
+            }
+            $result = DB::table('discussion')
+                ->where([['id', $_id], ['to', $_session]])
+                ->get();
+            if ($result == "[]"){
+                return ["success" => false, 
+                        "info" => 'No comment'];
+            }
+            DB::table('discussion')
+                ->where([['id', $_id], ['to', $_session]])
+                ->update(['read' => 1]);
+            return ["success" => true, 
+                    "info" => ''];
+        }
     }
     public function readMessage(Request $request){
         return response()->json($this->readMessageAPI($request));
     }
-    public function delMessageAPI(Request $request){
-        //
-    }
-    public function delMessage(Request $request){
-        return response()->json($this->delMessageAPI($request));
-    }
 
+    public function readAllMessageAPI(Request $request){
+        if ($request->has(['Session', 'ID'])) {
+            $_session = $request->Session;
+            $_id = $request->ID;
+            $_user = $this->sessionVal($_session)->first();
+            if ($_user == "[]"){
+                return ["success" => false, 
+                    "info" => 'Invalid Session'
+                ];
+            }
+            DB::table('discussion')
+                ->where(['to', $_session])
+                ->update(['read' => 1]);
+            return ["success" => true, 
+                    "info" => ''];
+        }
+    }
+    public function readAllMessage(Request $request){
+        return response()->json($this->readAllMessageAPI($request));
+    }
 }

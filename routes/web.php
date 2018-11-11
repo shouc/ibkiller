@@ -78,3 +78,10 @@ Route::get('/likeDiscussion', 'WebController@likeDiscussionAPI')
 Route::get('/unlikeDiscussion', 'WebController@unlikeDiscussionAPI')
 	->name('web.unlikeDiscussion');
 
+Route::get('/showMessage', 'WebController@showMessageAPI')
+	->name('web.showMessage');
+Route::get('/readMessage', 'WebController@readMessageAPI')
+	->name('web.readMessage');
+Route::get('/readAllMessage', 'WebController@readAllMessageAPI')
+	->name('web.readAllMessage');
+

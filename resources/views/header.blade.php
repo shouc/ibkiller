@@ -1,3 +1,5 @@
+
+<!DOCTYPE html>
 <head> 
     <meta charset="UTF-8" /> 
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /> 
@@ -30,10 +32,21 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
     <script src="{{ $server }}/alert/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="{{ $server }}/alert/sweetalert2.min.css">
-    
-    
+    <link href="https://fonts.proxy.ustclug.org/css?family=Source+Sans+Pro" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js"></script>
 
-
-
-    <link href="https://fonts.proxy.ustclug.org/css?family=Source+Sans+Pro" rel="stylesheet" /> 
 </head> 
+<script type="text/javascript">
+    window.onload=function(){ 
+      renderMathInElement(document.getElementById('q-container'), {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "\\[", right: "\\]", display: true},
+            {left: "$", right: "$", display: false},
+        ]
+      });
+    }
+    
+</script>

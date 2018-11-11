@@ -58,12 +58,12 @@ function size(){
             <div class="card-body"> 
               <h5 class="card-title">
                 ${_data[i]['paper'][k][0]}
-                ${_data[i]['paper'][k][3] ? '<span class="badge badge-success">Done</span>' : '<span class="badge badge-warning">Not Done</span>'} 
+                ${_data[i]['paper'][k][4] == 2 ? '<span class="badge badge-success">New</span>': _data[i]['paper'][k][3] ? '<span class="badge badge-success">Done</span>' : '<span class="badge badge-warning">Not Done</span>'} 
               </h5>
               <p class="card-text">
                 Total Question Number: <strong>${_data[i]['paper'][k][1]}</strong>
                 <br>
-                Paper Type: <em>${_data[i]['paper'][k][4] ? 'Multiple Choice' : 'Short Answer'}</em>
+                Paper Type: <em>${_data[i]['paper'][k][4] == 1 ? 'Multiple Choice' : 'Short Answer'}</em>
               </p>
               <a class="btn btn-primary" href="/question?Paper=${_data[i]['paper'][k][0]}">
                 Get Started

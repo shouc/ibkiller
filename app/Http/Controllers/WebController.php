@@ -140,16 +140,31 @@ class WebController extends Controller
             $_paper = $request->Paper;
             $questionReq = new Request();
             $questionReq->offsetSet('Paper', $_paper);
-            return view('question', ['server' => env('APP_URL'), 
-                'data' => base64_encode(json_encode(
-                    $api->getDetailOfPaperAPI($questionReq)['result']
-                )),
-                'session' => base64_encode(json_encode(
-                    $_session
-                )),
-                'isLoggedIn' => $isLoggedIn,
-                'paper' => $_paper,
-            ]);
+            $result = $api->getDetailOfPaperAPI($questionReq)['result'];
+            if ($result[0]['type'] == 1){
+                return view('question', ['server' => env('APP_URL'), 
+                    'data' => base64_encode(json_encode(
+                        $result
+                    )),
+                    'session' => base64_encode(json_encode(
+                        $_session
+                    )),
+                    'isLoggedIn' => $isLoggedIn,
+                    'paper' => $_paper,
+                ]);
+            } else {
+                return view('questionLong', ['server' => env('APP_URL'), 
+                    'data' => base64_encode(json_encode(
+                        $result
+                    )),
+                    'session' => base64_encode(json_encode(
+                        $_session
+                    )),
+                    'isLoggedIn' => $isLoggedIn,
+                    'paper' => $_paper,
+                ]);
+            }
+            
         } else {
             return redirect('/');
         }
@@ -393,6 +408,52 @@ class WebController extends Controller
             return $result;
         }
     }
+
+    public function showMessageAPI(Request $request)
+    {
+        if ($request->has(['Amount', 'Range'])) {
+            $_session = Cookie::get('ibkiller_session');
+            $api = $this->init();
+            if (!$_session) {
+                return ["success" => false, 
+                        "info" => "Not Logged In"
+                    ];
+            }
+            $request->offsetSet('Session', $_session);
+            $result = $api->showMessageAPI($request);
+            return $result;
+        }
+    }
+
+    public function readMessageAPI(Request $request)
+    {
+        if ($request->has(['ID'])) {
+            $_session = Cookie::get('ibkiller_session');
+            $api = $this->init();
+            if (!$_session) {
+                return ["success" => false, 
+                        "info" => "Not Logged In"
+                    ];
+            }
+            $request->offsetSet('Session', $_session);
+            $result = $api->readMessageAPI($request);
+            return $result;
+        }
+    }
+
+    public function readAllMessageAPI(Request $request)
+    {
+        if ($request->has(['ID'])) {
+            $_session = Cookie::get('ibkiller_session');
+            $api = $this->init();
+            if (!$_session) {
+                return ["success" => false, 
+                        "info" => "Not Logged In"
+                    ];
+            }
+            $request->offsetSet('Session', $_session);
+            $result = $api->readAllMessageAPI($request);
+            return $result;
+        }
+    }   
 }
-
-

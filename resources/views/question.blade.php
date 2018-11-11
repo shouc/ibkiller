@@ -4,7 +4,6 @@
 @include('nav', ['q' => true]);
 @include('comment');
 
-
 <body>
 
     <div class="question" id="question">
@@ -80,7 +79,8 @@
 
     question = $.parseJSON(window.atob('{{ $data }}'));
     width = window.innerWidth;
-    height = window.innerHeight;
+    height = $(window).height();
+
     localStorage.setItem("qnum", 0);
     $("#goBack").hide();
 
@@ -101,6 +101,7 @@
         }).then((result) => {
           if (result.value) {
             url = localStorage.getItem('subject');
+            clearRecord();
             if (url){
               window.location.href = url;
             } else {
@@ -135,8 +136,8 @@
           confirmButtonText: 'Check Answers'
         }).then((result) => {
           if (result.value) {
-            $('#submitAnswer').click();
             clearRecord();
+            $('#submitAnswer').click();
           }
         })
       
@@ -232,6 +233,7 @@
             $("#q" + (parseInt(localStorage.getItem("qnum")) + 1)).fadeIn();
             $("#question").fadeIn();
             localStorage.setItem("qnum", parseInt(localStorage.getItem("qnum")) + 1);
+            closeComment();
         } else {
             submit();
         }
@@ -262,6 +264,7 @@
             $("#ba" + (parseInt(localStorage.getItem("qnum")))).removeClass("done");
             $("#l" + (parseInt(localStorage.getItem("qnum")))).removeClass("done");
             localStorage.setItem("qnum", parseInt(localStorage.getItem("qnum")) - 1);
+            closeComment();
         } else {
             $("#goBack").hide();
             $("#q" + localStorage.getItem("qnum")).hide();
@@ -284,11 +287,14 @@
             $("#ba" + (parseInt(localStorage.getItem("qnum")))).removeClass("done");
             $("#l" + (parseInt(localStorage.getItem("qnum")))).removeClass("done");
             localStorage.setItem("qnum", parseInt(localStorage.getItem("qnum")) - 1);
+            closeComment();
         }
-        
     });
     $("#question").css("margin-right", (width / 15) + "px");
-    $("#question").css("margin-left", (width / 15) + "px");
+    $("#question").css("margin-left", (width / 10) + "px");
+    if (width < 700){
+        $("#question").css("margin-left", (width / 15) + "px");
+    } 
     $("#question").css("margin-bottom", (width / 15) + "px");
     $("#b1").click(function(){
       $("#b1").css("background-color", "#273c75");
@@ -372,6 +378,7 @@
     if (width < 700){
         $("timeline").hide();
     }
+    
 </script>
 <script>
     if(!{{$isLoggedIn ? 1 : 0}}){

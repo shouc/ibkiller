@@ -88,7 +88,9 @@
         }).then((result) => {
           if (result.value) {
             url = localStorage.getItem('subject');
+            clearRecord();
             if (url){
+
               window.location.href = url;
             } else {
               window.location.href = '/';
@@ -97,7 +99,6 @@
         });
     }
 
-    clearRecord();
     function goTo(i){
         
             if (i > 0){
@@ -189,6 +190,7 @@
             $("#ba" + (parseInt(localStorage.getItem("qnum")))).removeClass("done");
             $("#l" + (parseInt(localStorage.getItem("qnum")))).removeClass("done");
             localStorage.setItem("qnum", parseInt(localStorage.getItem("qnum")) - 1);
+            closeComment();
         } else {
             $("#goBack").hide();
             $("#q" + localStorage.getItem("qnum")).hide();
@@ -205,11 +207,15 @@
             $("ua").html(convertNum(question[parseInt(localStorage.getItem("qnum")) - 1]["userAnswer"]));
             $("ca").html(convertNum(question[parseInt(localStorage.getItem("qnum")) - 1]["correct"]));
             localStorage.setItem("qnum", parseInt(localStorage.getItem("qnum")) - 1);
+            closeComment();
         }
         
     });
     $("#question").css("margin-right", (width / 15) + "px");
-    $("#question").css("margin-left", (width / 15) + "px");
+    $("#question").css("margin-left", (width / 10) + "px");
+    if (width < 700){
+        $("#question").css("margin-left", (width / 15) + "px");
+    } 
     $("#question").css("margin-bottom", (width / 15) + "px");
     if (width > 700){
       $("#bbar").css("margin-right", (width / 3.8) + "px");
@@ -251,7 +257,7 @@
     }
     $("ua").html(convertNum(question[0]["userAnswer"]));
     $("ca").html(convertNum(question[0]["correct"]));
-    renderMathInElement(document.body);
+    
 
 </script>
 <script type="text/javascript">
