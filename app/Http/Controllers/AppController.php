@@ -383,13 +383,13 @@ class AppController extends Controller
             } else {
                 $subjectInfo = DB::table('subjects')
                     ->where('name', $_name)
-                    ->first();
+                    ->get();
                 if (count($subjectInfo)){
                     DB::table('favorite')->insert([
                         'session' => $_session, 
                         'name' => $_name,
-                        'img' => $subjectInfo->img,
-                        'ibg' => $subjectInfo->ibg,
+                        'img' => $subjectInfo->first()->img,
+                        'ibg' => $subjectInfo->first()->ibg,
                     ]);
                     return ["success" => true, 
                         "info" => ''
