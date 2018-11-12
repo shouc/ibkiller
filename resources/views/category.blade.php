@@ -65,7 +65,7 @@ function size(){
                 <br>
                 Paper Type: <em>${_data[i]['paper'][k][4] == 1 ? 'Multiple Choice' : 'Short Answer'}</em>
               </p>
-              <a class="btn btn-primary" href="/question?Paper=${_data[i]['paper'][k][0]}">
+              <a class="btn btn-primary" href="/question?Paper=${window.btoa(_data[i]['paper'][k][0])}">
                 Get Started
               </a>
             </div>

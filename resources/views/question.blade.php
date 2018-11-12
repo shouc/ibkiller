@@ -123,7 +123,7 @@
             }
         }
         answer = arr + "]}";
-        paper = $_GET['Paper'];
+        paper = window.atob($_GET['Paper']);
         $('#subPaper').val(paper);
         $('#subAnswer').val(answer);
         swal({ 

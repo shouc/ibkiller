@@ -137,10 +137,13 @@ class WebController extends Controller
                 $isLoggedIn = false;
             }
             $api = $this->init();
-            $_paper = $request->Paper;
+            $_paper = base64_decode($request->Paper);
             $questionReq = new Request();
             $questionReq->offsetSet('Paper', $_paper);
             $result = $api->getDetailOfPaperAPI($questionReq)['result'];
+            if (!$result){
+                return "Sorry, this paper is not available right now!";
+            }
             if ($result[0]['type'] == 1){
                 return view('question', ['server' => env('APP_URL'), 
                     'data' => base64_encode(json_encode(
