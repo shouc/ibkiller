@@ -163,9 +163,8 @@
         genComments(currentPage);
     }
     function del(id){
-        $.get(`/delDiscussion?ID=${id}`, function(data,status){ commentErrors(data) });
-        goCPage(1);
-
+        $.get(`/delDiscussion?ID=${id}`, function(data,status){ commentErrors(data); goCPage(1); });
+        
     }
     function makeComment(s){
         $("#comment-area").val(s);
@@ -174,8 +173,7 @@
         document.getElementById("comment-area").focus();
     }
     function sendComment(){
-        $.get(`/addDiscussion?Paper={{$paper}}&Context=${$('#comment-area').val()}&Question=${localStorage.getItem("qnum")}`, function(data,status){ commentErrors(data) });
-        goCPage(1);
+        $.get(`/addDiscussion?Paper={{$paper}}&Context=${$('#comment-area').val()}&Question=${localStorage.getItem("qnum")}`, function(data,status){ commentErrors(data);goCPage(1); });
     }
     function endComment(){
         $("#comment-area").val('');
