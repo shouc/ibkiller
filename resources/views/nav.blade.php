@@ -3,8 +3,10 @@
   <div id="navbg" class="nav-local-h">
    <nav class="navbar navbar-expand-sm navbar-light " class="nav-local">
     <ul class="navbar-nav mr-auto mt-lg-0">
-      <button class="btn my-2 my-sm-0" type="submit" onclick="leave()">Leave</button>
-      &nbsp;&nbsp;
+
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:leave()">Leave</a>
+      </li>
     </ul>
     @if(!$isLoggedIn)
     <form class="form-inline my-2 my-lg-0" id="notLoginButtons">

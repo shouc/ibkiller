@@ -602,6 +602,14 @@ strong {
     position: fixed;left: 0px;top: 0px; right:0px;
   }
   .heart-big {
-    text-align: right;
-    margin-top: -88px;
+
+    float: right;
+    width: 24px;
+    margin-top: -87px;
+  }
+  .btn-app{
+    margin-bottom: 8px;
+  }
+  .btn-web{
+    margin-bottom: 8px;
   }

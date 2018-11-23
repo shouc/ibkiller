@@ -7,9 +7,9 @@
     <h1 class="intro__hello">Hello! <span class="emoji wave-hand animated"></span> </h1> 
     <h2 class="intro__tagline"> <span class="name"> <img style="margin-bottom:7px;height:42px;width;border-radius:8px" src="{{ $server }}/img/icon.png" /> IBKiller </span> here, a free Questionbank for IBDP students. </h2> 
     <a class="status"> 
-      <img src="{{ $server }}/img/appstore.svg" />
+      <img src="{{ $server }}/img/appstore.svg" class="btn-app" onclick='alert("Developing")'/>
       &nbsp;
-      <button class="btn btn-back" id="goNext" onclick='$("html, body").animate({ scrollTop: $("#data").offset().top }, {duration: 100,easing: "swing"});'>Use Web Version</button>
+      <button class="btn btn-web" onclick='$("html, body").animate({ scrollTop: $("#data").offset().top }, {duration: 100,easing: "swing"});'>Use Web Version</button>
     </a>
     <h3 class="intro__contact"> <span>Get in touch</span> <span class="emoji pointer"></span> <span> <a href="mailto:ib@zwang.tech?subject=Inquiry about IBKiller" target="_blank" class="highlight-link">ib@zwang.tech</a> </span> </h3> 
    </header> 

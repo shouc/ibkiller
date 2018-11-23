@@ -44,6 +44,7 @@
         <button class="btn btn-back" id="goNext">Next</button>
 
     </div>
+  </div>
 </body>
 <form style="display: none;" action='/userCommitAnswer' method="get">
   <input name='Paper' id="subPaper" value=''>
@@ -52,6 +53,7 @@
 </form>
 <timeline class="timeline"></timeline>
 <script type="text/javascript">
+
       var $_GET = (function(){
         var url = window.document.location.href.toString();
         var u = url.split("?");
@@ -85,7 +87,7 @@
     $("#goBack").hide();
 
     function clearRecord(){
-        for (var i = 0; i < question.length; i++) {
+        for (var i = 0; i < 30; i++) {
             localStorage.setItem("ans" + i, 10);
         }
     }
@@ -128,7 +130,7 @@
         $('#subAnswer').val(answer);
         swal({ 
           title: 'Done!', 
-          text: 'We wll lead you to review your answers!', 
+          text: 'We will lead you to review your answers!', 
           type: 'success',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',

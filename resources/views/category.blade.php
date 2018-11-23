@@ -16,9 +16,7 @@
   </h1>
 
   <div class="line" id="line"></div>
-  <div class="content" style="text-align: left;" id="content">
-    
-
+    <div class="content" style="text-align: left;" id="content">
   </div>
 </k>
 <ma class="ma">

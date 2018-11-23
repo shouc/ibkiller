@@ -12,6 +12,10 @@
 
   <div class="line" id="line"></div>
   <div class="content" id="data">
+
+
+
+
 </div>
 </k>
 
@@ -20,7 +24,27 @@
 
 </body>
 
+
+
 <script type="text/javascript">
+
+var $_GET = (function(){
+    var url = window.document.location.href.toString();
+    var u = url.split("?");
+    if(typeof(u[1]) == "string"){
+        u = u[1].split("&");
+        var get = {};
+        for(var i in u){
+            var j = u[i].split("=");
+            get[j[0]] = j[1];
+        }
+        return get;
+    } else {
+        return {};
+    }
+})();
+
+
 res = $.parseJSON(window.atob('{{ $data }}'));
 arr = [];
 tHTML = [];
@@ -206,7 +230,21 @@ function gen(){
         </div>`;
       }
     }
-    $('#data').html(code);
+    pHTML = ''
+    currentPage = $_GET['Page'] ? $_GET['Page'] : 1;
+    for (var i = 1; i <= {{$pageNum}}; i++) {
+      pHTML += `<li class="page-item ${currentPage == i ? 'active': ''}"><a class="page-link" href="?Page=${i}">${i}</a></li>`
+    }
+    $('#data').html(code + `
+      <div class="paging">
+        <ul class="pagination justify-content-center">
+          <li class="page-item ${currentPage == 1 ? 'disabled' : ''}"><a class="page-link" href="?Page=${parseInt(currentPage) - 1}">Previous</a></li>
+            ${pHTML}
+          <li class="page-item ${currentPage == {{$pageNum}} ? 'disabled' : ''}"><a class="page-link" href="?Page=${parseInt(currentPage) + 1}">Next</a></li>
+        </ul>
+      </div>
+      `);
+
   }
 }
 $('#data').html(`
@@ -220,8 +258,6 @@ $('#data').html(`
     gen();
   }
 @endif
-
-
 
 </script>
 

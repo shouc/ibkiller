@@ -55,6 +55,10 @@ Route::get('/question', 'WebController@question')
 	->name('web.question');
 Route::get('/check', 'WebController@check')
 	->name('web.check');
+
+Route::get('/message', 'WebController@message')
+	->name('web.message');
+
 Route::get('/userLogin', 'WebController@userLoginAPI')
 	->name('web.userLogin');
 Route::get('/userRegister', 'WebController@userRegisterAPI')

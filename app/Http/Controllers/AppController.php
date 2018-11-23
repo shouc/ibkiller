@@ -195,7 +195,7 @@ class AppController extends Controller
                         'correct' => $i[0]->correct,
                         'userAnswer' => $i[0]->answer,
                     ]);
-                    $score += $i[0]->correct;
+                    $score += $i[0]->correct == $i[0]->answer;
                 }
                 return ["result" => ["score" => $score, 
                     "info" => $allDataTemp,
@@ -240,7 +240,7 @@ class AppController extends Controller
                 $score = 0;
                 $totalQuestionNum = 0;
                 foreach ($onePID as $k) {
-                    $score += (int)$k->correct;
+                    $score += ((int) $k->correct == (int) $k->answer);
                     $totalQuestionNum += 1;
                 }
                 array_push($allDataTemp, [
@@ -251,6 +251,7 @@ class AppController extends Controller
                     'paperName' => $onePID[0]->paper,
                 ]);
             }
+            $pageNum = (int) (count($allDataTemp) / $_amount - 0.000000000001) + 1;
             foreach ($allDataTemp as $key => $i) {
                 if (in_array($key, range(($_range-1)*$_amount, $_range*$_amount - 1)))
                 {
@@ -258,9 +259,9 @@ class AppController extends Controller
                 }
             }
             if (count($allDataTempRes)){
-                return ["result" => $allDataTempRes, "isExist" => true];
+                return ["result" => $allDataTempRes, "isExist" => true, 'pageNum' => $pageNum];
             } else {
-                return ["result" => $allDataTempRes, "isExist" => false];
+                return ["result" => $allDataTempRes, "isExist" => false, 'pageNum' => $pageNum];
             }
         }
     }
@@ -612,12 +613,14 @@ class AppController extends Controller
             $_question = $request->Question;
             $_paper = $request->Paper;
             $_session = $request->Session;
-            $discussion = DB::table('discussion')
+            $discussion = array_reverse(DB::table('discussion')
                 ->where([
                     ['paper', $_paper],
                     ['question', $_question]
                 ])
-                ->get();
+                ->get()
+                ->toArray()
+            );
             $likes = DB::table('likes')
                 ->where([
                     ['session', $_session],
@@ -643,7 +646,9 @@ class AppController extends Controller
                 }
             }
             return ["success" => true, 
-                "info" => $allDataTempRes];
+                    "info" => $allDataTempRes,
+                    "pageNum" => (int) (count($discussion) / $_amount - 0.000000000001) + 1
+            ];
         }
     }
 
@@ -696,9 +701,7 @@ class AppController extends Controller
             $messages = DB::table('message')
                 ->where('to', $_user->name)
                 ->get();
-            return ["success" => true, 
-                "info" => ''
-            ];
+            
             foreach ($messages as $key => $i) {
                     if (in_array($key, range(($_range-1)*$_amount, $_range*$_amount - 1)))
                     {

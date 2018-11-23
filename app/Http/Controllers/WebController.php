@@ -220,14 +220,28 @@ class WebController extends Controller
         $api = $this->init();
         $request->offsetSet('Session', $_session);
         $request->offsetSet('Range', $_page);
-        $request->offsetSet('Amount', 20);
+        $request->offsetSet('Amount', 8);
         $result = $api->getUserPIDAPI($request);
         return view('history', ['server' => env('APP_URL'), 
             'data' => base64_encode(json_encode(
                 $result['result']
             )),
             'isLoggedIn' => $isLoggedIn,
-            'isExist' => $result['isExist']
+            'isExist' => $result['isExist'],
+            'pageNum' => $result['pageNum']
+        ]);
+    }
+
+    public function message(Request $request)
+    {
+        $_session = Cookie::get('ibkiller_session');
+        if ($_session){
+            $isLoggedIn = true;
+        } else {
+            $isLoggedIn = false;
+        }
+        return view('mateRegister', ['server' => env('APP_URL'), 
+            'isLoggedIn' => $isLoggedIn,
         ]);
     }
 
@@ -337,7 +351,7 @@ class WebController extends Controller
             $discussionReq->offsetSet('Range', $_range);
             $discussionReq->offsetSet('Session', $_session);
             $discussionReq->offsetSet('Question', $_question);
-            $discussionReq->offsetSet('Amount', 25);
+            $discussionReq->offsetSet('Amount', 5);
             $result = $api->showDiscussionAPI($discussionReq);
             if (count($result['info'])){
                 $result['isDiscussed'] = true;

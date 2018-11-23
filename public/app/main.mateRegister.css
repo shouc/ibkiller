@@ -334,3 +334,38 @@ a {
   margin-top: 30px;
 }
 
+.is-pay {
+  width: 180px;
+  height: 180px;
+  margin-top: 200px;
+  border: 1px;
+  border-style:solid; 
+  border-color: #aaa;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.is-pay-title {
+  margin-top: 20px;
+  font-weight: 100;
+  font-size: 30px;
+  color: #888;
+}
+
+.is-pay-desc {
+  margin-top: -10px;
+  font-weight: 100;
+  font-size: 18px;
+  color: #666;
+}
+
+.is-pay-price {
+  margin-top: -10px;
+  font-weight: 100;
+  font-size: 22px;
+  color: #666;
+}
+
+.is-pay-year {
+  font-size: 18px;
+}

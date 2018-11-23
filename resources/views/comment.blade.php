@@ -94,7 +94,10 @@
             function(data,status){
                 commentData = data['info'];
                 isDiscussed = data['isDiscussed'];
+                pageNum = data['pageNum'];
                 cHTML = "";
+                pHTML = "";
+                
                 if (isDiscussed){
                     for (var i = 0; i < commentData.length; i++) {
                         cHTML += `<li class="media card card-local">
@@ -112,7 +115,19 @@
                             </div>
                           </li>`
                     }
-                    $("#comment-content").html(cHTML);
+                    for (var i = 1; i <= pageNum; i++) {
+                      pHTML += `<li class="page-item ${currentPage == i ? 'active': ''}"><a class="page-link" href="javascript:goCPage(${i})">${i}</a></li>`
+                    }
+                    $("#comment-content").html(cHTML + `
+                        <div class="paging-C">
+                            <ul class="pagination justify-content-center">
+                              <li class="page-item ${currentPage == 1 ? 'disabled' : ''}"><a class="page-link" href="javascript:previousCPage()">Previous</a></li>
+                                ${pHTML}
+                              <li class="page-item ${currentPage == pageNum ? 'disabled' : ''}"><a class="page-link" href="javascript:nextCPage();">Next</a></li>
+                            </ul>
+                          </div>
+
+                    `);
                 } else {
                     $("#comment-content").html(`
                         <li class="card-local" style="text-align: center">
@@ -135,9 +150,21 @@
             }
         }
     }
+    function goCPage(p){
+        currentPage = p;
+        genComments(p);
+    }
+    function nextCPage(){
+        currentPage += 1;
+        genComments(currentPage);
+    }
+    function previousCPage(){
+        currentPage -= 1;
+        genComments(currentPage);
+    }
     function del(id){
         $.get(`/delDiscussion?ID=${id}`, function(data,status){ commentErrors(data) });
-        genComments(currentPage);
+        goCPage(1);
 
     }
     function makeComment(s){
@@ -148,7 +175,7 @@
     }
     function sendComment(){
         $.get(`/addDiscussion?Paper={{$paper}}&Context=${$('#comment-area').val()}&Question=${localStorage.getItem("qnum")}`, function(data,status){ commentErrors(data) });
-        genComments(currentPage);
+        goCPage(1);
     }
     function endComment(){
         $("#comment-area").val('');
@@ -161,7 +188,7 @@
     }
     function openComment(){
         $("#comment").fadeIn("fast");
-        genComments(currentPage);
+        goCPage(1);
     }
 
 </script>
