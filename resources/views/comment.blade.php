@@ -115,15 +115,29 @@
                             </div>
                           </li>`
                     }
-                    for (var i = 1; i <= pageNum; i++) {
-                      pHTML += `<li class="page-item ${currentPage == i ? 'active': ''}"><a class="page-link" href="javascript:goCPage(${i})">${i}</a></li>`
+                    if (pageNum < 4){
+                      for (var j = 1; j <= pageNum; j++) {
+                        pHTML += `<li class="page-item ${currentPage == j ? 'active': ''}"><a class="page-link" href="javascript:goCPage(${j})">${j}</a></li>`
+                      }
+                    } else {
+                      for (var j = 1; j <= pageNum; j++) {
+                        if (Math.abs(currentPage - j) < 3){
+                          pHTML += `<li class="page-item ${currentPage == j ? 'active': ''}"><a class="page-link" href="javascript:goCPage(${j})">${j}</a></li>`
+                        }
+                      }
+                      if (currentPage == 1){
+                        pHTML += `<li class="page-item"><a class="page-link" href="javascript:goCPage(4)">4</a></li><li class="page-item"><a class="page-link" href="javascript:goCPage(5)">5</a></li>`
+                      }
+                      if (currentPage == 2){
+                        pHTML += `<li class="page-item"><a class="page-link" href="javascript:goCPage(5)">5</a></li>`
+                      }
                     }
                     $("#comment-content").html(cHTML + `
                         <div class="paging-C">
                             <ul class="pagination justify-content-center">
-                              <li class="page-item ${currentPage == 1 ? 'disabled' : ''}"><a class="page-link" href="javascript:previousCPage()">Previous</a></li>
+                              <li class="page-item ${currentPage == 1 ? 'disabled' : ''}"><a class="page-link" href="javascript:previousCPage()"><</a></li>
                                 ${pHTML}
-                              <li class="page-item ${currentPage == pageNum ? 'disabled' : ''}"><a class="page-link" href="javascript:nextCPage();">Next</a></li>
+                              <li class="page-item ${currentPage == pageNum ? 'disabled' : ''}"><a class="page-link" href="javascript:nextCPage();">></a></li>
                             </ul>
                           </div>
 

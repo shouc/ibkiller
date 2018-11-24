@@ -32,15 +32,30 @@
       }
       pMsgHTML = '';
       if (pageNum > 1){
-        for (var j = 1; j <= pageNum; j++) {
-          pMsgHTML += `<li class="page-item ${currentMsgPage == j ? 'active': ''}"><a class="page-link" href="javascript:goMsgPage(${j})">${j}</a></li>`
+        if (pageNum < 4){
+          for (var j = 1; j <= pageNum; j++) {
+            pMsgHTML += `<li class="page-item ${currentMsgPage == j ? 'active': ''}"><a class="page-link" href="javascript:goMsgPage(${j})">${j}</a></li>`
+          }
+        } else {
+          for (var j = 1; j <= pageNum; j++) {
+            if (Math.abs(currentMsgPage - j) < 3){
+              pMsgHTML += `<li class="page-item ${currentMsgPage == j ? 'active': ''}"><a class="page-link" href="javascript:goMsgPage(${j})">${j}</a></li>`
+            }
+          }
+          if (currentMsgPage == 1){
+            pMsgHTML += `<li class="page-item"><a class="page-link" href="javascript:goMsgPage(4)">4</a></li><li class="page-item"><a class="page-link" href="javascript:goMsgPage(5)">5</a></li>`
+          }
+          if (currentMsgPage == 2){
+            pMsgHTML += `<li class="page-item"><a class="page-link" href="javascript:goMsgPage(5)">5</a></li>`
+          }
         }
+        
         pMsgHTML = `
-          <div class="paging-C">
+          <div>
             <ul class="pagination justify-content-center">
-              <li class="page-item ${currentMsgPage == 1 ? 'disabled' : ''}"><a class="page-link" href="javascript:previousMsgPage()">Previous</a></li>
+              <li class="page-item ${currentMsgPage == 1 ? 'disabled' : ''}"><a class="page-link" href="javascript:previousMsgPage()"><</a></li>
                 ${pMsgHTML}
-              <li class="page-item ${currentMsgPage == pageNum ? 'disabled' : ''}"><a class="page-link" href="javascript:nextMsgPage();">Next</a></li>
+              <li class="page-item ${currentMsgPage == pageNum ? 'disabled' : ''}"><a class="page-link" href="javascript:nextMsgPage();">></a></li>
             </ul>
           </div>`
       }
