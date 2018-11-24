@@ -1,3 +1,4 @@
+@include('message')
 @if ($q)
   <link rel="stylesheet" type="text/css" href="{{ $server }}/app/main.comment.css">
   <div id="navbg" class="nav-local-h">
@@ -20,6 +21,10 @@
     </form>
     @endif
     @if($isLoggedIn)
+    <button data-toggle="modal" data-target=".bd-example-modal-lg" class="btn btn-outline-success">
+      <msg>Message</msg> 
+    </button>
+    &nbsp;&nbsp;
     <form class="form-inline my-2 my-lg-0" id="loginButtons" action="/userLogout" method="get">
       @csrf
       <button type="submit" class="btn btn-success my-2 my-sm-0">
@@ -58,6 +63,10 @@
     </form>
     @endif
     @if($isLoggedIn)
+    <button data-toggle="modal" data-target=".bd-example-modal-lg" class="btn btn-outline-success">
+      <msg>Message</msg> 
+    </button>
+    &nbsp;&nbsp;
     <form class="form-inline my-2 my-lg-0" id="loginButtons" action="/userLogout" method="get">
       @csrf
       <button type="submit" class="btn btn-success my-2 my-sm-0">
@@ -180,4 +189,12 @@
   }
   @endif
   
+</script>
+
+<script type="text/javascript">
+  $.get('/countUnreadMessage', function(data,status){
+    if (data['info'] > 0){
+      $('msg').html(`Messages <span class="badge badge-success">${data['info']}</span>`)
+    }
+  })
 </script>

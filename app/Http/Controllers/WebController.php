@@ -234,14 +234,7 @@ class WebController extends Controller
 
     public function message(Request $request)
     {
-        $_session = Cookie::get('ibkiller_session');
-        if ($_session){
-            $isLoggedIn = true;
-        } else {
-            $isLoggedIn = false;
-        }
-        return view('mateRegister', ['server' => env('APP_URL'), 
-            'isLoggedIn' => $isLoggedIn,
+        return view('message', ['server' => env('APP_URL'), 
         ]);
     }
 
@@ -366,6 +359,9 @@ class WebController extends Controller
     {
         if ($request->has(['Context', 'Paper', 'Question'])) {
             $_session = Cookie::get('ibkiller_session');
+            $_paper = $request->Paper;
+            $_context = $request->Context;
+            $_question = $request->Question;
             $api = $this->init();
             if (!$_session) {
                 return ["success" => false, 
@@ -428,7 +424,7 @@ class WebController extends Controller
 
     public function showMessageAPI(Request $request)
     {
-        if ($request->has(['Amount', 'Range'])) {
+        if ($request->has(['Range'])) {
             $_session = Cookie::get('ibkiller_session');
             $api = $this->init();
             if (!$_session) {
@@ -437,6 +433,8 @@ class WebController extends Controller
                     ];
             }
             $request->offsetSet('Session', $_session);
+            $request->offsetSet('Amount', 3);
+
             $result = $api->showMessageAPI($request);
             return $result;
         }
@@ -460,17 +458,29 @@ class WebController extends Controller
 
     public function readAllMessageAPI(Request $request)
     {
-        if ($request->has(['ID'])) {
-            $_session = Cookie::get('ibkiller_session');
-            $api = $this->init();
-            if (!$_session) {
-                return ["success" => false, 
-                        "info" => "Not Logged In"
-                    ];
-            }
-            $request->offsetSet('Session', $_session);
-            $result = $api->readAllMessageAPI($request);
-            return $result;
+        $_session = Cookie::get('ibkiller_session');
+        $api = $this->init();
+        if (!$_session) {
+            return ["success" => false, 
+                    "info" => "Not Logged In"
+                ];
         }
+        $request->offsetSet('Session', $_session);
+        $result = $api->readAllMessageAPI($request);
+        return $result;
+    }   
+    
+    public function countUnreadMessageAPI(Request $request)
+    {
+        $_session = Cookie::get('ibkiller_session');
+        $api = $this->init();
+        if (!$_session) {
+            return ["success" => false, 
+                    "info" => "Not Logged In"
+                ];
+        }
+        $request->offsetSet('Session', $_session);
+        $result = $api->countUnreadMessageAPI($request);
+        return $result;
     }   
 }

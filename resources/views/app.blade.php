@@ -121,7 +121,7 @@ function star(id){
       }
     }
     if (!exist){
-      _data = _data.concat({'name': 'Your Favorite', 'css': 'g9', 'data': [getImg(id)]});
+      _data = _data.concat({'name': 'Your Favorite', 'css': '', 'data': [getImg(id)]});
       gen();
       $(`#star-${id}`).addClass('fas');
       $(`#star-${id}`).removeClass('far');

@@ -32,13 +32,14 @@ class AppController extends Controller
     }
 
     public function addUnreadMessageLocalAPI($_session, $_to, $_context){
+        $_user = $this->sessionVal($_session)->first();
         DB::table('message')
             ->insert([
                 'from' => $_session,
                 'from_name' => $_user->name,
                 'to' => $_to,
                 'read' => 0,
-                'context' => $_context,
+                'context' => base64_encode($_context),
                 'time' => time()
             ]);
         return ["success" => true, 
@@ -452,7 +453,14 @@ class AppController extends Controller
             $_context = $request->Context;
             $_paper = $request->Paper;
             $_question = $request->Question;
-
+            if(strpos($_context, '@') == false){
+                $atName = strstr($_context, '@');
+                $atName = strstr($atName, ' ', True);
+                $atName = str_replace('@', '', $atName);
+                $this->addUnreadMessageLocalAPI($_session, $atName, 
+                    '<p class="msg-head">Your comment <a href="/question?Paper=' . base64_encode($_paper) . '">here</a> has been replied.</p>Wala! User <strong>' . $_name . '</strong> replied your comment with following content: <p class="replies">' . $_context . '</p>'
+                );
+            }
             DB::table('discussion')
                 ->insert([
                     'name' => $_name,
@@ -673,7 +681,7 @@ class AppController extends Controller
                     'from_name' => $_user->name,
                     'to' => $_to,
                     'read' => 0,
-                    'context' => $_context,
+                    'context' => base64_encode($_context),
                     'time' => time()
                 ]);
             return ["success" => true, 
@@ -698,18 +706,23 @@ class AppController extends Controller
                     "info" => 'Invalid Session'
                 ];
             }
-            $messages = DB::table('message')
+            $messages = array_reverse(DB::table('message')
                 ->where('to', $_user->name)
-                ->get();
-            
+                ->get()
+                ->toArray()
+            );
+            $pageNum = (int) (count($messages) / $_amount - 0.000000000001) + 1;
             foreach ($messages as $key => $i) {
-                    if (in_array($key, range(($_range-1)*$_amount, $_range*$_amount - 1)))
+                if (in_array($key, range(($_range-1)*$_amount, $_range*$_amount - 1)))
                     {
+                        unset($i->from);
                         array_push($allDataTempRes, $i);
                     }
                 }
                 return ["success" => true, 
-                    "info" => $allDataTempRes];
+                    "info" => $allDataTempRes,
+                    "pageNum" => $pageNum
+                ];
         }
     }
 
@@ -734,7 +747,7 @@ class AppController extends Controller
                 return ["success" => false, 
                         "info" => 'No comment'];
             }
-            DB::table('discussion')
+            DB::table('message')
                 ->where([['id', $_id], ['to', $_session]])
                 ->update(['read' => 1]);
             return ["success" => true, 
@@ -746,17 +759,16 @@ class AppController extends Controller
     }
 
     public function readAllMessageAPI(Request $request){
-        if ($request->has(['Session', 'ID'])) {
+        if ($request->has(['Session'])) {
             $_session = $request->Session;
-            $_id = $request->ID;
             $_user = $this->sessionVal($_session)->first();
             if ($_user == "[]"){
                 return ["success" => false, 
                     "info" => 'Invalid Session'
                 ];
             }
-            DB::table('discussion')
-                ->where(['to', $_session])
+            DB::table('message')
+                ->where('to', $_user->name)
                 ->update(['read' => 1]);
             return ["success" => true, 
                     "info" => ''];
@@ -764,5 +776,28 @@ class AppController extends Controller
     }
     public function readAllMessage(Request $request){
         return response()->json($this->readAllMessageAPI($request));
+    }
+
+    public function countUnreadMessageAPI(Request $request){
+        if ($request->has(['Session'])) {
+            $_session = $request->Session;
+            $_user = $this->sessionVal($_session)->first();
+            if ($_user == "[]"){
+                return ["success" => false, 
+                    "info" => 'Invalid Session'
+                ];
+            }
+
+            $result = DB::table('message')
+                ->where([['to', $_user->name], ['read', '0']])
+                ->get();
+            
+            return ["success" => true, 
+                    "info" => count($result)
+                ];
+        }
+    }
+    public function countUnreadMessage(Request $request){
+        return response()->json($this->countUnreadMessageAPI($request));
     }
 }

@@ -498,23 +498,7 @@ strong {
     margin-left: 5%;
     border-radius: 10px;
   }
-  /* Third Party */
-  .tit-icon {
-      display: inline-block;
-      vertical-align: bottom;
-      width: 56px;
-      height: 36px;
-      background: url(https://www.imooc.com/static/img/index/icon.png) no-repeat;
-      background-size: 100%
-  }
-
-  .tit-icon-l {
-      margin-right: 24px
-  }
-
-  .tit-icon-r {
-      margin-left: 24px
-  }
+  
   .name-local{
     margin-top: 33px;
     margin-left: 12px;
@@ -535,68 +519,8 @@ strong {
     height: 55px;
     width: 55px;
   }
-  .g9-l {
-    background-position: center 0
-  }
 
-  .g9-r {
-      background-position: center -36px
-  }
-  .g2-l {
-      background-position: center -72px
-  }
 
-  .g2-r {
-      background-position: center -108px
-  }
-
-  .g3-l {
-      background-position: center -144px
-  }
-
-  .g3-r {
-      background-position: center -180px
-  }
-
-  .g4-l {
-      background-position: center -216px
-  }
-
-  .g5-r {
-      background-position: center -252px
-  }
-
-  .g6-l {
-      background-position: center -288px
-  }
-
-  .g6-r {
-      background-position: center -324px
-  }
-
-  .g7-l {
-      background-position: center -360px
-  }
-
-  .g7-r {
-      background-position: center -396px
-  }
-
-  .g8-l {
-      background-position: center -432px
-  }
-
-  .g8-r {
-      background-position: center -468px
-  }
-
-  .g1-l {
-      background-position: center -504px
-  }
-
-  .g1-r {
-      background-position: center -540px
-  }
   .scrollNav{
     visibility: visible;
     position: fixed;left: 0px;top: 0px; right:0px;

@@ -89,3 +89,7 @@ Route::get('/readMessage', 'WebController@readMessageAPI')
 Route::get('/readAllMessage', 'WebController@readAllMessageAPI')
 	->name('web.readAllMessage');
 
+Route::get('/countUnreadMessage', 'WebController@countUnreadMessageAPI')
+	->name('web.countUnreadMessage');
+
+
