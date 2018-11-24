@@ -230,17 +230,33 @@ function gen(){
         </div>`;
       }
     }
-    pHTML = ''
-    currentPage = $_GET['Page'] ? $_GET['Page'] : 1;
-    for (var i = 1; i <= {{$pageNum}}; i++) {
-      pHTML += `<li class="page-item ${currentPage == i ? 'active': ''}"><a class="page-link" href="?Page=${i}">${i}</a></li>`
+    pHTMLHis = ''
+    currentPageHis = $_GET['Page'] ? $_GET['Page'] : 1;
+    pageNumHis = {{$pageNum}};
+    if (pageNumHis < 4){
+      for (var j = 1; j <= pageNumHis; j++) {
+        pHTMLHis += `<li class="page-item ${currentPageHis == j ? 'active': ''}"><a class="page-link" href="?Page=${j}">${j}</a></li>`
+      }
+    } else {
+      for (var j = 1; j <= pageNumHis; j++) {
+        if (Math.abs(currentPageHis - j) < 3){
+          pHTMLHis += `<li class="page-item ${currentPageHis == j ? 'active': ''}"><a class="page-link" href="?Page=${j}">${j}</a></li>`
+        }
+      }
+      if (currentPageHis == 1){
+        pHTMLHis += `<li class="page-item"><a class="page-link" href="?Page=4">4</a></li><li class="page-item"><a class="page-link" href="?Page=5">5</a></li>`
+      }
+      if (currentPageHis == 2){
+        pHTMLHis += `<li class="page-item"><a class="page-link" href="?Page=5">5</a></li>`
+      }
     }
+    
     $('#data').html(code + `
       <div class="paging">
         <ul class="pagination justify-content-center">
-          <li class="page-item ${currentPage == 1 ? 'disabled' : ''}"><a class="page-link" href="?Page=${parseInt(currentPage) - 1}">Previous</a></li>
-            ${pHTML}
-          <li class="page-item ${currentPage == {{$pageNum}} ? 'disabled' : ''}"><a class="page-link" href="?Page=${parseInt(currentPage) + 1}">Next</a></li>
+          <li class="page-item ${currentPageHis == 1 ? 'disabled' : ''}"><a class="page-link" href="?Page=${parseInt(currentPageHis) - 1}"><</a></li>
+            ${pHTMLHis}
+          <li class="page-item ${currentPageHis == pageNumHis ? 'disabled' : ''}"><a class="page-link" href="?Page=${parseInt(currentPageHis) + 1}">></a></li>
         </ul>
       </div>
       `);
