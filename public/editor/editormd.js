@@ -66,13 +66,12 @@
     editormd.toolbarModes = {
         full : [
             "undo", "redo", "|", 
-            "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|", 
-            "h1", "h2", "h3", "h4", "h5", "h6", "|", 
-            "list-ul", "list-ol", "hr", "|",
-            "link", "reference-link", "image", "code", "preformatted-text", "code-block", "table", "datetime", "emoji", "html-entities", "pagebreak", "|",
-            "goto-line", "watch", "preview", "fullscreen", "clear", "search", "|",
-            "help", "info"
+            "ucwords", "uppercase", "lowercase", "|", 
+            "list-ul", "list-ol", "|",
+            "image", "preformatted-text", "pagebreak", "|",
+            "goto-line", "clear", "search",
         ],
+        //, "table"
         simple : [
             "undo", "redo", "|", 
             "bold", "del", "italic", "quote", "uppercase", "lowercase", "|", 
@@ -383,7 +382,7 @@
             
             settings.pluginPath = (settings.pluginPath === "") ? settings.path + "../plugins/" : settings.pluginPath; 
             
-            this.state.watching = (settings.watch) ? true : false;
+            this.state.watching = true;
             
             if ( !editor.hasClass("editormd") ) {
                 editor.addClass("editormd");
@@ -853,26 +852,7 @@
             
             cm.scrollTo(null, (coords.top + coords.bottom - clientHeight) / 2);
             
-            if (settings.watch)
-            {            
-                var cmScroll  = this.codeMirror.find(".CodeMirror-scroll")[0];
-                var height    = $(cmScroll).height(); 
-                var scrollTop = cmScroll.scrollTop;         
-                var percent   = (scrollTop / cmScroll.scrollHeight);
-
-                if (scrollTop === 0)
-                {
-                    preview.scrollTop(0);
-                } 
-                else if (scrollTop + height >= cmScroll.scrollHeight - 16)
-                { 
-                    preview.scrollTop(preview[0].scrollHeight);                    
-                } 
-                else
-                {                    
-                    preview.scrollTop(preview[0].scrollHeight * percent);
-                }
-            }
+            
 
             cm.focus();
             
@@ -1769,10 +1749,7 @@
             
             cm.on("change", function(_cm, changeObj) {
                 
-                if (settings.watch)
-                {
-                    _this.previewContainer.css("padding", settings.autoHeight ? "20px 20px 50px 40px" : "20px");
-                }
+                
                 
                 timer = setTimeout(function() {
                     clearTimeout(timer);
@@ -1805,9 +1782,7 @@
             
             this.save();
             
-            if (settings.watch) {
-                preview.show();
-            }
+            
             
             editor.data("oldWidth", editor.width()).data("oldHeight", editor.height()); // 为了兼容Zepto
             
@@ -1917,7 +1892,7 @@
             
             if(settings.watch) 
             {
-                codeMirror.width(editor.width() / 2);
+                codeMirror.width(editor.width());
                 preview.width((!state.preview) ? editor.width() / 2 : editor.width());
                 
                 this.previewContainer.css("padding", settings.autoHeight ? "20px 20px 50px 40px" : "20px");
