@@ -95,11 +95,11 @@
 
                             if (link === "" || link === "http://")
                             {
-                                cm.replaceSelection("<img style='width: 30px;' src=" + url + "><br>\n");
+                                cm.replaceSelection("![" + alt + "](" + url + altAttr + ")");
                             }
                             else
                             {
-                                cm.replaceSelection("<img style='width: 30px;' src=" + url + "><br>\n");
+                                cm.replaceSelection("[![" + alt + "](" + url + altAttr + ")](" + link + altAttr + ")");
                             }
 
                             if (alt === "") {
