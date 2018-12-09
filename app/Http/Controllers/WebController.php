@@ -105,7 +105,7 @@ class WebController extends Controller
                 $isLoggedIn = false;
             }
             $api = $this->init();
-            $_cat = $request->Cat;
+            $_cat = urldecode(base64_decode($request->Cat));
             $_img = DB::table('subjects')
                 ->where('name', $_cat)
                 ->select('img')
@@ -137,7 +137,7 @@ class WebController extends Controller
                 $isLoggedIn = false;
             }
             $api = $this->init();
-            $_paper = base64_decode($request->Paper);
+            $_paper = urldecode(base64_decode($request->Paper));
             $questionReq = new Request();
             $questionReq->offsetSet('Paper', $_paper);
             $result = $api->getDetailOfPaperAPI($questionReq)['result'];
@@ -232,9 +232,18 @@ class WebController extends Controller
         ]);
     }
 
+
     public function message(Request $request)
     {
-        return view('message', ['server' => env('APP_URL'), 
+        $_session = Cookie::get('ibkiller_session');
+        if ($_session){
+            $isLoggedIn = true;
+        } else {
+            $isLoggedIn = false;
+            return redirect('/');
+        }
+        return view('mateRegister', ['server' => env('APP_URL'), 
+            'isLoggedIn' => $isLoggedIn,
         ]);
     }
 

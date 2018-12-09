@@ -155,7 +155,7 @@ strong {
 }
 
 .intro__hello .wave-hand {
-  background-image: url(https://ibkiller.com/img/emojis/wave.png);
+  background-image: url(/img/emojis/wave.png);
   margin-left: 10px;
   cursor: pointer
 }
@@ -452,7 +452,7 @@ strong {
   .three-block-1 {
     width: 28%;
     height: 100px;
-    box-shadow: 1px 1px 30px #aaa;
+    box-shadow: 1px 1px 30px #888;
     margin-left: 5%;
     background-color: #fff;
     border-radius: 10px;
@@ -460,7 +460,7 @@ strong {
   .three-block-2 {
     width: 28%;
     height: 100px;
-    box-shadow: 1px 1px 30px #aaa;
+    box-shadow: 1px 1px 30px #888;
     background-color: #fff;
     margin-left: 3%;
     border-radius: 10px;
@@ -468,7 +468,7 @@ strong {
   .three-block-3 {
     width: 28%;
     height: 100px;
-    box-shadow: 1px 1px 30px #aaa;
+    box-shadow: 1px 1px 30px #888;
     float:right;
     background-color: #fff;
     margin-left: 3%;
@@ -477,7 +477,7 @@ strong {
   .two-block-1 {
     width: 43%;
     height: 100px;
-    box-shadow: 1px 1px 30px #aaa;
+    box-shadow: 1px 1px 30px #888;
     background-color: #fff;
     margin-left: 5%;
     border-radius: 10px;
@@ -485,7 +485,7 @@ strong {
   .two-block-2 {
     width: 43%;
     height: 100px;
-    box-shadow: 1px 1px 30px #aaa;
+    box-shadow: 1px 1px 30px #888;
     background-color: #fff;
     margin-left: 4%;
     border-radius: 10px;
@@ -493,7 +493,7 @@ strong {
   .one-block-1 {
     width: 90%;
     height: 100px;
-    box-shadow: 1px 1px 30px #aaa;
+    box-shadow: 1px 1px 30px #888;
     background-color: #fff;
     margin-left: 5%;
     border-radius: 10px;

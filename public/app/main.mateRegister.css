@@ -369,3 +369,12 @@ a {
 .is-pay-year {
   font-size: 18px;
 }
+
+.form-local {
+  margin-top: 120px;
+}
+
+.step-local {
+  color: #aaa;
+  font-size: 20px;
+}

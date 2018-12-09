@@ -195,11 +195,12 @@
         $("#afterComment").hide();
     }
     function closeComment(){
-        $("#comment-content").html('Loading');
         $("#comment").fadeOut("fast");
+        $("#comment-content").html('');
     }
     function openComment(){
         $("#comment").fadeIn("fast");
+        $("#comment-content").html('<p class="card-local">Loading.....</p>');
         goCPage(1);
     }
 
