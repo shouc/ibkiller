@@ -71,7 +71,7 @@
     });
     
 
-    question = $.parseJSON(window.atob('{{ $data }}'));
+    question = $.parseJSON(BASE64.decode('{{ $data }}'));
     width = window.innerWidth;
     height = $(window).height();
 
@@ -189,12 +189,12 @@
     });
     $('#b-hideanswer').hide();
     $("#b-showanswer").click(function(){
-        $('#q-container').html(`${$('#q-container').html()} <hr> <div style="text-align: left">${window.atob(question[localStorage.getItem("qnum")]['answer'])}</div>`);
+        $('#q-container').html(`${$('#q-container').html()} <hr> <div style="text-align: left">${BASE64.decode(question[localStorage.getItem("qnum")]['answer'])}</div>`);
         $('#b-showanswer').hide();
         $('#b-hideanswer').show();
     });
     $("#b-hideanswer").click(function(){
-        $('#q-container').html(window.atob(question[localStorage.getItem("qnum")]['content']));
+        $('#q-container').html(BASE64.decode(question[localStorage.getItem("qnum")]['content']));
         $('#b-hideanswer').hide();
         $('#b-showanswer').show();
     });
@@ -238,7 +238,7 @@
     questionHTML = "";
     tHTML = '<div class="ball done"><p onclick="goTo(0)">1</p></div>';
     for (var i = 0; i < question.length; i++) {
-        questionHTML += "<div id='q" + i + "'>" + window.atob(question[i]["content"]) + "</div>";
+        questionHTML += "<div id='q" + i + "'>" + BASE64.decode(question[i]["content"]) + "</div>";
     }
 
     $("#q-container").html(questionHTML);
@@ -246,7 +246,10 @@
         $("#q" + i).hide();
         tHTML += '<div class="line" id="l'+ i +'"></div> <div class="ball" id="ba'+ i +'"><p onclick="goTo(' + i + ')">' + (i+1) + '</p></div>';
     }
-    $("timeline").html(tHTML);
+    if (question.length > 1){
+      $("timeline").html(tHTML);
+    }
+    
     if ($("#q-container").height() < height && height >= 700){
         $("#question").css("margin-top",(- $("#question").height() / 2 + height / 2 -20) + "px");
     }

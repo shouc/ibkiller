@@ -61,7 +61,7 @@ function size(){
               <p class="card-text">
                 Total Question Number: <strong>${_data[i]['paper'][k][1]}</strong>
                 <br>
-                Paper Type: <em>${_data[i]['paper'][k][4] == 1 ? 'Multiple Choice' : 'Short Answer'}</em>
+                Paper Type: <em>${_data[i]['paper'][k][4] == 1 ? 'Multiple Choice' : _data[i]['paper'][k][4] == 2 ? 'Short Answer' : 'Essay'}</em>
               </p>
               <a class="btn btn-primary" href="/question?Paper=${window.btoa(window.encodeURIComponent(_data[i]['paper'][k][0]))}">
                 Get Started
