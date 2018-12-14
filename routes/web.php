@@ -56,8 +56,11 @@ Route::get('/question', 'WebController@question')
 Route::get('/check', 'WebController@check')
 	->name('web.check');
 
-Route::get('/mate', 'MatesController@findMate')
+Route::get('/mate', 'MatesController@index')
+	->name('mate.index');
+Route::get('/findMate', 'MatesController@findMate')
 	->name('mate.findMate');
+
 
 Route::get('/userLogin', 'WebController@userLoginAPI')
 	->name('web.userLogin');

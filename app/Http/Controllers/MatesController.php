@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use Auth;
 use Storage;
+use Cookie;
 class MatesController extends Controller
 {
     /**
@@ -28,7 +29,29 @@ class MatesController extends Controller
         $distance = 2 * asin(sqrt(pow(sin($a / 2), 2) + cos($radLat1) * cos($radLat2) * pow(sin($b / 2), 2))) * 6378.137 * 1000;
         return $distance;
     }
+
+    public function calculateDeterminant($mateUndone, $_grade, $parsedLocation)
+    {
+        $gradeDeterminant = (float)abs($mateUndone->grade - $_grade) * 0.6 / 12;
+        $parsedMateLocation = explode('!!', $mateUndone->location);
+        $distanceDeterminant = $this->calculateDistance($parsedLocation, $parsedMateLocation) * 0.4/ 14000;
+        unset($parsedMateLocation);
+        $totalDeterminant = 1.0 - $gradeDeterminant - $distanceDeterminant;
+        return $totalDeterminant;
+    }
     
+    public function index(Request $request)
+    {
+        $_session = Cookie::get('ibkiller_session');
+        if ($_session){
+            $isLoggedIn = true;
+        } else {
+            $isLoggedIn = false;
+        }
+        return view('mateRegister', ['server' => env('APP_URL'), 
+            'isLoggedIn' => $isLoggedIn,
+        ]);
+    }
     public function findMate(Request $request)
     {   
         if ($request->has(['Grade', 'Location', 'Preference', 'Gender'])) {
@@ -37,7 +60,7 @@ class MatesController extends Controller
             $_location = $request->Location;
             $parsedLocation = explode('!!', $_location);
             $_preference = $request->Preference;
-            $_gender = (int)($request->Gender); //1 for male, 2 for female, 3 for other
+            $_gender = (int)($request->Gender); //0 for male, 1 for female
             if ($_session){
                 $isLoggedIn = true;
             } else {
@@ -54,29 +77,25 @@ class MatesController extends Controller
                     'time' => time()
                 ]);
             $allMatesUndone = DB::table('mate_info')
-                ->where('done', 0)
+                ->where([['done', 0], ['gender', '!=', $_gender]])
                 ->get()
                 ->toArray();
-
-            $allPossibleMate = [];
+            $highestDeterminant = 0.9;
+            $bestMatch = null;
             foreach ($allMatesUndone as $i => $mateUndone) {
-                $gradeDeterminant = (float)abs($mateUndone->grade - $_grade) * 0.6 / 12;
-                $parsedMateLocation = explode('!!', $mateUndone->location);
-                $distanceDeterminant = $this->calculateDistance($parsedLocation, $parsedMateLocation) * 0.4/ 14000;
-                unset($parsedMateLocation);
-                $totalDeterminant = 1.0 - $gradeDeterminant - $distanceDeterminant;
-                if ($totalDeterminant >= 0.9){
-                    return $mateUndone;
+                $currentDeterminant = calculateDeterminant($mateUndone, $_grade, $parsedLocation);
+                if ($currentDeterminant >= $highestDeterminant){
+                    $highestDeterminant = $currentDeterminant;
+                    $bestMatch = $mateUndone;
                 }
             }
-            return 'No mate found.';
-
-
-
+            if ($bestMatch == null){
+                return 'No mate found.';
+            } else {
+                return $bestMatch;
+            }
         } else {
-            return redirect('/findMate?P=1');
+            return redirect('/mate');
         }
-        
-
     }
 }
