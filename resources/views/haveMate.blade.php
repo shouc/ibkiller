@@ -16,45 +16,13 @@
 
 <form class="container form-local" id="form-1" action="/findMate">
   <h1 class="h1-local">
-	  <h class="step-local">1/2</h> Complete Your Information
+	  <h class="step-local">2/2</h> Get you a suitable mate
   </h1>
-  <div class="form-group">
-    <label>Interest</label>
-    <input name="Interest" class="form-control" id="interest" placeholder="Enter what you are interested in.">
+  <div class="no-mate-notice">
+    <br>
+    <p class="no-mate">Sorry! No mate found</p>
+    <small>Please wait a few days.</small>
   </div>
-  <div class="form-group">
-    <label for="">Location</label>
-    <div class="input-group">
-      
-      <input class="form-control" id="location" placeholder="Enter your street address.">
-      <div class="input-group-append">
-        <b class="btn btn-outline-secondary" onclick="searchLocation()">Search</b>
-      </div>
-    </div>
-    <small id="location-notice">Make sure you click the search button</small>
-    <input hidden name="Location" id="r-location" value="">
-  </div>
-  <div class="form-group">
-    <label for="">Year</label>
-    <select class="custom-select" name="Grade" id="grade">
-      <option value="100" selected>Choose...</option>
-      <option value="1">Grade 9</option>
-      <option value="2">Grade 10</option>
-      <option value="3">Grade 11</option>
-      <option value="4">Grade 12</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label for="">Gender</label>
-    <select class="custom-select" name="Gender" id="gender">
-      <option value="100" selected>Choose...</option>
-      <option value="0">Male</option>
-      <option value="1">Female</option>
-    </select>
-    <small>Other gender options will be supported by our algorithm soon!</small>
-  </div>
-  <b class="btn btn-secondary" onclick="getBack()">Back</b>
-  <b class="btn btn-primary" onclick="submitMateReq()">Next</b>
   
 </form>
 

@@ -378,3 +378,13 @@ a {
   color: #aaa;
   font-size: 20px;
 }
+
+.no-mate-notice {
+  text-align: center;
+}
+
+.no-mate {
+  font-size: 40px;
+  font-family: 'Arial';
+
+}

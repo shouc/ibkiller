@@ -121,4 +121,17 @@ class MatesController extends Controller
             return redirect('/mate');
         }
     }
+
+    public function haveMate()
+    {
+        $_session = Cookie::get('ibkiller_session');
+        if ($_session){
+            $isLoggedIn = true;
+        } else {
+            $isLoggedIn = false;
+        }
+        return view('haveMate', ['server' => env('APP_URL'), 
+            'isLoggedIn' => $isLoggedIn,
+        ]);
+    }
 }
