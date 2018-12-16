@@ -42,15 +42,47 @@ class MatesController extends Controller
     
     public function index(Request $request)
     {
+        //state 1 for have mate % 2 for disband guy % 3 for disband mate
         $_session = Cookie::get('ibkiller_session');
         if ($_session){
             $isLoggedIn = true;
         } else {
             $isLoggedIn = false;
         }
-        return view('mateRegister', ['server' => env('APP_URL'), 
-            'isLoggedIn' => $isLoggedIn,
-        ]);
+        $mateInfo = DB::table('mate_info')
+            ->where('session', $_session)
+            ->get()
+            ->first();
+        if ($mateInfo == ""){
+            return view('mateRegister', ['server' => env('APP_URL'), 
+                'isLoggedIn' => $isLoggedIn,
+            ]);
+        } else {
+            $assignedMate = DB::table('mate_info')
+                ->where('assigned_session', $_session)
+                ->first();
+            if ($assignedMate != ""){
+                $assignedMateInfo = DB::table('app_users')
+                    ->where('session' , $assignedMate->session)
+                    ->first();
+                return view('haveMate', ['server' => env('APP_URL'), 
+                    'isLoggedIn' => $isLoggedIn,
+                    'assignedMateName' => $assignedMateInfo->name,
+                    'assignedMateInterest' => $assignedMate->preference,
+                    'assignedMateGender' => $assignedMate->gender,
+                    'assignedMateGrade' => $assignedMate->grade,
+                    'assignedMateContact' => $assignedMateInfo->email,
+                    'status' => $mateInfo->done
+                ]);
+            } else {
+                return view('noMate', ['server' => env('APP_URL'), 
+                    'isLoggedIn' => $isLoggedIn,
+                ]); 
+            }
+            
+        } 
+        
+
     }
     public function findMate(Request $request)
     {   
@@ -99,7 +131,7 @@ class MatesController extends Controller
                 }
             }
             if ($bestMatch == null){
-                return 'No mate found.';
+                return redirect('/mate');
             } else {
                 DB::table('mate_info')
                     ->where('session', $_session)
@@ -115,23 +147,40 @@ class MatesController extends Controller
                     ->update(['assigned_session' => $_session]);
                 unset($bestMatch->session);
                 unset($bestMatch->assigned_session);
-                return json_encode($bestMatch);
+                return redirect('/mate');
             }
         } else {
             return redirect('/mate');
         }
     }
-
-    public function haveMate()
-    {
+    public function disband(Request $request)
+    {   
         $_session = Cookie::get('ibkiller_session');
-        if ($_session){
-            $isLoggedIn = true;
+        $userInfo = DB::table('mate_info')
+            ->where('session', $_session)
+            ->first();
+        $mateInfo = DB::table('mate_info')
+            ->where('session', $userInfo->assigned_session)
+            ->first();
+        if ($mateInfo == "" || $mateInfo->done == 0){
+            return "403";
         } else {
-            $isLoggedIn = false;
+            if ($mateInfo->done == 2){
+                DB::table('mate_info')
+                    ->where('session', $_session)
+                    ->delete();
+                DB::table('mate_info')
+                    ->where('session', $mateInfo->session)
+                    ->delete();
+            } else {
+                DB::table('mate_info')
+                    ->where('session', $_session)
+                    ->update(['done' => 2]);
+                DB::table('mate_info')
+                    ->where('session', $mateInfo->session)
+                    ->update(['done' => 3]);
+            }
         }
-        return view('haveMate', ['server' => env('APP_URL'), 
-            'isLoggedIn' => $isLoggedIn,
-        ]);
+        return redirect('/mate');
     }
 }

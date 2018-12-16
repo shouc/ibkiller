@@ -18,10 +18,25 @@
   <h1 class="h1-local">
 	  <h class="step-local">2/2</h> Get you a suitable mate
   </h1>
-  <div class="no-mate-notice">
-    <br>
-    <p class="no-mate">Sorry! No mate found</p>
-    <small>Please wait a few days.</small>
+  <div class="alert alert-success" role="alert">
+    Gotcha! The following fine human is your study mate now! Take care!
+  </div>
+  <div class="alert alert-warning" role="alert" id="showDisbander">
+    Please ask your study mate to confirm disbanding!
+  </div>
+  <div class="alert alert-warning" role="alert" id="showDisbandee">
+    Your study mate wants to disband with you! If you also want to disband with he/she and find a new study mate, then click <a href="/disband">here</a>. Otherwise, you could report spam; we will take a thorough investigation.
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">{{$assignedMateName}}</h5>
+      <p><strong>Interest</strong>: {{$assignedMateInterest}}</p>
+      <p><strong>Gender</strong>: {{$assignedMateGender ? 'Female' : 'Male'}}</p>
+      <p><strong>Contact</strong>: {{$assignedMateContact}}</p>
+
+      <a href="#" class="btn btn-primary" id="disbandButton" onclick="disbandReq()">Disband</a>
+      <a href="#" class="btn btn-secondary">Report Spam</a>
+    </div>
   </div>
   
 </form>
@@ -29,6 +44,9 @@
 
 </body>
 <script type="text/javascript">
+  $("#showDisbander").hide()
+  $("#showDisbandee").hide()
+
   width = window.innerWidth;
   height = $(window).height();
   if (width > 800) {
@@ -36,41 +54,27 @@
   } else {
     $("#form-1").addClass("col-lg-2")
   }
-  function convertLocForm(loc){
-    return `${loc["y"]/100000}!!${loc["x"]/100000}`;
+  if ({{$status}} == 2){
+    $("#showDisbander").show();
+    $("#disbandButton").hide();
+  } else if ({{$status}} == 3) {
+    $("#showDisbandee").show();
+    $("#disbandButton").hide();
+    
   }
-  function searchLocation(){
-    $("#location-notice").html('Searching.....')
-    $.get(`https://api.opencagedata.com/geocode/v1/json?q=${$("#location").val()}&key=6d7fb3808e2b4391bc30070a6bdc3ab2`, 
-      function(data,status){
-        if(data["results"].length > 0){
-          $("#r-location").val(convertLocForm(data["results"][0]["annotations"]["Mercator"]));
-          $("#location-notice").html(`Your place is <a target="_blank" href='${data["results"][0]["annotations"]["OSM"]["url"]}'>here</a>, right?`);
-        } else {
-          $("#location-notice").html("Nothing found.")
-        }
-      });
+  function disbandReq(){
+    Swal({
+      title: 'Are you sure?',
+      html: "<strong>You must wait your study mate to confirm so as to finally disband and find a new study mate.</strong><br>You are losing your study mate!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirm'
+    }).then((result) => {
+      if (result.value) {
+        window.location.href="/disband";
+      }
+    })
   }
-  function submitMateReq(){
-    if ($("#interest").val() == ""){
-      alert("No interest provided");
-      return 0;
-    }
-    if ($("#r-location").val() == ""){
-      alert("No location provided");
-      return 0;
-    }
-    if ($("#gender").val() == 100){
-      alert("No gender provided");
-      return 0;
-    }
-    if ($("#grade").val() == 100){
-      alert("No year provided");
-      return 0;
-    }
-    $("#form-1").submit();
-
-  }
-
-
 </script>

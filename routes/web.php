@@ -60,8 +60,8 @@ Route::get('/mate', 'MatesController@index')
 	->name('mate.index');
 Route::get('/findMate', 'MatesController@findMate')
 	->name('mate.findMate');
-Route::get('/haveMate', 'MatesController@haveMate')
-	->name('mate.haveMate');
+Route::get('/disband', 'MatesController@disband')
+	->name('mate.disband');
 
 
 Route::get('/userLogin', 'WebController@userLoginAPI')
