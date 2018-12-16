@@ -45,6 +45,7 @@ Route::prefix('admin')->group(function () {
 		->name('api.del');
 });
 
+#Web Pages
 Route::get('/', 'WebController@home')
 	->name('web.home');
 Route::get('/history', 'WebController@history')
@@ -56,6 +57,7 @@ Route::get('/question', 'WebController@question')
 Route::get('/check', 'WebController@check')
 	->name('web.check');
 
+#Mate Section
 Route::get('/mate', 'MatesController@index')
 	->name('mate.index');
 Route::get('/findMate', 'MatesController@findMate')
@@ -63,13 +65,15 @@ Route::get('/findMate', 'MatesController@findMate')
 Route::get('/disband', 'MatesController@disband')
 	->name('mate.disband');
 
-
+#Auth Section
 Route::get('/userLogin', 'WebController@userLoginAPI')
 	->name('web.userLogin');
 Route::get('/userRegister', 'WebController@userRegisterAPI')
 	->name('web.userRegister');
 Route::get('/userLogout', 'WebController@userLogoutAPI')
 	->name('web.userLogout');
+
+#APIs
 Route::get('/userCommitAnswer', 'WebController@userCommitAnswerAPI')
 	->name('web.userCommitAnswer');
 Route::get('/userAddFavorite', 'WebController@userAddFavoriteAPI')
@@ -86,14 +90,12 @@ Route::get('/likeDiscussion', 'WebController@likeDiscussionAPI')
 	->name('web.likeDiscussion');
 Route::get('/unlikeDiscussion', 'WebController@unlikeDiscussionAPI')
 	->name('web.unlikeDiscussion');
-
 Route::get('/showMessage', 'WebController@showMessageAPI')
 	->name('web.showMessage');
 Route::get('/readMessage', 'WebController@readMessageAPI')
 	->name('web.readMessage');
 Route::get('/readAllMessage', 'WebController@readAllMessageAPI')
 	->name('web.readAllMessage');
-
 Route::get('/countUnreadMessage', 'WebController@countUnreadMessageAPI')
 	->name('web.countUnreadMessage');
 
