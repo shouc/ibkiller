@@ -25,7 +25,7 @@ class AuthEmail extends Mailable
         
         return $this->view('emails.auth')
                     ->from($address, $name)
-                    ->subject($subject);
-                    ->with(['session' => $this->session])
+                    ->subject($subject)
+                    ->with(['session' => $this->session]);
     }
 }

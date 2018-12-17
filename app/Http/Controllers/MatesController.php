@@ -47,6 +47,15 @@ class MatesController extends Controller
         Mail::to($mailAddr)->send(new MateEmail('mateAlsoDisbanded', 'Your mate also disbands you!'));
     }
 
+    public function checkIsAuth($session)
+    {
+        return DB::table('app_users')
+            ->where('session', $session)
+            ->get()
+            ->first()
+            ->is_auth;
+    }
+
     public function calculateDeterminant($mateUndone, $_grade, $parsedLocation)
     {
         $gradeDeterminant = (float)abs($mateUndone->grade - $_grade) * 0.6 / 4;

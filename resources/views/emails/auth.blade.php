@@ -4,6 +4,6 @@
     		<meta charset="utf-8">
     	</head>
     	<body>
-    		<p>Confirm your mail: https://ibkiller.com/confirmMail?s={{ $session }}</p>
+    		<p>Confirm your mail: https://ibkiller.com/confirm?s={{ $session }}</p>
     	</body>
     </html>
