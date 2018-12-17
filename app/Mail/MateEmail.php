@@ -24,7 +24,8 @@ class MateEmail extends Mailable
         $name = 'IBKiller';
         
         return $this->view('emails.' . $this->data)
-                    ->from($address, $name)
-                    ->subject($subject);
+            ->from($address, $name)
+            ->subject($subject)
+            ->with([ 'data' => 'Test1' ]);
     }
 }

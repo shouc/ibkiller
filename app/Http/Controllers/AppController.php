@@ -7,6 +7,9 @@ use DB;
 use Auth;
 use Storage;
 use Hash;
+use App\Mail\AuthEmail;
+use Mail;
+
 class AppController extends Controller
 {
     public function sessionVal($session)
@@ -29,6 +32,11 @@ class AppController extends Controller
             return false;
         }
         return true;
+    }
+
+    public function sendAuthEmail($authSession, $mailAddr)
+    {
+        Mail::to($mailAddr)->send(new AuthEmail($authSession, 'Confirm Your Email!'));
     }
 
     public function addUnreadMessageLocalAPI($_session, $_to, $_context){
@@ -342,24 +350,54 @@ class AppController extends Controller
             }
             $salt = "EncryptSessionSalt";
             $_session = Hash::make($_email . $_password . $salt . time());
+            $authSession = Hash::make($_session . (String)time() . $salt);
             DB::table('app_users')->insert(
-                    [
-                        'name' => $_name,
-                        'email' => $_email,
-                        'password' => Hash::make($_password),
-                        'session' => $_session
-                    ]);
+                [
+                    'name' => $_name,
+                    'email' => $_email,
+                    'password' => Hash::make($_password),
+                    'session' => $_session,
+                    'auth_session' => $authSession,
+                    'is_auth' => 0
+                ]
+            );
+            $this->sendAuthEmail($authSession, $_email);
             return ["success" => true, 
                     "session" => $_session,
                     "info" => ''
                 ];
-
         }
     }
 
     public function register(Request $request)
     {
         return response()->json($this->registerAPI($request));
+    }
+
+    public function confirmAPI(Request $request)
+    {
+        if ($request->has(['s'])) {
+            $_authSession = $request->s;
+            $userInfo = DB::table('app_users')
+                ->where('auth_session', $_authSession)
+                ->first();
+            if ($userInfo == ""){
+                return ["success" => false, 
+                        "info" => 'Wrong auth session'
+                ];
+            }
+            DB::table('app_users')
+                ->where('auth_session', $_authSession)
+                ->update(['is_auth' => 1]);
+            return ["success" => true, 
+                    "info" => ''
+                ];
+        }
+    }
+
+    public function confirm(Request $request)
+    {
+        return response()->json($this->confirmAPI($request));
     }
 
     public function addFavoriteAPI(Request $request)

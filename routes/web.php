@@ -72,6 +72,8 @@ Route::get('/userRegister', 'WebController@userRegisterAPI')
 	->name('web.userRegister');
 Route::get('/userLogout', 'WebController@userLogoutAPI')
 	->name('web.userLogout');
+Route::get('/confirm', 'WebController@confirm')
+	->name('web.confirm');
 
 #APIs
 Route::get('/userCommitAnswer', 'WebController@userCommitAnswerAPI')

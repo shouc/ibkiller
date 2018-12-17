@@ -286,6 +286,19 @@ class WebController extends Controller
             ->withCookie($cookie);
     }
 
+    public function confirm(Request $request)
+    {
+        if ($request->has(['s'])) {
+            $api = $this->init();
+            $result = $api->confirmAPI($request);
+            if ($result['success']){
+                return redirect('/');
+            } else {
+                return 'Error';
+            }
+        }
+    }
+
     public function userCommitAnswerAPI(Request $request)
     {
         if ($request->has(['Paper','Answer'])) {

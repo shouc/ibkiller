@@ -60,7 +60,6 @@ class MatesController extends Controller
     public function index(Request $request)
     {
         //state 1 for have mate % 2 for disband guy % 3 for disband mate
-        return $this->sendTestMail();
         $_session = Cookie::get('ibkiller_session');
         if ($_session){
             $isLoggedIn = true;
@@ -99,8 +98,6 @@ class MatesController extends Controller
             }
             
         } 
-        
-
     }
     public function findMate(Request $request)
     {   
@@ -177,6 +174,7 @@ class MatesController extends Controller
     }
     public function disband(Request $request)
     {   
+        return $this->sendHaveMate('scf@ieee.org');
         $_session = Cookie::get('ibkiller_session');
         $userInfo = DB::table('mate_info')
             ->where('session', $_session)
