@@ -74,6 +74,8 @@ Route::get('/userLogout', 'WebController@userLogoutAPI')
 	->name('web.userLogout');
 Route::get('/confirm', 'WebController@confirm')
 	->name('web.confirm');
+Route::get('/resendAuth', 'WebController@resendAuth')
+	->name('web.resendAuth');
 
 #APIs
 Route::get('/userCommitAnswer', 'WebController@userCommitAnswerAPI')

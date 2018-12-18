@@ -18,6 +18,9 @@
   <h1 class="h1-local">
 	  <h class="step-local">1/2</h> Complete Your Information
   </h1>
+  <div class="alert alert-danger" role="alert" id="confirmationNotice">
+    Confirmation of email is required! Click <a href="javascript:resendAuth();">here</a> to resend the request.
+  </div>
   <div class="form-group">
     <label>Interest</label>
     <input name="Interest" class="form-control" id="interest" placeholder="Enter what you are interested in.">
@@ -67,6 +70,14 @@
    $("#form-1").addClass("col-5")
   } else {
     $("#form-1").addClass("col-lg-2")
+  }
+
+  if ({{$isAuthed}}){
+    $("#confirmationNotice").hide();
+  }
+
+  function resendAuth(){
+    $.get('/resendAuth');
   }
   function convertLocForm(loc){
     return `${loc["y"]/100000}!!${loc["x"]/100000}`;

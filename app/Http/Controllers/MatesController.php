@@ -49,11 +49,13 @@ class MatesController extends Controller
 
     public function checkIsAuth($session)
     {
-        return DB::table('app_users')
+        $userInfo = DB::table('app_users')
             ->where('session', $session)
-            ->get()
-            ->first()
-            ->is_auth;
+            ->first();
+        if ($userInfo == ""){
+            return 'error';
+        }
+        return $userInfo->is_auth;
     }
 
     public function calculateDeterminant($mateUndone, $_grade, $parsedLocation)
@@ -82,6 +84,7 @@ class MatesController extends Controller
         if ($mateInfo == ""){
             return view('mateRegister', ['server' => env('APP_URL'), 
                 'isLoggedIn' => $isLoggedIn,
+                'isAuthed' => $this->checkIsAuth($_session)
             ]);
         } else {
             $assignedMate = DB::table('mate_info')
@@ -98,7 +101,7 @@ class MatesController extends Controller
                     'assignedMateGender' => $assignedMate->gender,
                     'assignedMateGrade' => $assignedMate->grade,
                     'assignedMateContact' => $assignedMateInfo->email,
-                    'status' => $mateInfo->done
+                    'status' => $mateInfo->done,
                 ]);
             } else {
                 return view('noMate', ['server' => env('APP_URL'), 

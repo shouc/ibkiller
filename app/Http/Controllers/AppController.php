@@ -39,6 +39,13 @@ class AppController extends Controller
         Mail::to($mailAddr)->send(new AuthEmail($authSession, 'Confirm Your Email!'));
     }
 
+    public function sendAuthEmailWithSession($session)
+    {
+        $userInfo = $this->sessionVal($session)
+            ->first();
+        $this->sendAuthEmail($userInfo->auth_session, $userInfo->email);
+    }
+
     public function addUnreadMessageLocalAPI($_session, $_to, $_context){
         $_user = $this->sessionVal($_session)->first();
         DB::table('message')

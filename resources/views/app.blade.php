@@ -111,6 +111,7 @@ function deletFavorite(id){
   }
 }
 function star(id){
+  id = window.atob(id);
   cancelBubble();
   if ($(`#star-${id}`).hasClass('far')){
     //not starred
@@ -200,7 +201,7 @@ function gen(){
                   <p class="name-local">${gname["data"][i * 3]["name"]}</p>
                 </div>
                 ${ isLoggedIn && gname['name'] != 'Your Favorite'? `
-                  <div class="heart-big" onclick=star('${gname["data"][i * 3]["name"]}')>
+                  <div class="heart-big" onclick=star('${window.btoa(gname["data"][i * 3]["name"])}')>
                     <i class="${gname["data"][i * 3]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${gname["data"][i * 3]["name"]}'></i>
                   </div>`: ``}
               </div>
@@ -212,7 +213,7 @@ function gen(){
                   <p class="name-local">${gname["data"][i * 3 + 1]["name"]}</p> 
                 </div>
                 ${ isLoggedIn && gname['name'] != 'Your Favorite'? `
-                  <div class="heart-big" onclick=star('${gname["data"][i * 3 + 1]["name"]}')>
+                  <div class="heart-big" onclick=star('${window.btoa(gname["data"][i * 3 + 1]["name"])}')>
                     <i class="${gname["data"][i * 3 + 1]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${gname["data"][i * 3 + 1]["name"]}'></i>
                   </div>`: ``}
               </div>
@@ -224,7 +225,7 @@ function gen(){
                   <p class="name-local">${gname["data"][i * 3 + 2]["name"]}</p>
                 </div>
                 ${ isLoggedIn && gname['name'] != 'Your Favorite'? `
-                  <div class="heart-big" onclick=star('${gname["data"][i * 3 + 2]["name"]}')>
+                  <div class="heart-big" onclick=star('${window.btoa(gname["data"][i * 3 + 2]["name"])}')>
                     <i class="${gname["data"][i * 3 + 2]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${gname["data"][i * 3 + 2]["name"]}'></i>
                   </div>`: ``}
               </div>
@@ -241,7 +242,7 @@ function gen(){
                   <p class="name-local">${gname["data"][i * 3]["name"]}</p>
                 </div>
                 ${ isLoggedIn && gname['name'] != 'Your Favorite'? `
-                  <div class="heart-big" onclick=star('${gname["data"][i * 3]["name"]}')>
+                  <div class="heart-big" onclick=star('${window.btoa(gname["data"][i * 3]["name"])}')>
                     <i class="${gname["data"][i * 3]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${gname["data"][i * 3]["name"]}'></i>
                   </div>`: ``}
               </div>
@@ -253,7 +254,7 @@ function gen(){
                   <p class="name-local">${gname["data"][i * 3 + 1]["name"]}</p>
                 </div>
                 ${ isLoggedIn && gname['name'] != 'Your Favorite'? `
-                  <div class="heart-big" onclick=star('${gname["data"][i * 3 + 1]["name"]}')>
+                  <div class="heart-big" onclick=star('${window.btoa(gname["data"][i * 3 + 1]["name"])}')>
                     <i class="${gname["data"][i * 3 + 1]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${gname["data"][i * 3 + 1]["name"]}'></i>
                   </div>`: ``}
               </div>
@@ -270,7 +271,7 @@ function gen(){
                   <p class="name-local">${gname["data"][i * 3]["name"]}</p>
                 </div>
                 ${ isLoggedIn && gname['name'] != 'Your Favorite'? `
-                  <div class="heart-big" onclick=star('${gname["data"][i * 3]["name"]}')>
+                  <div class="heart-big" onclick=star('${window.btoa(gname["data"][i * 3]["name"])}')>
                     <i class="${gname["data"][i * 3]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${gname["data"][i * 3]["name"]}'></i>
                   </div>`: ``}
               </div>
@@ -292,7 +293,7 @@ function gen(){
                   <p class="name-local">${gname["data"][i * 2]["name"]}</p>
                 </div>
                 ${ isLoggedIn && gname['name'] != 'Your Favorite'? `
-                  <div class="heart-big" onclick=star('${gname["data"][i * 2]["name"]}')>
+                  <div class="heart-big" onclick=star('${window.btoa(gname["data"][i * 2]["name"])}')>
                     <i class="${gname["data"][i * 2]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${gname["data"][i * 2]["name"]}'></i>
                   </div>`: ``}
               </div>
@@ -304,7 +305,7 @@ function gen(){
                   <p class="name-local">${gname["data"][i * 2 + 1]["name"]}</p>
                 </div>
                 ${ isLoggedIn && gname['name'] != 'Your Favorite'? `
-                  <div class="heart-big" onclick=star('${gname["data"][i * 2 + 1]["name"]}')>
+                  <div class="heart-big" onclick=star('${window.btoa(gname["data"][i * 2 + 1]["name"])}')>
                     <i class="${gname["data"][i * 2 + 1]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${gname["data"][i * 2 + 1]["name"]}'></i>
                   </div>`: ``}
               </div>
@@ -321,7 +322,7 @@ function gen(){
                   <p class="name-local">${gname["data"][i * 2]["name"]}</p>
                 </div>
                 ${ isLoggedIn && gname['name'] != 'Your Favorite'? `
-                  <div class="heart-big" onclick=star('${gname["data"][i * 2]["name"]}')>
+                  <div class="heart-big" onclick=star('${window.btoa(gname["data"][i * 2]["name"])}')>
                     <i class="${gname["data"][i * 2]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${gname["data"][i * 2]["name"]}'></i>
                   </div>`: ``}
               </div>
@@ -341,7 +342,7 @@ function gen(){
                 <p class="name-local">${gname["data"][i]["name"]}</p>
               </div>
               ${ isLoggedIn && gname['name'] != 'Your Favorite'? `
-                  <div class="heart-big" onclick=star('${gname["data"][i]["name"]}')>
+                  <div class="heart-big" onclick=star('${window.btoa(gname["data"][i]["name"])}')>
                     <i class="${gname["data"][i]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${gname["data"][i]["name"]}'></i>
                   </div>`: ``}
             </div>

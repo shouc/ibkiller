@@ -299,6 +299,19 @@ class WebController extends Controller
         }
     }
 
+    public function resendAuth(Request $request)
+    {
+        $_session = Cookie::get('ibkiller_session');
+        if ($_session){
+            $isLoggedIn = true;
+        } else {
+            $isLoggedIn = false;
+            return redirect('/');
+        }
+        $api = $this->init();
+        $api->sendAuthEmailWithSession($_session);
+    }
+
     public function userCommitAnswerAPI(Request $request)
     {
         if ($request->has(['Paper','Answer'])) {
