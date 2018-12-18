@@ -6,7 +6,7 @@
 
 <body>
 
-    <div class="question" id="question">
+    <div class="question" id="question" style="display: none;">
       <div class="alert alert-warning alert-dismissible fade show notlogged" role="alert" id="notlogged">
         <h>You are not logged in! Your workings may not be recorded!!!</h>
         <br>
@@ -259,7 +259,7 @@
     if (width < 700){
         $("timeline").hide();
     } 
-
+    $("#question").show();
 </script>
 <script>
     if(!{{$isLoggedIn ? 1 : 0}}){

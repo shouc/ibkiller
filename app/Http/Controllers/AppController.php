@@ -162,7 +162,7 @@ class AppController extends Controller
             $_pid = $request->PID;
             $_session = $request->Session;
             if ($this->sessionVal($_session) == "[]"){
-                return ["result" => "0"];
+                $_session = 'Anonymous$k$';
             }
             foreach ($_answer->answer as $key => $i) {
                 DB::table('app_records')->insert(
@@ -211,7 +211,7 @@ class AppController extends Controller
                         'correct' => $i[0]->correct,
                         'userAnswer' => $i[0]->answer,
                     ]);
-                    $score += $i[0]->correct == $i[0]->answer;
+                    $score += $i[0]->correct;
                 }
                 return ["result" => ["score" => $score, 
                     "info" => $allDataTemp,

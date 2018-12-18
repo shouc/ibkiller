@@ -14,7 +14,7 @@
 </div>
 -->
 
-<form class="container form-local" id="form-1" action="/findMate">
+<form class="container form-local" id="form-1" action="/findMate" style="display: none;">
   <h1 class="h1-local">
 	  <h class="step-local">1/2</h> Complete Your Information
   </h1>
@@ -114,6 +114,7 @@
     $("#form-1").submit();
 
   }
+  $("#form-1").show();
 
 
 </script>

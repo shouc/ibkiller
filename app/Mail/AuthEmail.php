@@ -19,7 +19,7 @@ class AuthEmail extends Mailable
 
     public function build()
     {
-        $address = 'auth@ibkiller.com';
+        $address = 'hi@noreply.ibkiller.com';
         $subject = $this->subject;
         $name = 'IBKiller Support';
         

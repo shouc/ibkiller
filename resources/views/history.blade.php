@@ -4,7 +4,7 @@
 @include('nav', ['q' => false])
 
 <body id="row">
-<k class="c" id="bo2">
+<k class="c" id="bo2" style="display: none;">
   <h1 class="h1-local">
       History
   </h1>
@@ -262,6 +262,8 @@ function gen(){
       `);
 
   }
+  $("#bo2").show();
+
 }
 $('#data').html(`
   Nothing here!<br>

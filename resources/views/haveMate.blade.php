@@ -14,7 +14,7 @@
 </div>
 -->
 
-<form class="container form-local" id="form-1" action="/findMate">
+<form class="container form-local" id="form-1" action="/findMate" style="display: none;">
   <h1 class="h1-local">
 	  <h class="step-local">2/2</h> Get you a suitable mate
   </h1>
@@ -77,4 +77,6 @@
       }
     })
   }
+  $("#form-1").show();
+  
 </script>

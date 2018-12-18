@@ -4,7 +4,7 @@
 @include('comment');
 
 <body>
-    <div class="question bo" id="question">
+    <div class="question bo" id="question" style="display: none;">
         <div class="alert alert-warning alert-dismissible fade show notlogged" role="alert" id="notlogged">
         <h>You are not logged in! Your workings may not be recorded!!!</h>
         <br>
@@ -115,13 +115,13 @@
                     $("#ba" + k).addClass("done");
                     $("#l" + k).addClass("done");
                 }
-                if (question[i]["correct"] != question[i]["userAnswer"]){
+                if (!question[i]["correct"]){
                   $("#bbar").addClass("wrong");
                 } else {
                   $("#bbar").removeClass("wrong");
                 }
                 $("ua").html(convertNum(question[i]["userAnswer"]));
-                $("ca").html(convertNum(question[i]["correct"]));
+                $("ca").html(atob(question[i]["answer"]));
                 localStorage.setItem("qnum", i);
             } else {
                 $("#goBack").hide();
@@ -136,13 +136,13 @@
                     $("#ba" + k).addClass("done");
                     $("#l" + k).addClass("done");
                 }
-                if (question[i]["correct"] != question[i]["userAnswer"]){
+                if (!question[i]["correct"]){
                   $("#bbar").addClass("wrong");
                 } else {
                   $("#bbar").removeClass("wrong");
                 }
                 $("ua").html(convertNum(question[i]["userAnswer"]));
-                $("ca").html(convertNum(question[i]["correct"]));
+                $("ca").html(atob(question[i]["answer"]));
                 localStorage.setItem("qnum", i);
             }
         
@@ -157,13 +157,13 @@
             $("#b4").css("color", "#000");
             $("#q" + (parseInt(localStorage.getItem("qnum")) + 1)).fadeIn();
             $("#question").fadeIn();
-            if (question[parseInt(localStorage.getItem("qnum")) + 1]["correct"] != question[parseInt(localStorage.getItem("qnum")) + 1]["userAnswer"]){
+            if (!question[parseInt(localStorage.getItem("qnum")) + 1]["correct"]){
               $("#bbar").addClass("wrong");
             } else {
               $("#bbar").removeClass("wrong");
             }
             $("ua").html(convertNum(question[parseInt(localStorage.getItem("qnum")) + 1]["userAnswer"]));
-            $("ca").html(convertNum(question[parseInt(localStorage.getItem("qnum")) + 1]["correct"]));
+            $("ca").html(atob(question[parseInt(localStorage.getItem("qnum")) + 1]["answer"]));
             localStorage.setItem("qnum", parseInt(localStorage.getItem("qnum")) + 1);
             closeComment();
         } else {
@@ -180,13 +180,13 @@
             $("#question").hide();
             $("#q" + (parseInt(localStorage.getItem("qnum")) - 1)).fadeIn();
             $("#question").fadeIn();
-            if (question[parseInt(localStorage.getItem("qnum")) - 1]["correct"] != question[parseInt(localStorage.getItem("qnum")) - 1]["userAnswer"]){
+            if (!question[parseInt(localStorage.getItem("qnum")) - 1]["correct"]){
               $("#bbar").addClass("wrong");
             } else {
               $("#bbar").removeClass("wrong");
             }
             $("ua").html(convertNum(question[parseInt(localStorage.getItem("qnum")) - 1]["userAnswer"]));
-            $("ca").html(convertNum(question[parseInt(localStorage.getItem("qnum")) - 1]["correct"]));
+            $("ca").html(atob(question[parseInt(localStorage.getItem("qnum")) - 1]["answer"]));
             $("#ba" + (parseInt(localStorage.getItem("qnum")))).removeClass("done");
             $("#l" + (parseInt(localStorage.getItem("qnum")))).removeClass("done");
             localStorage.setItem("qnum", parseInt(localStorage.getItem("qnum")) - 1);
@@ -199,13 +199,13 @@
             $("#question").fadeIn();
             $("#ba" + (parseInt(localStorage.getItem("qnum")))).removeClass("done");
             $("#l" + (parseInt(localStorage.getItem("qnum")))).removeClass("done");
-            if (question[parseInt(localStorage.getItem("qnum")) - 1]["correct"] != question[parseInt(localStorage.getItem("qnum")) - 1]["userAnswer"]){
+            if (!question[parseInt(localStorage.getItem("qnum")) - 1]["correct"]){
               $("#bbar").addClass("wrong");
             } else {
               $("#bbar").removeClass("wrong");
             }
             $("ua").html(convertNum(question[parseInt(localStorage.getItem("qnum")) - 1]["userAnswer"]));
-            $("ca").html(convertNum(question[parseInt(localStorage.getItem("qnum")) - 1]["correct"]));
+            $("ca").html(atob(question[parseInt(localStorage.getItem("qnum")) - 1]["answer"]));
             localStorage.setItem("qnum", parseInt(localStorage.getItem("qnum")) - 1);
             closeComment();
         }
@@ -250,14 +250,15 @@
     if (width < 700){
         $("timeline").hide();
     }
-    if (question[0]["correct"] != question[0]["userAnswer"]){
+    if (!question[0]["correct"]){
       $("#bbar").addClass("wrong");
     } else {
       $("#bbar").removeClass("wrong");
     }
     $("ua").html(convertNum(question[0]["userAnswer"]));
-    $("ca").html(convertNum(question[0]["correct"]));
+    $("ca").html(atob(question[0]["answer"]));
     
+  $("#question").show();
 
 </script>
 <script type="text/javascript">

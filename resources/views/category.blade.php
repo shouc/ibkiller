@@ -4,7 +4,7 @@
 @include('nav', ['q' => false])
 
 
-<body id="row">
+<body id="row" style="display: none;">
 <k class="c" id="bo2">
   <div class="poop">
     <div class="icon-local">
@@ -94,4 +94,6 @@ size();
 $(window).resize(function() {
     size();
 })
+  $("#row").show();
+
 </script>

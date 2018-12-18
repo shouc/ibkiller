@@ -19,7 +19,7 @@ class MateEmail extends Mailable
 
     public function build()
     {
-        $address = 'mate@ibkiller.com';
+        $address = 'hi@noreply.ibkiller.com';
         $subject = $this->subject;
         $name = 'IBKiller';
         
