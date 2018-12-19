@@ -6,7 +6,7 @@
 
 <body>
 
-    <div class="question" id="question" style="display: none;">
+    <div class="question" id="questionBody" style="display: none;">
       <div class="alert alert-warning alert-dismissible fade show notlogged" role="alert" id="notlogged">
         <h>You are not logged in! Your workings may not be recorded!!!</h>
         <br>
@@ -20,22 +20,22 @@
         <div><p  class="q-c" id="q-container"></p></div>
         <div >
             <div class="btn-group">
-              <button type="button" id="b1" class="btn btn-local">A</button>
+              <button type="button" id="buttonForAnswerA" class="btn btn-local">A</button>
             </div>
             <div class="btn-group"></div>
             <div class="btn-group"></div>
             <div class="btn-group">
-              <button type="button" id="b2" class="btn btn-local">B</button>
+              <button type="button" id="buttonForAnswerB" class="btn btn-local">B</button>
             </div>
             <div class="btn-group"></div>
             <div class="btn-group"></div>
             <div class="btn-group">
-              <button type="button" id="b3" class="btn btn-local">C</button>
+              <button type="button" id="buttonForAnswerC" class="btn btn-local">C</button>
             </div>
             <div class="btn-group"></div>
             <div class="btn-group"></div>
             <div class="btn-group">
-              <button type="button" id="b4" class="btn btn-local">D</button>
+              <button type="button" id="buttonForAnswerD" class="btn btn-local">D</button>
             </div>
         </div>
         <button class="btn btn-back" id="goBack">Back</button>
@@ -148,6 +148,11 @@
     }
 
     clearRecord();
+    function changeColor(button, color){
+      $(`#${button}`).css("background-color", color ? "#273c75" : "#fff");
+      $(`#${button}`).css("border-width", color ? "0px" : "1px");
+      $(`#${button}`).css("color", color ? "#fff" : "#000");
+    }
     function goTo(i){
         if (parseInt(localStorage.getItem("ans" + i)) == 10){
             alert("Why not finish the foregoing part first!");
@@ -155,22 +160,14 @@
             if (i > 0){
                 $("#goBack").fadeIn();
                 $("#q" + localStorage.getItem("qnum")).hide();
-                $("#question").hide();
+                $("#questionBody").hide();
                 ans = parseInt(localStorage.getItem(("ans" + i)));
-                $("#b1").css("background-color", ans == 0 ? "#273c75" : "#fff");
-                $("#b1").css("border-width", ans == 0 ? "0px" : "1px");
-                $("#b1").css("color", ans == 0 ? "#fff" : "#000");
-                $("#b2").css("background-color",  ans == 1 ? "#273c75" : "#fff");
-                $("#b2").css("border-width", ans == 1 ? "0px" : "1px");
-                $("#b2").css("color", ans == 1 ? "#fff" : "#000");
-                $("#b3").css("background-color", ans == 2 ? "#273c75" : "#fff");
-                $("#b3").css("border-width", ans == 2 ? "0px" : "1px");
-                $("#b3").css("color", ans == 2 ? "#fff" : "#000");
-                $("#b4").css("background-color", ans == 3 ? "#273c75" : "#fff");
-                $("#b4").css("border-width", ans == 3 ? "0px" : "1px");
-                $("#b4").css("color", ans == 3 ? "#fff" : "#000");
+                changeColor("buttonForAnswerA", ans == 0);
+                changeColor("buttonForAnswerB", ans == 1);
+                changeColor("buttonForAnswerC", ans == 2);
+                changeColor("buttonForAnswerD", ans == 3);
                 $("#q" + i).fadeIn();
-                $("#question").fadeIn();
+                $("#questionBody").fadeIn();
                 for (var k = question.length; k != i; k--){
                     $("#ba" + k).removeClass("done");
                     $("#l" + k).removeClass("done");
@@ -183,22 +180,14 @@
             } else {
                 $("#goBack").hide();
                 $("#q" + localStorage.getItem("qnum")).hide();
-                $("#question").hide();
+                $("#questionBody").hide();
                 ans = parseInt(localStorage.getItem("ans0"));
-                $("#b1").css("background-color", ans == 0 ? "#273c75" : "#fff");
-                $("#b1").css("border-width", ans == 0 ? "0px" : "1px");
-                $("#b1").css("color", ans == 0 ? "#fff" : "#000");
-                $("#b2").css("background-color",  ans == 1 ? "#273c75" : "#fff");
-                $("#b2").css("border-width", ans == 1 ? "0px" : "1px");
-                $("#b2").css("color", ans == 1 ? "#fff" : "#000");
-                $("#b3").css("background-color", ans == 2 ? "#273c75" : "#fff");
-                $("#b3").css("border-width", ans == 2 ? "0px" : "1px");
-                $("#b3").css("color", ans == 2 ? "#fff" : "#000");
-                $("#b4").css("background-color", ans == 3 ? "#273c75" : "#fff");
-                $("#b4").css("border-width", ans == 3 ? "0px" : "1px");
-                $("#b4").css("color", ans == 3 ? "#fff" : "#000");
+                changeColor("buttonForAnswerA", ans == 0);
+                changeColor("buttonForAnswerB", ans == 1);
+                changeColor("buttonForAnswerC", ans == 2);
+                changeColor("buttonForAnswerD", ans == 3);
                 $("#q" + i).fadeIn();
-                $("#question").fadeIn();
+                $("#questionBody").fadeIn();
                 for (var k = question.length; k != i; k--){
                     $("#ba" + k).removeClass("done");
                     $("#l" + k).removeClass("done");
@@ -215,25 +204,17 @@
         if (localStorage.getItem("qnum") != question.length -1){
             $("#goBack").fadeIn();
             $("#q" + localStorage.getItem("qnum")).hide();
-            $("#question").hide();
+            $("#questionBody").hide();
             ans = parseInt(localStorage.getItem(("ans" + (parseInt(localStorage.getItem("qnum"))+1))));
-            $("#b1").css("background-color", ans == 0 ? "#273c75" : "#fff");
-            $("#b1").css("border-width", ans == 0 ? "0px" : "1px");
-            $("#b1").css("color", ans == 0 ? "#fff" : "#000");
-            $("#b2").css("background-color",  ans == 1 ? "#273c75" : "#fff");
-            $("#b2").css("border-width", ans == 1 ? "0px" : "1px");
-            $("#b2").css("color", ans == 1 ? "#fff" : "#000");
-            $("#b3").css("background-color", ans == 2 ? "#273c75" : "#fff");
-            $("#b3").css("border-width", ans == 2 ? "0px" : "1px");
-            $("#b3").css("color", ans == 2 ? "#fff" : "#000");
-            $("#b4").css("background-color", ans == 3 ? "#273c75" : "#fff");
-            $("#b4").css("border-width", ans == 3 ? "0px" : "1px");
-            $("#b4").css("color", ans == 3 ? "#fff" : "#000");
+            changeColor("buttonForAnswerA", ans == 0);
+            changeColor("buttonForAnswerB", ans == 1);
+            changeColor("buttonForAnswerC", ans == 2);
+            changeColor("buttonForAnswerD", ans == 3);
             $("#ba" + (parseInt(localStorage.getItem("qnum")) + 1)).addClass("done");
             $("#l" + (parseInt(localStorage.getItem("qnum")) + 1)).addClass("done");
-            $("#b4").css("color", "#000");
+            $("#buttonForAnswerD").css("color", "#000");
             $("#q" + (parseInt(localStorage.getItem("qnum")) + 1)).fadeIn();
-            $("#question").fadeIn();
+            $("#questionBody").fadeIn();
             localStorage.setItem("qnum", parseInt(localStorage.getItem("qnum")) + 1);
             closeComment();
         } else {
@@ -247,22 +228,14 @@
         if (localStorage.getItem("qnum") > 1){
             $("#goBack").fadeIn();
             $("#q" + localStorage.getItem("qnum")).hide();
-            $("#question").hide();
+            $("#questionBody").hide();
             ans = parseInt(localStorage.getItem(("ans" + (parseInt(localStorage.getItem("qnum")) - 1))));
-            $("#b1").css("background-color", ans == 0 ? "#273c75" : "#fff");
-            $("#b1").css("border-width", ans == 0 ? "0px" : "1px");
-            $("#b1").css("color", ans == 0 ? "#fff" : "#000");
-            $("#b2").css("background-color",  ans == 1 ? "#273c75" : "#fff");
-            $("#b2").css("border-width", ans == 1 ? "0px" : "1px");
-            $("#b2").css("color", ans == 1 ? "#fff" : "#000");
-            $("#b3").css("background-color", ans == 2 ? "#273c75" : "#fff");
-            $("#b3").css("border-width", ans == 2 ? "0px" : "1px");
-            $("#b3").css("color", ans == 2 ? "#fff" : "#000");
-            $("#b4").css("background-color", ans == 3 ? "#273c75" : "#fff");
-            $("#b4").css("border-width", ans == 3 ? "0px" : "1px");
-            $("#b4").css("color", ans == 3 ? "#fff" : "#000");
+            changeColor("buttonForAnswerA", ans == 0);
+            changeColor("buttonForAnswerB", ans == 1);
+            changeColor("buttonForAnswerC", ans == 2);
+            changeColor("buttonForAnswerD", ans == 3);
             $("#q" + (parseInt(localStorage.getItem("qnum")) - 1)).fadeIn();
-            $("#question").fadeIn();
+            $("#questionBody").fadeIn();
             $("#ba" + (parseInt(localStorage.getItem("qnum")))).removeClass("done");
             $("#l" + (parseInt(localStorage.getItem("qnum")))).removeClass("done");
             localStorage.setItem("qnum", parseInt(localStorage.getItem("qnum")) - 1);
@@ -270,93 +243,52 @@
         } else {
             $("#goBack").hide();
             $("#q" + localStorage.getItem("qnum")).hide();
-            $("#question").hide();
+            $("#questionBody").hide();
             ans = parseInt(localStorage.getItem("ans0"));
-            $("#b1").css("background-color", ans == 0 ? "#273c75" : "#fff");
-            $("#b1").css("border-width", ans == 0 ? "0px" : "1px");
-            $("#b1").css("color", ans == 0 ? "#fff" : "#000");
-            $("#b2").css("background-color",  ans == 1 ? "#273c75" : "#fff");
-            $("#b2").css("border-width", ans == 1 ? "0px" : "1px");
-            $("#b2").css("color", ans == 1 ? "#fff" : "#000");
-            $("#b3").css("background-color", ans == 2 ? "#273c75" : "#fff");
-            $("#b3").css("border-width", ans == 2 ? "0px" : "1px");
-            $("#b3").css("color", ans == 2 ? "#fff" : "#000");
-            $("#b4").css("background-color", ans == 3 ? "#273c75" : "#fff");
-            $("#b4").css("border-width", ans == 3 ? "0px" : "1px");
-            $("#b4").css("color", ans == 3 ? "#fff" : "#000");
+            changeColor("buttonForAnswerA", ans == 0);
+            changeColor("buttonForAnswerB", ans == 1);
+            changeColor("buttonForAnswerC", ans == 2);
+            changeColor("buttonForAnswerD", ans == 3);
             $("#q" + (parseInt(localStorage.getItem("qnum")) - 1)).fadeIn();
-            $("#question").fadeIn();
+            $("#questionBody").fadeIn();
             $("#ba" + (parseInt(localStorage.getItem("qnum")))).removeClass("done");
             $("#l" + (parseInt(localStorage.getItem("qnum")))).removeClass("done");
             localStorage.setItem("qnum", parseInt(localStorage.getItem("qnum")) - 1);
             closeComment();
         }
     });
-    $("#question").css("margin-right", (width / 15) + "px");
-    $("#question").css("margin-left", (width / 10) + "px");
+    $("#questionBody").css("margin-right", (width / 15) + "px");
+    $("#questionBody").css("margin-left", (width / 10) + "px");
     if (width < 700){
-        $("#question").css("margin-left", (width / 15) + "px");
+        $("#questionBody").css("margin-left", (width / 15) + "px");
     } 
-    $("#question").css("margin-bottom", (width / 15) + "px");
-    $("#b1").click(function(){
-      $("#b1").css("background-color", "#273c75");
-      $("#b1").css("border-width", "0px");
-      $("#b1").css("color", "#fff");
-      $("#b2").css("background-color", "#fff");
-      $("#b2").css("border-width", "1px");
-      $("#b2").css("color", "#000");
-      $("#b2").css("color", "#000");
-      $("#b3").css("background-color", "#fff");
-      $("#b3").css("border-width", "1px");
-      $("#b3").css("color", "#000");
-      $("#b4").css("background-color", "#fff");
-      $("#b4").css("border-width", "1px");
-      $("#b4").css("color", "#000");
+    $("#questionBody").css("margin-bottom", (width / 15) + "px");
+    $("#buttonForAnswerA").click(function(){
+      changeColor('buttonForAnswerA', 1);
+      changeColor('buttonForAnswerB', 0);
+      changeColor('buttonForAnswerC', 0);
+      changeColor('buttonForAnswerD', 0);
       localStorage.setItem("ans" + localStorage.getItem("qnum"), parseInt(0));
     });
-    $("#b2").click(function(){
-      $("#b2").css("background-color", "#273c75");
-      $("#b2").css("border-width", "0px");
-      $("#b2").css("color", "#fff");
-      $("#b1").css("background-color", "#fff");
-      $("#b1").css("border-width", "1px");
-      $("#b1").css("color", "#000");
-      $("#b3").css("background-color", "#fff");
-      $("#b3").css("border-width", "1px");
-      $("#b3").css("color", "#000");
-      $("#b4").css("background-color", "#fff");
-      $("#b4").css("border-width", "1px");
-      $("#b4").css("color", "#000");
+    $("#buttonForAnswerB").click(function(){
+      changeColor('buttonForAnswerA', 0);
+      changeColor('buttonForAnswerB', 1);
+      changeColor('buttonForAnswerC', 0);
+      changeColor('buttonForAnswerD', 0);
       localStorage.setItem("ans" + localStorage.getItem("qnum"), parseInt(1));
     });
-    $("#b3").click(function(){
-      $("#b3").css("background-color", "#273c75");
-      $("#b3").css("border-width", "0px");
-      $("#b3").css("color", "#fff");
-      $("#b2").css("background-color", "#fff");
-      $("#b2").css("border-width", "1px");
-      $("#b2").css("color", "#000");
-      $("#b1").css("background-color", "#fff");
-      $("#b1").css("border-width", "1px");
-      $("#b1").css("color", "#000");
-      $("#b4").css("background-color", "#fff");
-      $("#b4").css("border-width", "1px");
-      $("#b4").css("color", "#000");
+    $("#buttonForAnswerC").click(function(){
+      changeColor('buttonForAnswerA', 0);
+      changeColor('buttonForAnswerB', 0);
+      changeColor('buttonForAnswerC', 1);
+      changeColor('buttonForAnswerD', 0);
       localStorage.setItem("ans" + localStorage.getItem("qnum"), parseInt(2));
     });
-    $("#b4").click(function(){
-      $("#b4").css("background-color", "#273c75");
-      $("#b4").css("border-width", "0px");
-      $("#b4").css("color", "#fff");
-      $("#b2").css("background-color", "#fff");
-      $("#b2").css("border-width", "1px");
-      $("#b2").css("color", "#000");
-      $("#b3").css("background-color", "#fff");
-      $("#b3").css("border-width", "1px");
-      $("#b3").css("color", "#000");
-      $("#b1").css("background-color", "#fff");
-      $("#b1").css("border-width", "1px");
-      $("#b1").css("color", "#000");
+    $("#buttonForAnswerD").click(function(){
+      changeColor('buttonForAnswerA', 0);
+      changeColor('buttonForAnswerB', 0);
+      changeColor('buttonForAnswerC', 0);
+      changeColor('buttonForAnswerD', 1);
       localStorage.setItem("ans" + localStorage.getItem("qnum"), parseInt(3));
     });
     questionHTML = "";
@@ -372,15 +304,15 @@
     }
     $("timeline").html(tHTML);
     if ($("#q-container").height() < height && height >= 700){
-        $("#question").css("margin-top",(- $("#question").height() / 2 + height / 2 -20) + "px");
+        $("#questionBody").css("margin-top",(- $("#questionBody").height() / 2 + height / 2 -20) + "px");
     }
     if (height < 590){
-      $("#question");
+      $("#questionBody");
     }
     if (width < 700){
         $("timeline").hide();
     }
-    $("#question").show();
+    $("#questionBody").show();
     
     
 </script>
@@ -388,7 +320,7 @@
     if(!{{$isLoggedIn ? 1 : 0}}){
       $("#notlogged").fadeIn();
       if ($("#q-container").height() < height && height >= 700){
-        $("#question").css("margin-top",(- $("#question").height() / 2 + height / 2 - 40) + "px");
+        $("#questionBody").css("margin-top",(- $("#questionBody").height() / 2 + height / 2 - 40) + "px");
       }
     } 
 </script>
