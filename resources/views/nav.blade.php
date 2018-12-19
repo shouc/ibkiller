@@ -10,12 +10,12 @@
       </li>
     </ul>
     @if(!$isLoggedIn)
-    <form class="form-inline my-2 my-lg-0" id="notLoginButtons">
-      <button type="button" class="btn btn-success my-2 my-sm-0" data-toggle="modal" data-target="#registerModal">
+    <form class="form-inline" id="notLoginButtons">
+      <button type="button" class="btn btn-success my-sm-0" data-toggle="modal" data-target="#registerModal">
         Register
       </button>
       &nbsp;&nbsp;
-      <button type="button" class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#loginModal">
+      <button type="button" class="btn btn-outline-success my-sm-0" data-toggle="modal" data-target="#loginModal">
         Login
       </button>
     </form>
@@ -25,9 +25,9 @@
       <msg>Message</msg> 
     </button>
     &nbsp;&nbsp;
-    <form class="form-inline my-2 my-lg-0" id="loginButtons" action="/userLogout" method="get">
+    <form class="form-inline" id="loginButtons" action="/userLogout" method="get">
       @csrf
-      <button type="submit" class="btn btn-success my-2 my-sm-0">
+      <button type="submit" class="btn btn-success">
         Logout
       </button>
     </form>
@@ -38,26 +38,26 @@
 @else
   <div id="navbg" class="nav-local-h">
    <nav class="navbar navbar-expand-sm navbar-light " class="nav-local">
-    <ul class="navbar-nav mr-auto mt-lg-0">
-    <li class="nav-item">
-      <a class="nav-link" href="/">Home</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/help">Help</a>
-    </li>
-    @if($isLoggedIn)
+    <ul class="navbar-nav mr-auto mt-lg-0" id='navbarBadges'>
       <li class="nav-item">
-        <a class="nav-link" href="/history">History</a>
+        <a class="nav-link" href="/">Home</a>
       </li>
-    @endif
+      <li class="nav-item">
+        <a class="nav-link" href="/help">Help</a>
+      </li>
+      @if($isLoggedIn)
+        <li class="nav-item">
+          <a class="nav-link" href="/history">History</a>
+        </li>
+      @endif
     </ul>
     @if(!$isLoggedIn)
-    <form class="form-inline my-2 my-lg-0" id="notLoginButtons">
-      <button type="button" class="btn btn-success my-2 my-sm-0" data-toggle="modal" data-target="#registerModal">
+    <form class="form-inline" id="notLoginButtons">
+      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#registerModal">
         Register
       </button>
       &nbsp;&nbsp;
-      <button type="button" class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#loginModal">
+      <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#loginModal">
         Login
       </button>
     </form>
@@ -67,9 +67,9 @@
       <msg>Message</msg> 
     </button>
     &nbsp;&nbsp;
-    <form class="form-inline my-2 my-lg-0" id="loginButtons" action="/userLogout" method="get">
+    <form class="form-inline" id="loginButtons" action="/userLogout" method="get">
       @csrf
-      <button type="submit" class="btn btn-success my-2 my-sm-0">
+      <button type="submit" class="btn btn-success">
         Logout
       </button>
     </form>
@@ -188,7 +188,16 @@
     $('#errorRegInfo').html('{{ $errors->all()[1] }}');
   }
   @endif
-  
+  if (width < 575){
+    $("#navbarBadges").html(`
+      <li class="nav-item">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/help">Help</a>
+      </li>`
+    );
+  }
 </script>
 
 <script type="text/javascript">
