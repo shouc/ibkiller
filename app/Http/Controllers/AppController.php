@@ -256,7 +256,7 @@ class AppController extends Controller
                 $score = 0;
                 $totalQuestionNum = 0;
                 foreach ($onePID as $k) {
-                    $score += ((int) $k->correct == (int) $k->answer);
+                    $score += (int) $k->correct;
                     $totalQuestionNum += 1;
                 }
                 array_push($allDataTemp, [
