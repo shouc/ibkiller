@@ -262,7 +262,7 @@ function gen(){
       `);
 
   }
-  $("#bo2").show();
+  
 
 }
 $('#data').html(`
@@ -276,6 +276,6 @@ $('#data').html(`
     gen();
   }
 @endif
-
+$("#bo2").show();
 </script>
 
