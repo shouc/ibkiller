@@ -4,7 +4,19 @@
 @include('nav', ['q' => false])
 
 <body>
+<style type="text/css">
+body {
+  background-color: #fff;
+}
+.form-local {
+  margin-top: 120px;
+}
 
+.step-local {
+  color: #aaa;
+  font-size: 20px;
+}
+</style>
 <!--
 <div class="is-pay">
   <p class="is-pay-title">Paid User</p>

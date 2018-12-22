@@ -2,7 +2,138 @@
 @include('header', ['css' => '.history.css'])
 
 @include('nav', ['q' => false])
+<style type="text/css">
+body {
+  background-color: #fff;
+}
+.c {
+    position: absolute;
+    background-color: #fff;
+    text-align: center;
+    margin-top: 150px;
+    margin-bottom: 30px;
+}
+.line {
+  height: 0.5px;
+  background-color: #ccc;
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+  .jb-local {
+    margin-top: 30px;
+    background-color: #fff;
+    box-shadow: 1px 1px 50px #ccc;
+    border-radius: 10px;
+  }
+  .container-local {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+  .bar-local {
+    margin-top: 60px;
+    width: 100%;
+  }
 
+  .font-local {
+    color:#ccc;
+    font-size: 35px;
+  }
+  .blc {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+  }
+  .three-block-1 {
+    width: 28%;
+    height: 100px;
+    box-shadow: 1px 1px 30px #aaa;
+    margin-left: 5%;
+    background-color: #fff;
+    border-radius: 10px;
+  }
+  .three-block-2 {
+    width: 28%;
+    height: 100px;
+    box-shadow: 1px 1px 30px #aaa;
+    background-color: #fff;
+    margin-left: 3%;
+    border-radius: 10px;
+  }
+  .three-block-3 {
+    width: 28%;
+    height: 100px;
+    box-shadow: 1px 1px 30px #aaa;
+    float:right;
+    background-color: #fff;
+    margin-left: 3%;
+    border-radius: 10px;
+  }
+  .two-block-1 {
+    width: 43%;
+    height: 100px;
+    box-shadow: 1px 1px 30px #aaa;
+    background-color: #fff;
+    margin-left: 5%;
+    border-radius: 10px;
+  }
+  .two-block-2 {
+    width: 43%;
+    height: 100px;
+    box-shadow: 1px 1px 30px #aaa;
+    background-color: #fff;
+    margin-left: 4%;
+    border-radius: 10px;
+  }
+  .one-block-1 {
+    width: 90%;
+    height: 100px;
+    box-shadow: 1px 1px 30px #aaa;
+    background-color: #fff;
+    margin-left: 5%;
+    border-radius: 10px;
+  }
+  
+  .name-local{
+    margin-top: 36px;
+    font-size:20px;
+    font-weight: lighter;
+    color:#111;
+    width:200px;
+  }
+  .block-local{
+    font-size: 18px;
+    display:flex;
+    flex-direction: row;
+  }
+  .picture-local{
+    margin-left: 7px;
+    margin-top: 22.5px;
+    height: 55px;
+    width: 55px;
+  }
+  .score {
+    margin-left: 5px;
+  }
+  .score-text {
+    font-size: 65px;
+    font-weight: 200;
+    
+  }
+  .ttq {
+    font-size: 15px;
+    margin-left: 0px;
+    font-weight: 300;
+  }
+  .info-local {
+    flex-direction: column;
+  }
+  .his-b {
+    margin-bottom: 20px;
+  }
+
+
+</style>
 <body id="row">
 <k class="c" id="bo2" style="display: none;">
   <h1 class="h1-local">

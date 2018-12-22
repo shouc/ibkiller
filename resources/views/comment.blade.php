@@ -1,3 +1,70 @@
+<style type="text/css">
+.card-local {
+  margin-bottom: 20px;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+.comment {
+  z-index: 10;
+  overflow: auto;
+  position: fixed;
+  right: 0;
+  top: 0;
+  box-shadow: -10px 0px 20px 0px #eee;
+  background-color: #fff;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  display: hidden;
+}
+
+.cross {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.btn-start-comment {
+  margin-top: 20px;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 20px;
+}
+
+.comment-input {
+  margin-top: 20px;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+
+}
+.send-btn {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  margin-left: 10%;
+}
+.comment-ball {
+  height: 70px;
+  width: 70px;
+  border-radius: 35px;
+  text-align: center;
+  background: linear-gradient(#55edc4, #00b894);
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  z-index: 1;
+}
+.comment-icon {
+  margin-top: 17.5px;
+  font-size: 35px;
+  color: #fff;
+}
+.click {
+  cursor: hand;
+}
+.paging-C {
+  margin-bottom: 20px;
+}
+</style>
 <div class="comment-ball" onclick="openComment()">
     <i class="far fa-comment comment-icon click"></i>
 </div>

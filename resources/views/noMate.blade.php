@@ -2,7 +2,20 @@
 @include('header', ['css' => '.mateRegister.css'])
 
 @include('nav', ['q' => false])
+<style type="text/css">
+body {
+  background-color: #fff;
+}
 
+.form-local {
+  margin-top: 120px;
+}
+
+.step-local {
+  color: #aaa;
+  font-size: 20px;
+}
+</style>
 <body>
 
 <!--
