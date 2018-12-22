@@ -1,76 +1,71 @@
+@include('header')
+@include('nav', ['q' => true])
+@include('comment')
 
-@include('header', ['css' => '.question.css']);
-
-@include('nav', ['q' => true]);
-@include('comment');
 <style type="text/css">
 body {
-  background-color: #fff;
+    background-color:#fff;
 }
-.question {
-  margin-top: 120px;
-  word-wrap:break-word;
+.questionBody {
+    margin-top:120px;
+    word-wrap:break-word;
+    display: none;
 }
-.bo {
-  text-align: center;
-  justify-content: center;
+.questionContent {
+    text-align:center;
+    justify-content:center;
 }
-.btn-local {
-  margin-top: 10px;
-  background-color: #fff;
-  width: 50px;
-  height: 50px;
-  border-width: 1px;
-  border-color: #999;
-  font-size: 20;
-  font-weight: 300;
-  margin-right: 10px;
+.choiceButton {
+    margin-top:10px;
+    background-color:#fff;
+    width:50px;
+    height:50px;
+    border-width:1px;
+    border-color:#999;
+    font-size:20;
+    font-weight:300;
+    margin-right:10px;
 }
-.line{
-  background-color: #273c75;
-  width: 0.3em;
-  height: 1.5em;
-  margin-left: 0.725em;
-  margin-top: -0.01em;
-  margin-bottom: -0.1em;
-  z-index: -100;
+.line {
+    background-color:#273c75;
+    width:0.3em;
+    height:1.5em;
+    margin-left:0.725em;
+    margin-top:-0.01em;
+    margin-bottom:-0.1em;
+    z-index:-100;
 }
 .ball {
-
-  text-align: center;
-  background-color: #273c75;
-  width: 1.75em;
-  height: 1.75em;
-  border-radius: 0.875em;
-  z-index: 100;
-  box-shadow: 1px 1px 30px #bbb;
-  color: #fff;
+    text-align:center;
+    background-color:#273c75;
+    width:1.75em;
+    height:1.75em;
+    border-radius:0.875em;
+    z-index:100;
+    box-shadow:1px 1px 30px #bbb;
+    color:#fff;
 }
 .done {
-  background-color: #10ac84;
-  box-shadow: 1px 1px 30px #1dd1a1;
+    background-color:#10ac84;
+    box-shadow:1px 1px 30px #1dd1a1;
 }
 .timeline {
-    position: fixed;
-    top: 100px;
-    left: 20px;
-
+    position:fixed;
+    top:100px;
+    left:20px;
 }
-.q-c {
-    font-size: 18;
-}
-.btn-back {
-    border-width: 1px;
-    border-color: #ccc;
-    margin-top: 10px;
-    color: #000;
-    font-size: 19;
-    font-weight: 200;
+.changePageButton {
+    border-width:1px;
+    border-color:#ccc;
+    margin-top:10px;
+    color:#000;
+    font-size:19;
+    font-weight:200;
+    background-color:#fff;
 }
 </style>
 <body>
-
-    <div class="question" id="questionBody" style="display: none;">
+    <div class="questionBody" id="questionBody">
       <div class="alert alert-warning alert-dismissible fade show notlogged" role="alert" id="notlogged">
         <h>You are not logged in! Your workings may not be recorded!!!</h>
         <br>
@@ -78,35 +73,33 @@ body {
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-
       </div>
-      <div class="bo">
-        <div><p  class="q-c" id="questionContainer"></p></div>
+      <div class="questionContent">
+        <div><p class="q-c" id="questionContainer"></p></div>
         <div >
             <div class="btn-group">
-              <button type="button" id="buttonForAnswerA" class="btn btn-local">A</button>
+              <button type="button" id="buttonForAnswerA" class="btn choiceButton">A</button>
             </div>
             <div class="btn-group"></div>
             <div class="btn-group"></div>
             <div class="btn-group">
-              <button type="button" id="buttonForAnswerB" class="btn btn-local">B</button>
+              <button type="button" id="buttonForAnswerB" class="btn choiceButton">B</button>
             </div>
             <div class="btn-group"></div>
             <div class="btn-group"></div>
             <div class="btn-group">
-              <button type="button" id="buttonForAnswerC" class="btn btn-local">C</button>
+              <button type="button" id="buttonForAnswerC" class="btn choiceButton">C</button>
             </div>
             <div class="btn-group"></div>
             <div class="btn-group"></div>
             <div class="btn-group">
-              <button type="button" id="buttonForAnswerD" class="btn btn-local">D</button>
+              <button type="button" id="buttonForAnswerD" class="btn choiceButton">D</button>
             </div>
         </div>
-        <button class="btn btn-back" id="goBack">Back</button>
+        <button class="btn changePageButton" id="goBack">Back</button>
         &nbsp;
         &nbsp;
-        <button class="btn btn-back" id="goNext">Next</button>
-
+        <button class="btn changePageButton" id="goNext">Next</button>
     </div>
   </div>
 </body>
@@ -116,6 +109,7 @@ body {
   <input type='submit' id='submitAnswer'>
 </form>
 <timeline class="timeline"></timeline>
+
 <script type="text/javascript">   
 $(function () {
     history.pushState(null, null, document.URL);
@@ -124,7 +118,6 @@ $(function () {
         history.pushState(null, null, document.URL);
     });
 });
-
 question = $.parseJSON(window.atob('{{ $data }}'));
 localStorage.setItem("qnum", 0);
 $("#goBack").hide();
@@ -136,25 +129,26 @@ if (width < 700) {
 }
 $("#questionBody").css("margin-bottom", (width / 15) + "px");
 questionHTML = "";
-tHTML = '<div class="ball done"><p onclick="goTo(0)">1</p></div>';
+timelineHTML = '<div class="ball done"><p onclick="goTo(0)">1</p></div>';
 for (var i = 0; i < question.length; i++) {
     questionHTML += "<div id='q" + i + "'>" + window.atob(question[i]["content"]) + "</div>";
 }
 $("#questionContainer").html(questionHTML);
 for (var i = 1; i < question.length; i++) {
     $("#q" + i).hide();
-    tHTML += '<div class="line" id="l' + i + '"></div> <div class="ball" id="ba' + i + '"><p onclick="goTo(' + i + ')">' + (i + 1) + '</p></div>';
+    timelineHTML += '<div class="line" id="l' + i + '"></div> <div class="ball" id="ba' + i + '"><p onclick="goTo(' + i + ')">' + (i + 1) + '</p></div>';
 }
-$("timeline").html(tHTML);
+$("timeline").html(timelineHTML);
 if ($("#questionContainer").height() < height && height >= 700) {
     $("#questionBody").css("margin-top", (-$("#questionBody").height() / 2 + height / 2 - 20) + "px");
 }
-if (height < 590) {
-    $("#questionBody");
-}
-if (width < 700) {
+if (width >= 700) {
+    $("#questionBody").css("margin-right", (width / 7.5) + "px");
+    $("#questionBody").css("margin-left", (width / 5) + "px");
+} else {
     $("timeline").hide();
 }
+
 $("#questionBody").show();
 
 

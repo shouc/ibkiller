@@ -1,9 +1,7 @@
 
 <style type="text/css">
 .msgBox {
-
   margin: 20px;
-
 }
 .msgLine {
   border-style: solid;
@@ -13,37 +11,34 @@
   box-shadow: 0px 0px 30px #ddd;
   margin-bottom: 10px;
 }
-.msg-text {
+.messageContainer {
   margin: 20px;
 }
-
 .read {
   color: #999;
 }
 .replies {
   font-style: italic;
 }
-.msg-head {
+.messageHead {
   font-size: 23px;
   margin: 0px;
 }
-
-.read-all-btn {
+.readAllButton {
   border-radius: 0px;
 }
 </style>
+
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Message</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <x aria-hidden="true">&times;</x>
-        </button>
+          <x aria-hidden="true">&times;</x></button>
       </div>
-      <button onclick="readAll()" class="btn btn-success read-all-btn">I have read all messages</button>
-      <div class="msgBox" id="msg-box">
-      </div>
+      <button onclick="readAll()" class="btn btn-success readAllButton">I have read all messages</button>
+      <div class="msgBox" id="msg-box"></div>
     </div>
   </div>
 </div>
@@ -57,7 +52,7 @@
       messageHTML = ''
       for (var i = 0; i < dataMsg.length; i++) {
         messageHTML += `<div class="msgLine">
-              <div class="msg-text ${dataMsg[i]['read'] == '1' ? 'read' : ''}">
+              <div class="messageContainer ${dataMsg[i]['read'] == '1' ? 'read' : ''}">
                 ${window.atob(dataMsg[i]['context'])}
               </div>
             </div>`

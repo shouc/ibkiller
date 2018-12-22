@@ -1,7 +1,7 @@
 @include('message')
 @if ($q)
   <link rel="stylesheet" type="text/css" href="{{ $server }}/app/main.comment.css">
-  <div id="navbg" class="nav-local-h">
+  <div class="navLocal" id="navLocal">
    <nav class="navbar navbar-expand-sm navbar-light " class="nav-local">
     <ul class="navbar-nav mr-auto mt-lg-0">
 
@@ -36,7 +36,7 @@
   </div>
 
 @else
-  <div id="navbg" class="nav-local-h">
+  <div class="navLocal" id="navLocal">
    <nav class="navbar navbar-expand-sm navbar-light " class="nav-local">
     <ul class="navbar-nav mr-auto mt-lg-0" id='navbarBadges'>
       <li class="nav-item">

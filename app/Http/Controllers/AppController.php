@@ -504,7 +504,7 @@ class AppController extends Controller
                 $atName = strstr($atName, ' ', True);
                 $atName = str_replace('@', '', $atName);
                 $this->addUnreadMessageLocalAPI($_session, $atName, 
-                    '<p class="msg-head">Your comment <a href="/question?Paper=' . base64_encode($_paper) . '">here</a> has been replied.</p>Wala! User <strong>' . $_name . '</strong> replied your comment with following content: <p class="replies">' . $_context . '</p>'
+                    '<p class="messageHead">Your comment <a href="/question?Paper=' . base64_encode($_paper) . '">here</a> has been replied.</p>Wala! User <strong>' . $_name . '</strong> replied your comment with following content: <p class="replies">' . $_context . '</p>'
                 );
             }
             DB::table('discussion')

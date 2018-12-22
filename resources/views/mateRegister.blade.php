@@ -7,17 +7,16 @@
 body {
   background-color: #fff;
 }
-.form-local {
+.matingForm {
   margin-top: 120px;
 }
 
-.step-local {
+.matingStep {
   color: #aaa;
   font-size: 20px;
 }
 </style>
 <body>
-
 <!--
 <div class="is-pay">
   <p class="is-pay-title">Paid User</p>
@@ -27,9 +26,9 @@ body {
 </div>
 -->
 
-<form class="container form-local" id="form-1" action="/findMate" style="display: none;">
+<form class="container matingForm" id="form-1" action="/findMate" style="display: none;">
   <h1 class="h1-local">
-	  <h class="step-local">1/2</h> Complete Your Information
+	  <h class="matingStep">1/2</h> Complete Your Information
   </h1>
   <div class="alert alert-danger" role="alert" id="confirmationNotice">
     Confirmation of email is required! Click <a href="javascript:resendAuth();">here</a> to resend the request.
@@ -88,7 +87,6 @@ body {
   if ({{$isAuthed}}){
     $("#confirmationNotice").hide();
   }
-
   function resendAuth(){
     $.get('/resendAuth');
   }
@@ -125,7 +123,6 @@ body {
       return 0;
     }
     $("#form-1").submit();
-
   }
   $("#form-1").show();
 

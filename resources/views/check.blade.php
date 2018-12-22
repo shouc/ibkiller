@@ -1,22 +1,15 @@
-@include('header', ['css' => '.check.css'])
-
+@include('header')
 @include('nav', ['q' => true])
 @include('comment');
+
 <style type="text/css">
-.bo {
+body {
+  background-color: #fff;
+}
+
+.checkContainer {
   text-align: center;
   justify-content: center;
-}
-.btn-local {
-  margin-top: 10px;
-  background-color: #fff;
-  width: 50px;
-  height: 50px;
-  border-width: 1px;
-  border-color: #999;
-  font-size: 20;
-  font-weight: 300;
-  margin-right: 10px;
 }
 .line{
   background-color: #273c75;
@@ -43,15 +36,12 @@
   box-shadow: 1px 1px 30px #1dd1a1
 }
 .timeline {
-    position: fixed;
-    top: 100px;
-    left: 20px;
+  position: fixed;
+  top: 100px;
+  left: 20px;
+}
 
-}
-.q-c {
-    font-size: 18;
-}
-.btn-back {
+.changePageButton {
     border-width: 1px;
     border-color: #ccc;
     margin-top: 10px;
@@ -59,19 +49,19 @@
     font-size: 19;
     font-weight: 200;
 }
-.bbar-local {
+.userAnswerBar {
   height: 55px;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
   background-color: #00b894;
 }
-.bbar2-local {
+.correntAnswerBar {
   height: 55px;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
   background-color: #ffeaa7;
 }
-.bbar-txt {
+.userAnswerContent {
   float: left;
   margin-left: 15px;
   margin-top: 4px;
@@ -81,7 +71,7 @@
 .wrong {
   background-color:#e17055;
 }
-.bbar2-txt {
+.correctAnswerContent {
   float: left;
   margin-left: 15px;
   margin-top: 4px;
@@ -90,7 +80,7 @@
 }
 </style>
 <body>
-    <div class="question bo" id="question" style="display: none;">
+    <div class="question checkContainer" id="question" style="display: none;">
         <div class="alert alert-warning alert-dismissible fade show notlogged" role="alert" id="notlogged">
         <h>You are not logged in! Your workings may not be recorded!!!</h>
         <br>
@@ -101,17 +91,17 @@
 
       </div>
         <div><p  class="q-c" id="questionContainer"></p></div>
-        <div class="bbar-local" id="userAnswerBar">
-          <p class="bbar-txt">Your Answer: <userAnswer></userAnswer></p>
+        <div class="userAnswerBar" id="userAnswerBar">
+          <p class="userAnswerContent">Your Answer: <userAnswer></userAnswer></p>
         </div>
-        <div class="bbar2-local" id="correctAnswerBar">
-          <p class="bbar2-txt">Correct Answer: <correctAnswer></correctAnswer></p>
+        <div class="correntAnswerBar" id="correctAnswerBar">
+          <p class="correctAnswerContent">Correct Answer: <correctAnswer></correctAnswer></p>
 
         </div>
-        <button class="btn btn-back" id="goBack">Back</button>
+        <button class="btn changePageButton" id="goBack">Back</button>
         &nbsp;
         &nbsp;
-        <button class="btn btn-back" id="goNext">Next</button>
+        <button class="btn changePageButton" id="goNext">Next</button>
     </div>
 </body>
 <timeline class="timeline"></timeline>
@@ -121,7 +111,6 @@ question = $.parseJSON(window.atob('{{ $data }}'))["info"];
 score = $.parseJSON(window.atob('{{ $data }}'))["score"];
 localStorage.setItem("qnum", 0);
 $("#goBack").hide();
-
 $(function () {
     //prevent getback
     history.pushState(null, null, document.URL);
@@ -283,7 +272,7 @@ if (width > 700) {
 }
 
 questionHTML = "";
-tHTML = '<div class="ball done"><p onclick="goTo(0)">1</p></div>';
+timelineHTML = '<div class="ball done"><p onclick="goTo(0)">1</p></div>';
 for (var i = 0; i < question.length; i++) {
     questionHTML += "<div id='q" + i + "'>" + window.atob(question[i]["content"]) + "</div>";
 }
@@ -291,9 +280,9 @@ for (var i = 0; i < question.length; i++) {
 $("#questionContainer").html(questionHTML);
 for (var i = 1; i < question.length; i++) {
     $("#q" + i).hide();
-    tHTML += '<div class="line" id="l' + i + '"></div> <div class="ball" id="ba' + i + '"><p onclick="goTo(' + i + ')">' + (i + 1) + '</p></div>';
+    timelineHTML += '<div class="line" id="l' + i + '"></div> <div class="ball" id="ba' + i + '"><p onclick="goTo(' + i + ')">' + (i + 1) + '</p></div>';
 }
-$("timeline").html(tHTML);
+$("timeline").html(timelineHTML);
 if ($("#questionContainer").height() < height && height >= 600) {
     $("#question").css("margin-top", (-$("#question").height() / 2 + height / 2 - 20) + "px");
 }
@@ -310,7 +299,6 @@ if (!question[0]["correct"]) {
 }
 $("userAnswer").html(convertNum(question[0]["userAnswer"]));
 $("correctAnswer").html(atob(question[0]["answer"]));
-
 $("#question").show();
 </script>
 <script type="text/javascript">

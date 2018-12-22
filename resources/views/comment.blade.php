@@ -1,10 +1,10 @@
 <style type="text/css">
-.card-local {
+.cardBody {
   margin-bottom: 20px;
   margin-left: 10%;
   margin-right: 10%;
 }
-.comment {
+.commentBody {
   z-index: 10;
   overflow: auto;
   position: fixed;
@@ -16,33 +16,29 @@
   border-bottom-left-radius: 10px;
   display: hidden;
 }
-
 .cross {
   margin-top: 20px;
   margin-left: 20px;
 }
-
-.btn-start-comment {
+.startCommentButton {
   margin-top: 20px;
   width: 80%;
   margin-left: 10%;
   margin-right: 10%;
   margin-bottom: 20px;
 }
-
-.comment-input {
+.commentInputBox {
   margin-top: 20px;
   width: 80%;
   margin-left: 10%;
   margin-right: 10%;
-
 }
-.send-btn {
+.sendCommentButton {
   margin-top: 10px;
   margin-bottom: 20px;
   margin-left: 10%;
 }
-.comment-ball {
+.openCommentBall {
   height: 70px;
   width: 70px;
   border-radius: 35px;
@@ -53,23 +49,21 @@
   right: 10px;
   z-index: 1;
 }
-.comment-icon {
+.openCommentBallIcon {
   margin-top: 17.5px;
   font-size: 35px;
   color: #fff;
-}
-.click {
   cursor: hand;
 }
-.paging-C {
+.commentPagination {
   margin-bottom: 20px;
 }
 </style>
-<div class="comment-ball" onclick="openComment()">
-    <i class="far fa-comment comment-icon click"></i>
-</div>
 
-<div class="comment" id="comment">
+<div class="openCommentBall" onclick="openComment()">
+    <i class="far fa-comment openCommentBallIcon click"></i>
+</div>
+<div class="commentBody" id="comment">
     <div>
         <i class="fas fa-times cross click" onclick="closeComment()"></i>
     </div>
@@ -77,32 +71,24 @@
     @if($isLoggedIn)
     <div class="list">
         <div id="beforeComment" onclick="makeComment('')">
-            <button class="btn btn-primary btn-start-comment">Make your comment!</button>
+            <button class="btn btn-primary startCommentButton">Make your comment!</button>
         </div>
         <div id="afterComment">
             <div class="input-group">
-                <textarea class="form-control comment-input" id="comment-area" focus></textarea>
+                <textarea class="form-control commentInputBox" id="commentInputBox" focus></textarea>
             </div>
-            <div class="send-btn">
+            <div class="sendCommentButton">
                 <button class="btn btn-primary" onclick="sendComment()">Send</button>
                 <button class="btn btn-secondary" onclick="endComment()">Cancel</button>
             </div>
         </div>
-        
     </div>
     @endif
-    <ul class="list" id="comment-content"></ul>
+    <ul class="list" id="commentContent"></ul>
 </div>
+
 <script type="text/javascript">
-    height = $(window).height();
-    width = document.body.scrollWidth;
-    if ($("#q-container").height() < height && height >= 600){
-        height = $(document).height();
-    }
-    function showTime(t){
-        timestamp = new Date(parseInt(t + "000"));
-        return timestamp.toLocaleDateString().replace(/\//g, ".");
-    }
+    
     $("#comment").height(height);
     if (width > 1000){
         $("#comment").width('30%');
@@ -114,14 +100,10 @@
     } else {
         $("#comment").width('100%');
     }
-
-    $("#dark-background").height(height);
-
-    
     $("#afterComment").hide();
     $("#comment").hide();
 
-    currentPage = 1;
+    commentCurrentPage = 1;
     function commentErrors(data){
         if (data['success']){
             swal({
@@ -167,7 +149,7 @@
                 
                 if (isDiscussed){
                     for (var i = 0; i < commentData.length; i++) {
-                        cHTML += `<li class="media card card-local">
+                        cHTML += `<li class="media card cardBody">
                             <div class="media-body card-body">
                               <h5 class="mt-0 mb-1">${ commentData[i]["name"] }</h5>
                               ${ commentData[i]["context"] }
@@ -178,46 +160,44 @@
                                 </i> 
                                 / ${ commentData[i]["like"] } likes /
                                 <i class="fas fa-at click" onclick="makeComment('@${ commentData[i]["name"] } ')"></i> /` }
-                                ${ showTime(commentData[i]["time"]) }</p>
+                                ${ timestampToTime(commentData[i]["time"]) }</p>
                             </div>
                           </li>`
                     }
                     if (pageNum < 4){
                       for (var j = 1; j <= pageNum; j++) {
-                        pHTML += `<li class="page-item ${currentPage == j ? 'active': ''}"><a class="page-link" href="javascript:goCPage(${j})">${j}</a></li>`
+                        pHTML += `<li class="page-item ${commentCurrentPage == j ? 'active': ''}"><a class="page-link" href="javascript:goCPage(${j})">${j}</a></li>`
                       }
                     } else {
                       for (var j = 1; j <= pageNum; j++) {
-                        if (Math.abs(currentPage - j) < 3){
-                          pHTML += `<li class="page-item ${currentPage == j ? 'active': ''}"><a class="page-link" href="javascript:goCPage(${j})">${j}</a></li>`
+                        if (Math.abs(commentCurrentPage - j) < 3){
+                          pHTML += `<li class="page-item ${commentCurrentPage == j ? 'active': ''}"><a class="page-link" href="javascript:goCPage(${j})">${j}</a></li>`
                         }
                       }
-                      if (currentPage == 1){
+                      if (commentCurrentPage == 1){
                         pHTML += `<li class="page-item"><a class="page-link" href="javascript:goCPage(4)">4</a></li><li class="page-item"><a class="page-link" href="javascript:goCPage(5)">5</a></li>`
                       }
-                      if (currentPage == 2){
+                      if (commentCurrentPage == 2){
                         pHTML += `<li class="page-item"><a class="page-link" href="javascript:goCPage(5)">5</a></li>`
                       }
                     }
-                    $("#comment-content").html(cHTML + `
-                        <div class="paging-C">
+                    $("#commentContent").html(cHTML + `
+                        <div class="commentPagination">
                             <ul class="pagination justify-content-center">
-                              <li class="page-item ${currentPage == 1 ? 'disabled' : ''}"><a class="page-link" href="javascript:previousCPage()"><</a></li>
+                              <li class="page-item ${commentCurrentPage == 1 ? 'disabled' : ''}"><a class="page-link" href="javascript:previousCPage()"><</a></li>
                                 ${pHTML}
-                              <li class="page-item ${currentPage == pageNum ? 'disabled' : ''}"><a class="page-link" href="javascript:nextCPage();">></a></li>
+                              <li class="page-item ${commentCurrentPage == pageNum ? 'disabled' : ''}"><a class="page-link" href="javascript:nextCPage();">></a></li>
                             </ul>
                           </div>
 
                     `);
                 } else {
-                    $("#comment-content").html(`
-                        <li class="card-local" style="text-align: center">
+                    $("#commentContent").html(`
+                        <li class="cardBody" style="text-align: center">
                             Nothing Here<br>Be the first one to <strong class="click" onclick="makeComment()">comment</strong><br>🎉🎉
                         </li>
-
                         `);
                 }
-                
                 commentMinorErrors(data);
             }
         );
@@ -227,47 +207,47 @@
         for (var i = 0; i < commentData.length; i++) {
             if (commentData[i]["id"] == id){
                 commentData[i]["isLiked"] ? $.get(`/unlikeDiscussion?ID=${id}`, function(data,status){ commentMinorErrors(data) }) : $.get(`/likeDiscussion?ID=${id}`, function(data,status){ commentMinorErrors(data) });
-                genComments(currentPage);
+                genComments(commentCurrentPage);
             }
         }
     }
     function goCPage(p){
-        currentPage = p;
+        commentCurrentPage = p;
         genComments(p);
     }
     function nextCPage(){
-        currentPage += 1;
-        genComments(currentPage);
+        commentCurrentPage += 1;
+        genComments(commentCurrentPage);
     }
     function previousCPage(){
-        currentPage -= 1;
-        genComments(currentPage);
+        commentCurrentPage -= 1;
+        genComments(commentCurrentPage);
     }
     function del(id){
         $.get(`/delDiscussion?ID=${id}`, function(data,status){ commentErrors(data); goCPage(1); });
         
     }
     function makeComment(s){
-        $("#comment-area").val(s);
+        $("#commentInputBox").val(s);
         $("#beforeComment").hide();
         $("#afterComment").fadeIn();
-        document.getElementById("comment-area").focus();
+        document.getElementById("commentInputBox").focus();
     }
     function sendComment(){
-        $.get(`/addDiscussion?Paper={{$paper}}&Context=${$('#comment-area').val()}&Question=${localStorage.getItem("qnum")}`, function(data,status){ commentErrors(data);goCPage(1); });
+        $.get(`/addDiscussion?Paper={{$paper}}&Context=${$('#commentInputBox').val()}&Question=${localStorage.getItem("qnum")}`, function(data,status){ commentErrors(data);goCPage(1); });
     }
     function endComment(){
-        $("#comment-area").val('');
+        $("#commentInputBox").val('');
         $("#beforeComment").fadeIn();
         $("#afterComment").hide();
     }
     function closeComment(){
         $("#comment").fadeOut("fast");
-        $("#comment-content").html('');
+        $("#commentContent").html('');
     }
     function openComment(){
         $("#comment").fadeIn("fast");
-        $("#comment-content").html('<p class="card-local">Loading.....</p>');
+        $("#commentContent").html('<p class="cardBody">Loading.....</p>');
         goCPage(1);
     }
 

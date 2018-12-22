@@ -8,11 +8,11 @@
 body {
   background-color: #fff;
 }
-.form-local {
+.matingForm {
   margin-top: 120px;
 }
 
-.step-local {
+.matingStep {
   color: #aaa;
   font-size: 20px;
 }
@@ -26,9 +26,9 @@ body {
 </div>
 -->
 
-<form class="container form-local" id="form-1" action="/findMate" style="display: none;">
+<form class="container matingForm" id="form-1" action="/findMate" style="display: none;">
   <h1 class="h1-local">
-	  <h class="step-local">2/2</h> Get you a suitable mate
+	  <h class="matingStep">2/2</h> Get you a suitable mate
   </h1>
   <div class="alert alert-success" role="alert">
     Gotcha! The following fine human is your study mate now! Take care!

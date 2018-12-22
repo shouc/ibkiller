@@ -113,9 +113,6 @@
       line-height: 1.5;
       width: 100%
     }
-    body {
-        background-color: #242433;
-    }
     ul {
       list-style: none;
       padding: 0;
@@ -140,14 +137,17 @@
         display: none;
       }
     }
-    .nav-local-h {
+    .navLocal {
       background-color:#FFFFFF;
       position: fixed;
       left:0;
       right:0;
       top:-100px;
       z-index: 10;
-      box-shadow: 1px 1px 7px #ccc;
+      border: solid;
+      border-width: 0px;
+      border-bottom-width: 1.2px;
+      border-color: #eee;
       background-color:#FFFFFF;
       margin-top:100px;
 
@@ -293,7 +293,21 @@ function clearRecord(){
         localStorage.setItem("ans" + i, 10);
     }
 }
-
+function find(arr, str){
+  for (v=0;v<arr.length;v++) {
+    if ( str == arr[v] ){
+      return true;
+    } 
+  }
+  return false;
+}
+function timestampToTime(timestamp) {
+  var date = new Date(timestamp * 1000);
+  var Y = date.getFullYear() + '-';
+  var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+  var D = date.getDate() < 10 ? '0'+(date.getDate()) : date.getDate();
+  return Y+M+D;
+}
 var $_GET = (function(){
     var url = window.document.location.href.toString();
     var u = url.split("?");

@@ -73,20 +73,21 @@ function go(name){
 }
 $(document).ready(function(){
     var topH = 90;
-    var navbg = $("#navbg");
+    var navLocal = $("#navLocal");
     $(window).scroll(function () {
         if($(window).scrollTop() > topH){
-          navbg.fadeIn();
+          navLocal.fadeIn();
         }else if ($(window).scrollTop() < topH + 20){
-          navbg.fadeOut(70);
+          navLocal.fadeOut(70);
         }
     });
 });
+
 function cancelBubble(e) {
   var evt = e ? e : window.event;
-  if(evt.stopPropagation) { //W3C 
+  if(evt.stopPropagation) { //W3C 
     evt.stopPropagation();
-  } else { //IE      
+  } else { //IE      
     evt.cancelBubble = true;
   }
 }
@@ -152,7 +153,6 @@ function star(id){
       if (_data[exist]['data'].length == 0){
         _data.splice(exist, 1);
         gen();
-
       } else {
         gen();
         for (var m = 0; m < _data[exist]['data'].length; m++) {
@@ -169,7 +169,6 @@ function star(id){
   }
   console.log(_data);
 }
-
   </script>  
 
 <script type="text/javascript">
@@ -357,9 +356,6 @@ gen();
 window.onresize = function(){
   gen();
 };
-
-
-
 </script> 
  </body>
 </html>
