@@ -206,8 +206,7 @@
     function like(id){
         for (var i = 0; i < commentData.length; i++) {
             if (commentData[i]["id"] == id){
-                commentData[i]["isLiked"] ? $.get(`/unlikeDiscussion?ID=${id}`, function(data,status){ commentMinorErrors(data) }) : $.get(`/likeDiscussion?ID=${id}`, function(data,status){ commentMinorErrors(data) });
-                genComments(commentCurrentPage);
+                commentData[i]["isLiked"] ? $.get(`/unlikeDiscussion?ID=${id}`, function(data,status){ commentMinorErrors(data);genComments(commentCurrentPage) }) : $.get(`/likeDiscussion?ID=${id}`, function(data,status){ commentMinorErrors(data);genComments(commentCurrentPage) });
             }
         }
     }
@@ -225,7 +224,6 @@
     }
     function del(id){
         $.get(`/delDiscussion?ID=${id}`, function(data,status){ commentErrors(data); goCPage(1); });
-        
     }
     function makeComment(s){
         $("#commentInputBox").val(s);
