@@ -113,7 +113,10 @@ body {
 
 <script type="text/javascript">   
 $(function () {
-    history.pushState(null, null, document.URL);
+    if (localStorage.getItem('already') == 0 || !localStorage.getItem('already')){
+        history.pushState(null, null, document.URL);
+        localStorage.setItem('already', 1);
+    }
     window.addEventListener('popstate', function () {
         leave();
         history.pushState(null, null, document.URL);
@@ -180,6 +183,7 @@ function submit() {
             clearRecord();
             window.onbeforeunload = function(){};
             localStorage.setItem('subject', 'Question');
+            localStorage.setItem('already', 0);
             $('#submitAnswer').click();
         }
     });

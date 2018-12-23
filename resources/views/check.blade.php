@@ -116,7 +116,10 @@ localStorage.setItem("qnum", 0);
 $("#goBack").hide();
 $(function () {
     //prevent getback
-    history.pushState(null, null, document.URL);
+    if (localStorage.getItem('already') == 0 || !localStorage.getItem('already')){
+        history.pushState(null, null, document.URL);
+        localStorage.setItem('already', 1);
+    }
     window.addEventListener('popstate', function () {
         leave();
         history.pushState(null, null, document.URL);

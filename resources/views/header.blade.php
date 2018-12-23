@@ -341,9 +341,11 @@ function leave(){
             window.onbeforeunload = function(){};
             if (url == 'Question'){
               localStorage.setItem('subject', '');
-                window.history.go(-4);
+              localStorage.setItem('already', 0);
+              window.history.go(-4);
             } else {
-                window.history.go(-2);
+              localStorage.setItem('already', 0);
+              window.history.go(-2);
             }
         }
     })
