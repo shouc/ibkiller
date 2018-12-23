@@ -133,7 +133,6 @@ for (var i = 0; i < categoryData.length; i++) {
 }
 $('#menu').html(categoryPageHTML);
 $('#content').html(categoryMenuHTML);
-localStorage.setItem('subject', window.location.href);
 if ($(window).width() > 800){
     $("#pageBody").width($(window).width()/4*3);
     $("#pageBody").height($(document).height()+10);

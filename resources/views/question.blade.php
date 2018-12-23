@@ -175,6 +175,7 @@ function submit() {
     }).then((result) => {
         if (result.value) {
             clearRecord();
+            localStorage.setItem('subject', 'Question');
             $('#submitAnswer').click();
         }
     });
