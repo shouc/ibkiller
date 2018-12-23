@@ -141,9 +141,13 @@ function submit() {
             clearRecord();
             window.onbeforeunload = function(){};
             if (url == 'Question'){
-              localStorage.setItem('subject', '');
+                localStorage.setItem('subject', '');
+                localStorage.setItem('already', 0);
+
                 window.history.go(-4);
             } else {
+                localStorage.setItem('already', 0);
+                
                 window.history.go(-2);
             }
         }

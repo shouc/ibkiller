@@ -105,7 +105,10 @@ body {
 <script type="text/javascript">
 $(function () {
     //prevent getback
-    history.pushState(null, null, document.URL);
+    if (localStorage.getItem('already') == 0 || !localStorage.getItem('already')){
+        history.pushState(null, null, document.URL);
+        localStorage.setItem('already', 1);
+    }
     window.addEventListener('popstate', function () {
         leave();
         history.pushState(null, null, document.URL);
@@ -166,8 +169,12 @@ function submit() {
             window.onbeforeunload = function(){};
             if (url == 'Question'){
               localStorage.setItem('subject', '');
+                localStorage.setItem('already', 0);
+
                 window.history.go(-4);
             } else {
+                localStorage.setItem('already', 0);
+              
                 window.history.go(-2);
             }
         }
