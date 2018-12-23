@@ -1,6 +1,6 @@
 @include('header')
 @include('nav', ['q' => true])
-@include('comment');
+@include('comment')
 
 <style type="text/css">
 body {
@@ -8,8 +8,10 @@ body {
 }
 
 .checkContainer {
+  margin-top:120px;
   text-align: center;
   justify-content: center;
+  display: none;
 }
 .line{
   background-color: #273c75;
@@ -79,7 +81,7 @@ body {
 }
 </style>
 <body>
-    <div class="question checkContainer" id="question" style="display: none;">
+    <div class="question checkContainer" id="question">
         <div class="alert alert-warning alert-dismissible fade show notlogged" role="alert" id="notlogged">
         <h>You are not logged in! Your workings may not be recorded!!!</h>
         <br>
@@ -89,7 +91,7 @@ body {
         </button>
 
       </div>
-        <div><p  class="q-c" id="questionContainer"></p></div>
+        <div><p id="questionContainer"></p></div>
         <div class="userAnswerBar" id="userAnswerBar">
           <p class="userAnswerContent">Your Answer: <userAnswer></userAnswer></p>
         </div>
@@ -107,6 +109,7 @@ body {
 <script type="text/javascript">
 $("#notlogged").hide();
 window.onbeforeunload = function(){ return 'Wrong'; };
+
 question = $.parseJSON(window.atob('{{ $data }}'))["info"];
 score = $.parseJSON(window.atob('{{ $data }}'))["score"];
 localStorage.setItem("qnum", 0);
