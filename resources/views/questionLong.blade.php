@@ -45,15 +45,18 @@ body {
   border-width:1px;
   border-color:#ccc;
   margin-top:10px;
-  color:#000;
+  background-color:#fff;
+  color: #000;
   font-size:19;
   font-weight:200;
 }
 .joinDiscussionButton {
+  background-color:#fff;
   border-width:1px;
   border-color:#000;
 }
 .showAnswerButton {
+  background-color:#fff;
   border-width:1px;
   border-color:#000;
 }
@@ -71,7 +74,7 @@ body {
 
       </div>
       <div class="questionContent">
-        <div><p  class="q-c" id="questionContainer"></p></div>
+        <div><p id="questionContainer"></p></div>
         <div>
             <div class="btn-group">
               <button type="button" id="joinDiscussionButton" class="btn joinDiscussionButton">Join Discussion</button>
@@ -108,7 +111,7 @@ $(function () {
         history.pushState(null, null, document.URL);
     });
 });
-
+window.onbeforeunload = function(){ return 'Wrong'; };
 
 question = $.parseJSON(BASE64.decode('{{ $data }}'));
 localStorage.setItem("qnum", 0);
@@ -160,11 +163,12 @@ function submit() {
         if (result.value) {
             url = localStorage.getItem('subject');
             clearRecord();
-
-            if (url) {
-                window.location.href = url;
+            window.onbeforeunload = function(){};
+            if (url == 'Question'){
+              localStorage.setItem('subject', '');
+                window.history.go(-4);
             } else {
-                window.location.href = '/';
+                window.history.go(-2);
             }
         }
     });

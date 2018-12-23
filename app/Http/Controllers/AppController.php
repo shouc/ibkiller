@@ -36,7 +36,7 @@ class AppController extends Controller
 
     public function sendAuthEmail($authSession, $mailAddr)
     {
-        Mail::to($mailAddr)->send(new AuthEmail($authSession, 'Confirm Your Email!'));
+        Mail::to($mailAddr)->send(new AuthEmail(base64_encode($authSession), 'Confirm Your Email!'));
     }
 
     public function sendAuthEmailWithSession($session)
@@ -385,9 +385,9 @@ class AppController extends Controller
     public function confirmAPI(Request $request)
     {
         if ($request->has(['s'])) {
-            $_authSession = $request->s;
+            $_authSession = base64_decode($request->s);
             $userInfo = DB::table('app_users')
-                ->where('auth_session', $_authSession)
+                ->where([['auth_session', $_authSession], ['is_auth', 0]])
                 ->first();
             if ($userInfo == ""){
                 return ["success" => false, 
@@ -397,6 +397,7 @@ class AppController extends Controller
             DB::table('app_users')
                 ->where('auth_session', $_authSession)
                 ->update(['is_auth' => 1]);
+            $this->addUnreadMessageLocalAPI('$2y$10$1jAy7xe4qnXcbW6DmBkc4e1gQ9El6HS83id77xYzE0yj2qfnxLYOK', $userInfo->name, 'Your email has been confirmed! You can now find a mate at <a href="/mate">here</a>');
             return ["success" => true, 
                     "info" => ''
                 ];

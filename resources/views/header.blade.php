@@ -338,6 +338,7 @@ function leave(){
         if (result.value) {
             url = localStorage.getItem('subject');
             clearRecord();
+            window.onbeforeunload = function(){};
             if (url == 'Question'){
               localStorage.setItem('subject', '');
                 window.history.go(-4);

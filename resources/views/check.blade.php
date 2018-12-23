@@ -21,7 +21,6 @@ body {
   z-index: -100;
 }
 .ball {
-
   text-align: center;
   background-color: #273c75;
   width: 1.75em;
@@ -107,6 +106,7 @@ body {
 <timeline class="timeline"></timeline>
 <script type="text/javascript">
 $("#notlogged").hide();
+window.onbeforeunload = function(){ return 'Wrong'; };
 question = $.parseJSON(window.atob('{{ $data }}'))["info"];
 score = $.parseJSON(window.atob('{{ $data }}'))["score"];
 localStorage.setItem("qnum", 0);
@@ -133,11 +133,12 @@ function submit() {
         if (result.value) {
             url = localStorage.getItem('subject');
             clearRecord();
-            if (url) {
-
-                window.location.href = url;
+            window.onbeforeunload = function(){};
+            if (url == 'Question'){
+              localStorage.setItem('subject', '');
+                window.history.go(-4);
             } else {
-                window.location.href = '/';
+                window.history.go(-2);
             }
         }
     });

@@ -9,6 +9,7 @@ body {
 }
 .matingForm {
   margin-top: 120px;
+  margin-bottom: 20px;
 }
 
 .matingStep {

@@ -535,4 +535,6 @@ strong {
   }
   .btn-web{
     margin-bottom: 8px;
+    background-color: #fff;
+    color: #000;
   }

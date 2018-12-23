@@ -62,6 +62,7 @@ body {
     font-size:19;
     font-weight:200;
     background-color:#fff;
+    color: #000;
 }
 </style>
 <body>
@@ -118,6 +119,8 @@ $(function () {
         history.pushState(null, null, document.URL);
     });
 });
+window.onbeforeunload = function(){ return 'Wrong'; };
+
 question = $.parseJSON(window.atob('{{ $data }}'));
 localStorage.setItem("qnum", 0);
 $("#goBack").hide();
@@ -175,6 +178,7 @@ function submit() {
     }).then((result) => {
         if (result.value) {
             clearRecord();
+            window.onbeforeunload = function(){};
             localStorage.setItem('subject', 'Question');
             $('#submitAnswer').click();
         }
