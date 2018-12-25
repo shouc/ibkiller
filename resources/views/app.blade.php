@@ -9,14 +9,25 @@
     <a class="status"> 
       <img src="{{ $server }}/img/appstore.svg" class="btn-app" onclick='alert("Developing")'/>
       &nbsp;
-      <button class="btn btn-web" onclick='$("html, body").animate({ scrollTop: $("#data").offset().top }, {duration: 100,easing: "swing"});'>Use Web Version</button>
+      <button class="btn btn-web" onclick='$("html, body").animate({ scrollTop: $("#main").offset().top - 120}, {duration: 400,easing: "swing"});'>Use Web Version</button>
     </a>
     <h3 class="intro__contact"> <span>Get in touch</span> <span class="emoji pointer"></span> <span> <a href="mailto:ib@zwang.tech?subject=Inquiry about IBKiller" target="_blank" class="highlight-link" class="link">ib@zwang.tech</a> </span> </h3> 
    </header> 
 
 
 
-   <section class="section background"> 
+   <section class="section background" id="main"> 
+    <div style="width: 100%;">
+    <div class="alert alert-dismissible fade show" style="margin-top: 50px;margin-left: 5%;margin-right: 5%; background-color: #2c2c54; color: #fff;">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h4 class="alert-heading" style="color: #fff"><i class="fas fa-map-pin"></i></h4>
+      <h4 class="alert-heading" style="color: #fff">A Note from CEO</h4>
+
+      <p style="color: #fff">In brief, <br><strong style="color: #fff">1. </strong>You can find a study mate here.<br><strong style="color: #fff">2. </strong>Help us enrich our question base at here.</p>
+    </div>
+    </div>
     <div id="data"></div>
 
    </section> 
@@ -71,6 +82,7 @@ $(function() {
 function go(name){
   $(location).attr('href', `/category?Cat=${name}`);
 }
+$("#navLocal").hide();
 $(document).ready(function(){
     var topH = 90;
     var navLocal = $("#navLocal");
