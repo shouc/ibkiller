@@ -56,12 +56,6 @@
                                                                             "</div>" : "";
                                         })() +
                                         "<br/>" +
-                                        "<label>" + imageLang.alt + "</label>" +
-                                        "<input type=\"text\" value=\"" + selection + "\" data-alt />" +
-                                        "<br/>" +
-                                        "<label>" + imageLang.link + "</label>" +
-                                        "<input type=\"text\" value=\"http://\" data-link />" +
-                                        "<br/>" +
                                     ( (settings.imageUpload) ? "</form>" : "</div>");
 
                 //var imageFooterHTML = "<button class=\"" + classPrefix + "btn " + classPrefix + "image-manager-btn\" style=\"float:left;\">" + imageLang.managerButton + "</button>";
@@ -69,7 +63,7 @@
                 dialog = this.createDialog({
                     title      : imageLang.title,
                     width      : (settings.imageUpload) ? 465 : 380,
-                    height     : 254,
+                    height     : 180,
                     name       : dialogName,
                     content    : dialogContent,
                     mask       : settings.dialogShowMask,

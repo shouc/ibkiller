@@ -1,4 +1,9 @@
 @include('message')
+<style type="text/css">
+  .navLocal {
+    z-index: 100;
+  }
+</style>
 @if ($q)
   <link rel="stylesheet" type="text/css" href="{{ $server }}/app/main.comment.css">
   <div class="navLocal" id="navLocal">

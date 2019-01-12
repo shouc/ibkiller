@@ -1,5 +1,5 @@
 
-@include('header', ['css' => '.mateRegister.css'])
+@include('header')
 
 @include('nav', ['q' => false])
 <style type="text/css">

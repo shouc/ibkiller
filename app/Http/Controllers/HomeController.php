@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Auth;
+use Cookie;
 class HomeController extends Controller
 {
     /**
@@ -24,59 +25,47 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-
-        $sub = $request->subject ? request()->subject : 'Chemistry';
-        $fsubject = DB::table('groups')
-            ->where('cat', $sub)
-            ->distinct()
-            ->get();
-        $arr = array();
-        foreach($fsubject as $value){
-            $cat = DB::table('papers')
-                ->where('group_id',$value->group_id)
-                ->select('paper')
-                ->distinct()
-                ->get();
-            foreach($cat as $svalue){
-                array_push($arr, $svalue->paper);
-            }
-            
-        };
-        $counter = array();
-        foreach($arr as $tvalue){
-            $question = DB::table('questions')
-                ->where('paper',$tvalue)
-                ->get();
-            foreach($question as $fvalue){
-                array_push($counter, $fvalue->ref);
-            }
-
+        $_session = Cookie::get('ibkiller_session');
+        if ($_session){
+            $isLoggedIn = true;
+        } else {
+            return redirect('/');
         }
-        
-        $subject = DB::table('groups')
-            ->select('cat')
-            ->distinct()
+        $subjects = DB::table('subjects')
             ->get();
-        $types = DB::table('groups')
-            ->where('cat', $sub)
-            ->get();
+
+        $stats = DB::table('contribution_stats')
+            ->where('session', $_session)
+            ->first();
+        if ($stats) {
+            $statsResult = [$stats->amount_contributed, 
+                $stats->amount_used,
+                $stats->points,
+            ];
+            $isNew = false;
+        } else {
+            $statsResult = [0, 0, 0];
+            $isNew = true;
+        }
+        return view('home', ['isLoggedIn' => $isLoggedIn,
+            'res' => $statsResult,
+            'data' => $subjects,
+            'isNew' => $isNew,
+        ]);
         
-        return view('home')
-            ->with('res',[count($counter),count($arr)])
-            ->with('data', $subject)
-            ->with('types', $types);
     }
     public function help(){
         return redirect('/help.html');
     }
     public function add()
     {
-        $paper = DB::table('questions')
-            ->select("paper")
-            ->distinct()
-            ->get();
-        return view('add')
-            ->with('res',$paper);
+        $_session = Cookie::get('ibkiller_session');
+        if ($_session){
+            $isLoggedIn = true;
+        } else {
+            return redirect('/');
+        }
+        return view('add', ['isLoggedIn' => $isLoggedIn]);
     }
     public function modify(Request $request)
     {
