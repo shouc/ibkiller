@@ -42,13 +42,19 @@
       <li class="nav-item">
         <a class="nav-link" href="/">Home</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/help">Help</a>
-      </li>
       @if($isLoggedIn)
-        <li class="nav-item">
-          <a class="nav-link" href="/history">History</a>
-        </li>
+        <div class="btn-group">
+          <li class="nav-item" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link" href="javascript:;">More</a>
+          </li>
+          <div class="dropdown-menu dropdown-menu-left">
+            <a class="dropdown-item" href="/history">History</a>
+            <a class="dropdown-item" href="/mate">Study Mate</a>
+            <a class="dropdown-item" href="/contribute">Contribute Questions</a>
+            <a class="dropdown-item">Helps</a>
+
+          </div>
+        </div>
       @endif
     </ul>
     @if(!$isLoggedIn)
@@ -74,9 +80,12 @@
       </button>
     </form>
     @endif
-    
   </nav>
   </div>
+  <script type="text/javascript">
+    localStorage.removeItem('already');
+    localStorage.removeItem('subject');
+  </script>
   
 
 @endif

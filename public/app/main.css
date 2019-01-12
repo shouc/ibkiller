@@ -77,7 +77,7 @@ strong {
 
 
 .intro {
-  padding: 120px 100px;
+  padding: 150px 70px 50px 70px;
   height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -94,19 +94,25 @@ strong {
 
 @media screen and (max-width:630px) {
   .intro {
-    padding: 120px 70px
+    padding: 140px 70px 70px 70px
   }
 }
 
 @media screen and (max-width:550px) {
   .intro {
-    padding: 120px 50px
+    padding: 140px 50px
   }
 }
 
 @media screen and (max-width:480px) {
   .intro {
-    padding: 70px 50px
+    padding: 120px 50px 50px 50px 
+  }
+}
+
+@media screen and (max-width:360px) {
+  .intro {
+    padding: 100px 20px 0px
   }
 }
 

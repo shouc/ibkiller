@@ -12,9 +12,7 @@
 */
 
 
-Route::prefix('admin')->group(function () {
-	Route::post('login', ['uses' => 'AuthController@login']);
-	Auth::routes();
+Route::prefix('contribute')->group(function () {
 	Route::get('/', 'HomeController@index')
 		->name('home');
 	Route::get('/bulk', 'HomeController@bulk')

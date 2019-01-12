@@ -56,9 +56,7 @@
   </div> 
   <script src="{{ $server }}/js/jquery.min.js" type="text/javascript" charset="utf-8"></script> 
   <script>
-@if($isLoggedIn)
-$("html, body").animate({ scrollTop: $("#data").offset().top }, {duration: 100,easing: "swing"});
-@endif
+
 $(function() {
   const body = document.querySelector('body');
   const introHeight = document.querySelector('.intro').offsetHeight;
@@ -82,18 +80,6 @@ $(function() {
 function go(name){
   $(location).attr('href', `/category?Cat=${name}`);
 }
-$("#navLocal").hide();
-$(document).ready(function(){
-    var topH = 90;
-    var navLocal = $("#navLocal");
-    $(window).scroll(function () {
-        if($(window).scrollTop() > topH){
-          navLocal.fadeIn();
-        }else if ($(window).scrollTop() < topH + 20){
-          navLocal.fadeOut(70);
-        }
-    });
-});
 
 function cancelBubble(e) {
   var evt = e ? e : window.event;

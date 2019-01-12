@@ -142,9 +142,6 @@ if (question.length > 1) {
     $("timeline").html(timelineHTML);
 }
 
-if ($("#questionContainer").height() < height && height >= 700) {
-    $("#questionBody").css("margin-top", (-$("#questionBody").height() / 2 + height / 2 - 20) + "px");
-}
 if (width >= 700) {
     $("#questionBody").css("margin-right", (width / 7.5) + "px");
     $("#questionBody").css("margin-left", (width / 5) + "px");
@@ -152,6 +149,9 @@ if (width >= 700) {
     $("timeline").hide();
 }
 $("#questionBody").show();
+if ($("#questionContainer").height() < height && height >= 700) {
+    $("#questionBody").css("margin-top", (-$("#questionBody").height() / 2 + height / 2 - 20) + "px");
+}
 
 function submit() {
     swal({

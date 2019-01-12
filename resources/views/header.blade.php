@@ -28,6 +28,7 @@
     <style type="text/css">
         /* cyrillic-ext */
         @font-face {
+          font-display: swap;
           font-family: 'Source Sans Pro';
           font-style: normal;
           font-weight: 400;
@@ -36,6 +37,7 @@
         }
         /* cyrillic */
         @font-face {
+          font-display: swap;
           font-family: 'Source Sans Pro';
           font-style: normal;
           font-weight: 400;
@@ -44,6 +46,7 @@
         }
         /* greek-ext */
         @font-face {
+          font-display: swap;
           font-family: 'Source Sans Pro';
           font-style: normal;
           font-weight: 400;
@@ -52,6 +55,7 @@
         }
         /* greek */
         @font-face {
+          font-display: swap;
           font-family: 'Source Sans Pro';
           font-style: normal;
           font-weight: 400;
@@ -60,6 +64,7 @@
         }
         /* vietnamese */
         @font-face {
+          font-display: swap;
           font-family: 'Source Sans Pro';
           font-style: normal;
           font-weight: 400;
@@ -68,6 +73,7 @@
         }
         /* latin-ext */
         @font-face {
+          font-display: swap;
           font-family: 'Source Sans Pro';
           font-style: normal;
           font-weight: 400;
@@ -76,6 +82,7 @@
         }
         /* latin */
         @font-face {
+          font-display: swap;
           font-family: 'Source Sans Pro';
           font-style: normal;
           font-weight: 400;
