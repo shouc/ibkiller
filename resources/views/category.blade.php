@@ -135,7 +135,7 @@ $('#menu').html(categoryPageHTML);
 $('#content').html(categoryMenuHTML);
 if ($(window).width() > 800){
     $("#pageBody").width($(window).width()/4*3);
-    $("#pageBody").height($(document).height()+10);
+    $("#pageBody").height($(document).height() + 30);
     $("#menu").width($(window).width()/4);
     $('#pageBody').addClass("pageBodyFix");
 }
