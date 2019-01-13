@@ -64,16 +64,17 @@ Table styles and files
     <table data-toggle="table" 
     data-page-list="[10, 25, 50, 100, ALL]"
     data-pagination="true"
-    data-search="true" data-url="{{route('api.papers')}}?cat={{request()->subject ? request()->subject : 'Chemistry'}}" />
+    data-search="true" data-url="/contribute/showContributedQuestion?Subject={{request()->subject ? request()->subject : 'Chemistry'}}" />
       <thead>
         <tr>
-            <th data-field="paper" data-sortable="true">试卷</th>
-            <th data-field="_type" data-sortable="true">种类</th>
-            <th data-field="subject" data-sortable="true">章节</th>
-            <th data-field="subject_ref" data-sortable="true">章节id</th>
-            <th data-field="totalQuestionNum" data-sortable="true">题目数量</th>
-            <th data-field="condition" data-sortable="true">试卷状态</th>
-            <th data-field="mod" data-sortable="true">修改</th>
+            <th data-field="subject" data-sortable="true">Subject</th>
+            <th data-field="content" data-sortable="true">Content</th>
+            <th data-field="answer" data-sortable="true">Answer</th>
+            <th data-field="chapter" data-sortable="true">Chapter</th>
+            <th data-field="time" data-sortable="true">Time</th>
+
+            <th data-field="type" data-sortable="true">Type</th>
+            <th data-field="modify">&nbsp;</th>
         </tr>
       </thead>
     </table>
@@ -105,7 +106,7 @@ Table styles and files
 <script type="text/javascript">
   
   function userQuestionModal(data){
-    $.get('{{route("api.pm")}}?ref=' + data, function(res){
+    $.get('/?ref=' + data, function(res){
       document.getElementById("userQuestionModalTitle").innerHTML = window.atob((res[0]));
       document.getElementById("userQuestionModalBody").innerHTML = (res[1]);
       renderMathInElement(document.body, {delimiters:[

@@ -14,65 +14,102 @@
 	}
 </style>
 <div class="container addContainer">
-<h3>Add Question</h3>
-<br>
-<h5 style="font-weight: 100;">Content</h5>
-<form action="{{route('api.add')}}" method="post">
-<br>
-<div id="question">  
-<textarea id="ta" name="question"><img style="width: 30px; height: 30px" src=https://ibkiller.com/storage/2018-08-19-01-56-05.png>
-<br>
-This is an example<br><strong>A.</strong> $ {Na}(g) \to {Na}(s) $<br><strong>B.</strong> $ 4{K}(s) + {O_2}(g) \to 2{K_2O}(s) $<br><strong>C.</strong> $ {H_2O}(s) \to {H_2O}(g) $<br><strong>D.</strong> $ {BaCO_3}(s) + 2{HCl}(aq) \to {BaCl_2}(l) + {CO_2}(g) + {H_2O}(aq) $<br></textarea>
+    <h3>Add Question</h3>
+    <br>
+    <form action="/contribute/userAddQuestion" method="post" id="addForSubmit">
+        <h5 style="font-weight: 100;">Content</h5>
+        <br>
+        <div id="question">  
+            <textarea id="questionTA" name="question"></textarea>
+        </div>
+        <br>
+        <h5 style="font-weight: 100;">Answer</h5>
+        <input class="form-control" onkeyup="update()" id="questionAnswer" type="" value="" name="">
+        <br>
+        <div class="alert alert-success">
+            Real-time Preview
+        </div>
+        <div id="show">
+            Nothing here!
+        </div>
+        <br>
+        <h5 style="font-weight: 100;">Chapter</h5>
+        <div class="input-group">
+            <select class="custom-select" id="chapterOfQuestion">
+                <option selected value="0">Choose...</option>
+                @foreach ($data as $i)
+                <option value="{{$i->group_name}}">{{$i->group_name}}</option>
+                @endforeach
+            </select>
+        </div>
+        <br>
+        <h5 style="font-weight: 100;">Type</h5>
+        <div class="input-group">
+            <select class="custom-select" id="typeOfQuestion">
+                <option selected value="0">Choose...</option>
+                <option value="1">Multiple Choice</option>
+                <option value="2">Short Answer/Essay</option>
+            </select>
+        </div>
+        <br>
+        <input hidden name="Content" id="contentForSubmit" />
+        <input hidden  name="Answer" id="answerForSubmit" />
+        <input hidden  name="Chapter" id="chapterForSubmit" />
+        <input hidden  name="Type" id="typeForSubmit" />
+        <input hidden  name="Subject" id="subjectForSubmit" />
+
+        <buttonNoEffect onclick="submit()" class="col-md-12 btn btn-secondary click" style="margin-bottom: 20px">Add</buttonNoEffect>
+    </form>
 </div>
-
-
-<br>
-<h5 style="font-weight: 100;">Answer</h5>
-<input class="form-control" onkeyup="update()" id="answer" name="answer" type="" value="A" name="">
-<br>
-<div class="alert alert-success">
-	Real-time Preview
-</div>
-<div id="show">
-<img style="width: 30px; height: 30px" src=https://ibkiller.com/storage/2018-08-19-01-56-05.png>
-<br>
-This is an example<br><strong>A.</strong> $ {Na}(g) \to {Na}(s) $<br><strong>B.</strong> $ 4{K}(s) + {O_2}(g) \to 2{K_2O}(s) $<br><strong>C.</strong> $ {H_2O}(s) \to {H_2O}(g) $<br><strong>D.</strong> $ {BaCO_3}(s) + 2{HCl}(aq) \to {BaCl_2}(l) + {CO_2}(g) + {H_2O}(aq) $
-<br>
-<br><strong>Answer: </strong>A
-</div>
-<br>
-
-<h5 style="font-weight: 100;">Chapter</h5>
-<input class="form-control" name="chapter" type="" value="1.1" name="">
-<br>
-<h5 style="font-weight: 100;">Type</h5>
-<input class="form-control" name="type" type="" value="1" name="">
-<br>
-
-
-<br>
-<button type="submit" class=" col-md-12 btn btn-secondary">Add</button>
-
-</div>
-<script type="text/javascript">
-	function update() {
-		
-	}
-	function change(res) {
-		document.getElementById("paper").value = res;
-		
-	}
-</script>
 <script src="/static/js/jquery.min.js"></script>
 <script src="/editor/editormd.js"></script>   
 <script type="text/javascript">
 	function update(){
-		$("#show").html(document.getElementById("ta").value + "<br><strong>Answer: </strong>" + document.getElementById("answer").value)
+		$("#show").html(document.getElementById("questionTA").value + "<br><strong>Answer: </strong>" + document.getElementById("questionAnswer").value)
 		renderMathInElement(document.body, {delimiters:[
 		          {left: "$", right: "$", display: false},
 		        ]});
 	}
-	var question;
+
+	function checkVal(){
+		if (question.getMarkdown() == ""){
+			alert('No question content provided!');
+			return 0;
+		}
+		if ($("#questionAnswer").val() == ""){
+			alert('No question answer provided!');
+			return 0;
+		}
+		if ($("#chapterOfQuestion").val() == 0){
+			alert('No chapter provided!');
+			return 0;
+		}
+		if ($("#typeOfQuestion").val() == 0){
+			alert('No question type provided!');
+			return 0;
+		}
+		if ($("#typeOfQuestion").val() == 1 && $("#questionAnswer").val().length != 1){
+			alert('Multiple can only select from A-E.');
+			return 0;
+		}
+		return $("#typeOfQuestion").val();
+	}
+
+	function submit(){
+		success = checkVal();
+		if (success != 0){
+			if (success == 1){
+				$("#answerForSubmit").val(btoa($("#questionAnswer").val().toUpperCase()));
+			} else {
+				$("#answerForSubmit").val(btoa($("#questionAnswer").val()));
+			}
+			$("#contentForSubmit").val(btoa(question.getMarkdown()));
+			$("#chapterForSubmit").val($("#chapterOfQuestion").val());
+			$("#typeForSubmit").val($("#typeOfQuestion").val());
+			$("#subjectForSubmit").val($_GET['Subject']);
+			$("#addForSubmit").submit();
+		}
+	}
 
     $(function() {
         question = editormd("question", {
@@ -85,7 +122,7 @@ This is an example<br><strong>A.</strong> $ {Na}(g) \to {Na}(s) $<br><strong>B.<
             searchReplace    : true,
             imageUpload    : true,
 		    imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-		    imageUploadURL : "{{route('api.upload')}}",
+		    imageUploadURL : "/contribute/upload",
             onchange : function() {
             	update();
             }

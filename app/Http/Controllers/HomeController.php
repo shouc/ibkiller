@@ -47,68 +47,136 @@ class HomeController extends Controller
             $statsResult = [0, 0, 0];
             $isNew = true;
         }
-        return view('home', ['isLoggedIn' => $isLoggedIn,
+        return view('contribute', ['isLoggedIn' => $isLoggedIn,
             'res' => $statsResult,
             'data' => $subjects,
             'isNew' => $isNew,
         ]);
         
     }
-    public function help(){
-        return redirect('/help.html');
-    }
-    public function add()
-    {
-        $_session = Cookie::get('ibkiller_session');
-        if ($_session){
-            $isLoggedIn = true;
-        } else {
-            return redirect('/');
-        }
-        return view('add', ['isLoggedIn' => $isLoggedIn]);
-    }
-    public function modify(Request $request)
-    {
-        $paper = DB::table('questions')
-            ->select("paper")
-            ->distinct()
-            ->get();
-        $question = DB::table('questions')
-            ->where('ref',base64_decode($request->ref))
-            ->get();
-        return view('modify')
-            ->with('res',[$paper,$question]);
-    }
-    public function bulk(Request $request)
-    {
-        $page = 1;
-        if ($request->page){
-            $page = $request->page;
-        }
-        $questionAll = DB::table('questions')
-            ->get();
 
-        $total = count($questionAll) / 10;
-        $question = DB::table('questions')
-            ->offset(($page - 1) * 10)
-            ->limit(10)
-            ->get();
-        $res = "";
-        //return $question;
-        foreach ($question as &$value) {
-            if (strpos($value->ok_by, Auth::user()->name ) > 0){
-                $res = $res . $value->question . 'Answer: <strong>' . $value->answer . '</strong><br>Ref: <a href=modify?ref=' . base64_encode($value->ref) . '><em>' . $value->ref . '</em><a><br>Validated by: <a><em>' . str_replace('@', ', ', substr($value->ok_by, 1)) . '</em><a><br><br>';
+    public function add(Request $request)
+    {
+        if ($request->has(['Subject'])) {
+            $_subject = $request->Subject;
+            $_session = Cookie::get('ibkiller_session');
+            if ($_session){
+                $isLoggedIn = true;
             } else {
-                $res = $res . $value->question . 'Answer: <strong>' . $value->answer . '</strong><br>Ref: <a href=modify?ref=' . base64_encode($value->ref) . '><em>' . $value->ref . '</em><a><br>Validated by: <a><em>' . str_replace('@', ', ', substr($value->ok_by, 1)) . '</em><a><br><a href=api/val?ref=' . base64_encode($value->ref) . '><button class="btn btn-secondary">Validate</button></a>&nbsp;&nbsp;<a href=modify?ref=' . base64_encode($value->ref) . '><button class="btn btn-primary">Modify</button></a><br><br>';
+                return redirect('/');
             }
-            
+            $data = DB::table('groups')
+                ->where('cat', $_subject)
+                ->get()
+                ->toArray();
+            return view('add', ['isLoggedIn' => $isLoggedIn,
+                'data' => $data,
+            ]);
         }
-        $res = str_replace('"',"'",$res);
-        $res = str_replace('“',"'",$res);
-        $res = str_replace('”',"'",$res);
-        $res = str_replace(PHP_EOL,"",$res);
-        return view('bulk')
-            ->with('res', [$res, $total]);
+    }
+
+    public function userAddQuestion(Request $request)
+    {
+        if ($request->has(['Subject', 'Content', 'Answer', 'Chapter', 'Type'])) {
+            $_session = Cookie::get('ibkiller_session');
+            $_subject = $request->Subject;
+            $_content = $request->Content;
+            $_answer = $request->Answer;
+            $_chapter = $request->Chapter;
+            $_type = $request->Type;
+            if ($_session){
+                $isLoggedIn = true;
+            } else {
+                return redirect('/');
+            }
+            //if ()
+            DB::table('contribution')
+                ->insert([
+                    'session' => $_session,
+                    'subject' => $_subject,
+                    'content' => $_content,
+                    'answer' => $_answer,
+                    'chapter' => $_chapter,
+                    'type' => (int)$_type,
+                    'time' => (int)time(),
+                ]
+            );
+
+            if(!DB::table('contribution_stats')
+                ->where('session', $_session)
+                ->first()){
+                DB::table('contribution_stats')
+                    ->insert([
+                        'session' => $_session,
+                        'amount_contributed' => 1,
+                        'amount_used' => 0,
+                        'points' => 0,
+                    ]
+                );
+            } else {
+                DB::table('contribution_stats')
+                    ->where('session', $_session)
+                    ->increment('amount_contributed');
+            }
+            return redirect('/contribute');
+        }
+    }
+
+    public function showContributedQuestion(Request $request)
+    {
+        if ($request->has(['Subject'])) {
+            $_session = Cookie::get('ibkiller_session');
+            $_subject = $request->Subject;
+            if ($_session){
+                $isLoggedIn = true;
+            } else {
+                return redirect('/');
+            }
+            $data = DB::table('contribution')
+                ->where([['session', $_session], ['subject', $_subject]])
+                ->orderBy('id', 'DESC')
+                ->get();
+            foreach ($data as $i => $value) {
+                unset($value->session);
+                if (strlen(base64_decode($value->content)) >= 10){
+                    $value->content = substr(base64_decode($value->content), 0, 10) . '...';
+                } else {
+                    $value->content = base64_decode($value->content);
+                }
+                if (strlen(base64_decode($value->answer)) >= 10){
+                    $value->answer = substr(base64_decode($value->answer), 0, 10) . '...';
+                } else {
+                    $value->answer = base64_decode($value->answer);
+                }
+                if ($value->type == 1){
+                    $value->type = 'Multiple Choice';
+                } elseif ($value->type == 2) {
+                    $value->type = 'Short Answer/Essay';
+                } else {
+                    $value->type = 'Error';
+                }
+                $value->time = date("m/d H:i", $value->time);
+                $value->modify = '<a href=modify?ref=' . $value->id . '><button class="btn btn-primary"> Modify </button></a>';
+            }
+            return json_encode($data);
+        }
+    }
+
+    public function upload(Request $request){
+        if ($request->isMethod('POST')) {
+            $fileCharater = $request->file('editormd-image-file');
+ 
+            if ($fileCharater->isValid()) {
+                $ext = $fileCharater->getClientOriginalExtension();
+                $path = $fileCharater->getRealPath();
+                $filename = date('Y-m-d-h-i-s').'.'.$ext;
+                Storage::disk('public')->put($filename, file_get_contents($path));
+            }
+        }
+        return response()->json([
+            'success' => 1,
+            'message' => '',
+            'url' =>  env('APP_URL') . '/storage/' . $filename]);
     }
 
 }

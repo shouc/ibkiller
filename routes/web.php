@@ -15,32 +15,14 @@
 Route::prefix('contribute')->group(function () {
 	Route::get('/', 'HomeController@index')
 		->name('home');
-	Route::get('/bulk', 'HomeController@bulk')
-		->name('bulk');
 	Route::get('/add', 'HomeController@add')
 		->name('add');
-	Route::get('/modify', 'HomeController@modify')
-		->name('modify');
-	Route::get('/help', 'HomeController@help')
-		->name('help');
-	Route::get('/api/questions', 'QuestionController@questionsJSON')
-		->name('api.questions');
-	Route::get('/api/stats', 'QuestionController@stats')
-		->name('api.stats');
-	Route::post('/api/modify', 'QuestionController@modify')
-		->name('api.modify');
-	Route::post('/api/add', 'QuestionController@add')
-		->name('api.add');
-	Route::get('/api/val', 'QuestionController@val')
-		->name('api.val');
-	Route::post('/api/pic_upload', 'QuestionController@upload')
-		->name('api.upload');
-	Route::get('/api/papers', 'QuestionController@papersJSON')
-		->name('api.papers');
-	Route::get('/api/paperModify', 'QuestionController@paperModify')
-		->name('api.pm');
-	Route::get('/api/del', 'QuestionController@del')
-		->name('api.del');
+	Route::post('/userAddQuestion', 'HomeController@userAddQuestion')
+		->name('userAddQuestion');
+	Route::post('/upload', 'HomeController@upload')
+		->name('upload');
+	Route::get('/showContributedQuestion', 'HomeController@showContributedQuestion')
+		->name('showContributedQuestion');
 });
 
 #Web Pages
