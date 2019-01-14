@@ -214,7 +214,7 @@ class HomeController extends Controller
         return response()->json([
             'success' => 1,
             'message' => '',
-            'url' =>  Storage::url($filename)
+            'url' =>  'https://cdn-bucket.ibkiller.com/' . $filename
         ]);
     }
 
