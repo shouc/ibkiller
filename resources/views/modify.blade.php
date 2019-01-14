@@ -1,77 +1,126 @@
-@extends('layouts.app')
+@include('header')
 
-@section('content')
-<div class="container">
-<h3>更新题目</h3>
-<br>
-<form action="{{route('api.modify')}}" method="post">
-<h5 style="font-weight: 100;">试题内容</h5>
+@include('nav', ['q' => false])
 
-<div id="question" >  
-<textarea id="ta" name="question">
-{!!$res[1][0]->question!!}
-</textarea>
-</div>
-<br>
-<h5 style="font-weight: 100;">答案</h5>
-<input type="hidden" value="{{request()->ref}}" name="ref">
-<input class="form-control" id="answer" onkeyup="update()" name="answer" type="" value="{!!$res[1][0]->answer!!}" name="">
-<br>
-<div class="alert alert-success">
-	实时预览
-</div>
-<div id="show">
-	{!!$res[1][0]->question!!}<br><strong>Answer: </strong>{!!$res[1][0]->answer!!}
-</div>
-<br>
+<!--
+	editor styles and files
+-->
+<link rel="stylesheet" href="/editor/css/editormd.css" />
+<script href="/editor/editormd.js"></script>
 
-<br>
-<h5 style="font-weight: 100;">章节</h5>
-<input class="form-control" name="chapter" type="" value="{!!$res[1][0]->chapter!!}" name="">
-<br>
-<h5 style="font-weight: 100;">类型</h5>
-<input class="form-control" name="type" type="" value="{!!$res[1][0]->type!!}" name="">
-<br>
-<h5 style="font-weight: 100;">分数</h5>
-<input class="form-control" name="mark"  type="" value="{!!$res[1][0]->mark!!}" name="">
-<br>
-<h5 style="font-weight: 100;" hidden>试卷名称</h5>
-<div class="row" style="margin:0px" hidden>
-<button hidden class=" col-md-3 btn btn-primary dropdown-toggle" data-toggle="dropdown">选择</button>
-<div hidden class="dropdown-menu">
-	@foreach ($res[0] as $i)
-		<a class="dropdown-item" onclick="change('{{$i->paper}}')" href="#paper">{{$i->paper}}</a>
-	@endforeach
-    
-</div>
-<input hidden class="form-control col-md-9" name="paper" type="" value="{!!$res[1][0]->paper!!}" name="">
-</div>
-<button class=" col-md-12 btn btn-secondary" type="submit">更新试题</button>
-</div>
-</form>
-<script type="text/javascript">
-	function update() {
-		document.getElementById("show").innerHTML = document.getElementById("ta").value;
-		renderMathInElement(document.body, {delimiters:[
-          {left: "$", right: "$", display: false},
-        ]});
+<style type="text/css">
+	.addContainer {
+		margin-top: 120px;
 	}
-	function change(res) {
-		document.getElementById("paper").value = res;
-	}
+</style>
+<div class="container addContainer">
+    <h3>Update Question</h3>
+    <br>
+    <form action="/contribute/userModifyQuestion" method="post" id="addForSubmit">
+        <h5 style="font-weight: 100;">Content</h5>
+        <br>
+        <div id="question">  
+            <textarea id="questionTA" name="question">{{base64_decode($userContent->content)}}</textarea>
+        </div>
+        <br>
+        <h5 style="font-weight: 100;">Answer</h5>
+        <input class="form-control" onkeyup="update()" id="questionAnswer" type="" value="{{base64_decode($userContent->answer)}}" name="">
+        <br>
+        <div class="alert alert-success">
+            Real-time Preview
+        </div>
+        <div id="show">
+            Nothing here!
+        </div>
+        <br>
+        <h5 style="font-weight: 100;">Chapter</h5>
+        <div class="input-group">
+            <select class="custom-select" id="chapterOfQuestion">
+                <option value="{{$userContent->chapter}}">{{$userContent->chapter}}</option>
+                @foreach ($data as $i)
+                    @if ($i->group_name != $userContent->chapter)
+                        <option value="{{$i->group_name}}">{{$i->group_name}}</option>
+                    @endif
+                @endforeach
+            </select>
+        </div>
+        <br>
+        <h5 style="font-weight: 100;">Type</h5>
+        <div class="input-group">
+            <select class="custom-select" id="typeOfQuestion">
+                @if ($userContent->type == 1)
+                <option value="1">Multiple Choice</option>
+                <option value="2">Short Answer/Essay</option>
+                @endif
+                @if ($userContent->type == 2)
+                <option value="2">Short Answer/Essay</option>
+                <option value="1">Multiple Choice</option>
+                @endif
+            </select>
+        </div>
+        <br>
+        <input hidden name="Content" id="contentForSubmit" />
+        <input hidden  name="Answer" id="answerForSubmit" />
+        <input hidden  name="Chapter" id="chapterForSubmit" />
+        <input hidden  name="Type" id="typeForSubmit" />
+        <input hidden  name="Subject" id="subjectForSubmit" />
+        <input hidden  name="ref" id="refForSubmit" />
 
-	
-</script>
+
+        <buttonNoEffect onclick="submit()" class="col-md-12 btn btn-dark click" style="margin-bottom: 20px">Modify</buttonNoEffect>
+    </form>
+</div>
 <script src="/static/js/jquery.min.js"></script>
 <script src="/editor/editormd.js"></script>   
 <script type="text/javascript">
 	function update(){
-		document.getElementById("show").innerHTML = document.getElementById("ta").value + "<br><strong>Answer: </strong>" + document.getElementById("answer").value;
-		renderMathInElement(document.body, {delimiters:[
+		$("#show").html(document.getElementById("questionTA").value + "<br><strong>Answer: </strong>" + document.getElementById("questionAnswer").value);
+		renderMathInElement(document.getElementById('show'), {delimiters:[
 		          {left: "$", right: "$", display: false},
 		        ]});
 	}
-	var question;
+    $("#show").html(document.getElementById("questionTA").value + "<br><strong>Answer: </strong>" + document.getElementById("questionAnswer").value)
+	function checkVal(){
+		if (question.getMarkdown() == ""){
+			alert('No question content provided!');
+			return 0;
+		}
+		if ($("#questionAnswer").val() == ""){
+			alert('No question answer provided!');
+			return 0;
+		}
+		if ($("#chapterOfQuestion").val() == 0){
+			alert('No chapter provided!');
+			return 0;
+		}
+		if ($("#typeOfQuestion").val() == 0){
+			alert('No question type provided!');
+			return 0;
+		}
+		if ($("#typeOfQuestion").val() == 1 && $("#questionAnswer").val().length != 1){
+			alert('Multiple can only select from A-E.');
+			return 0;
+		}
+		return $("#typeOfQuestion").val();
+	}
+
+	function submit(){
+		success = checkVal();
+		if (success != 0){
+			if (success == 1){
+				$("#answerForSubmit").val(btoa($("#questionAnswer").val().toUpperCase()));
+			} else {
+				$("#answerForSubmit").val(btoa($("#questionAnswer").val()));
+			}
+			$("#contentForSubmit").val(btoa(question.getMarkdown()));
+			$("#chapterForSubmit").val($("#chapterOfQuestion").val());
+			$("#typeForSubmit").val($("#typeOfQuestion").val());
+			$("#subjectForSubmit").val($_GET['Subject']);
+            $("#refForSubmit").val($_GET['ref']);
+
+			$("#addForSubmit").submit();
+		}
+	}
 
     $(function() {
         question = editormd("question", {
@@ -84,7 +133,7 @@
             searchReplace    : true,
             imageUpload    : true,
 		    imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-		    imageUploadURL : "{{route('api.upload')}}",
+		    imageUploadURL : "/contribute/upload",
             onchange : function() {
             	update();
             }
@@ -93,4 +142,3 @@
     });
 
 </script>
-@endsection

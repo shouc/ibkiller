@@ -168,6 +168,13 @@
             {left: "$", right: "$", display: false},
         ]
       });
+      renderMathInElement(document.getElementById('show'), {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "\\[", right: "\\]", display: true},
+            {left: "$", right: "$", display: false},
+        ]
+      });
     }
 
 var BASE64 = {

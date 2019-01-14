@@ -58,7 +58,7 @@ Table styles and files
 
     @endif
 
-    <button type="button" class="btn btn-dark" style="margin-top:10px">Add Questions</button>
+    <button type="button" onclick="window.location.href='/contribute/add?Subject={{request()->subject ? request()->subject : 'Chemistry'}}'" class="btn btn-dark" style="margin-top:10px">Add Questions</button>
   </div>
   @if (!$isNew)
     <table data-toggle="table" 
@@ -67,7 +67,6 @@ Table styles and files
     data-search="true" data-url="/contribute/showContributedQuestion?Subject={{request()->subject ? request()->subject : 'Chemistry'}}" />
       <thead>
         <tr>
-            <th data-field="subject" data-sortable="true">Subject</th>
             <th data-field="content" data-sortable="true">Content</th>
             <th data-field="answer" data-sortable="true">Answer</th>
             <th data-field="chapter" data-sortable="true">Chapter</th>
@@ -104,15 +103,6 @@ Table styles and files
 
 </body>
 <script type="text/javascript">
-  
-  function userQuestionModal(data){
-    $.get('/?ref=' + data, function(res){
-      document.getElementById("userQuestionModalTitle").innerHTML = window.atob((res[0]));
-      document.getElementById("userQuestionModalBody").innerHTML = (res[1]);
-      renderMathInElement(document.body, {delimiters:[
-        {left: "$", right: "$", display: false},
-      ]});
-    });
-  }
+  //$('#userQuestionModal').modal('show')
 
 </script>

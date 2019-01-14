@@ -58,7 +58,7 @@
         <input hidden  name="Type" id="typeForSubmit" />
         <input hidden  name="Subject" id="subjectForSubmit" />
 
-        <buttonNoEffect onclick="submit()" class="col-md-12 btn btn-secondary click" style="margin-bottom: 20px">Add</buttonNoEffect>
+        <buttonNoEffect onclick="submit()" class="col-md-12 btn btn-dark click" style="margin-bottom: 20px">Add</buttonNoEffect>
     </form>
 </div>
 <script src="/static/js/jquery.min.js"></script>

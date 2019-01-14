@@ -23,6 +23,10 @@ Route::prefix('contribute')->group(function () {
 		->name('upload');
 	Route::get('/showContributedQuestion', 'HomeController@showContributedQuestion')
 		->name('showContributedQuestion');
+	Route::get('/modify', 'HomeController@modify')
+		->name('modify');
+	Route::post('/userModifyQuestion', 'HomeController@userModifyQuestion')
+		->name('userModifyQuestion');
 });
 
 #Web Pages

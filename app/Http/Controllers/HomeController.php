@@ -122,6 +122,43 @@ class HomeController extends Controller
         }
     }
 
+    public function userModifyQuestion(Request $request)
+    {
+        if ($request->has(['ref', 'Subject', 'Content', 'Answer', 'Chapter', 'Type'])) {
+            $_session = Cookie::get('ibkiller_session');
+            $_ref = $request->ref;
+            $_subject = $request->Subject;
+            $_content = $request->Content;
+            $_answer = $request->Answer;
+            $_chapter = $request->Chapter;
+            $_type = $request->Type;
+            if ($_session){
+                $isLoggedIn = true;
+            } else {
+                return redirect('/');
+            }
+            
+            DB::table('contribution')
+                ->where([
+                    ['id', $_ref],
+                    ['session', $_session],
+                ])
+                ->delete();
+            DB::table('contribution')
+                ->insert([
+                    'session' => $_session,
+                    'subject' => $_subject,
+                    'content' => $_content,
+                    'answer' => $_answer,
+                    'chapter' => $_chapter,
+                    'type' => (int)$_type,
+                    'time' => (int)time(),
+                ]
+            );
+            return redirect('/contribute');
+        }
+    }
+
     public function showContributedQuestion(Request $request)
     {
         if ($request->has(['Subject'])) {
@@ -156,7 +193,7 @@ class HomeController extends Controller
                     $value->type = 'Error';
                 }
                 $value->time = date("m/d H:i", $value->time);
-                $value->modify = '<a href=modify?ref=' . $value->id . '><button class="btn btn-primary"> Modify </button></a>';
+                $value->modify = '<a href=/contribute/modify?ref=' . $value->id . '&Subject='. $_subject . '><button class="btn btn-primary"> Modify </button></a>';
             }
             return json_encode($data);
         }
@@ -177,6 +214,31 @@ class HomeController extends Controller
             'success' => 1,
             'message' => '',
             'url' =>  env('APP_URL') . '/storage/' . $filename]);
+    }
+
+    public function modify(Request $request){
+        if ($request->has(['ref', 'Subject'])) {
+            $_ref = $request->ref;
+            $_subject = $request->Subject;
+
+            $_session = Cookie::get('ibkiller_session');
+            if ($_session){
+                $isLoggedIn = true;
+            } else {
+                return redirect('/');
+            }
+            $data = DB::table('groups')
+                ->where('cat', $_subject)
+                ->get()
+                ->toArray();
+            $userContent = DB::table('contribution')
+                ->where([['session', $_session], ['id', $_ref]])
+                ->first();
+            return view('modify', ['isLoggedIn' => $isLoggedIn,
+                'data' => $data,
+                'userContent' => $userContent,
+            ]);
+        }
     }
 
 }
