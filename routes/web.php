@@ -13,19 +13,19 @@
 
 
 Route::prefix('contribute')->group(function () {
-	Route::get('/', 'HomeController@index')
+	Route::get('/', 'ContributeController@index')
 		->name('home');
-	Route::get('/add', 'HomeController@add')
+	Route::get('/add', 'ContributeController@add')
 		->name('add');
-	Route::post('/userAddQuestion', 'HomeController@userAddQuestion')
+	Route::post('/userAddQuestion', 'ContributeController@userAddQuestion')
 		->name('userAddQuestion');
-	Route::post('/upload', 'HomeController@upload')
+	Route::post('/upload', 'ContributeController@upload')
 		->name('upload');
-	Route::get('/showContributedQuestion', 'HomeController@showContributedQuestion')
+	Route::get('/showContributedQuestion', 'ContributeController@showContributedQuestion')
 		->name('showContributedQuestion');
-	Route::get('/modify', 'HomeController@modify')
+	Route::get('/modify', 'ContributeController@modify')
 		->name('modify');
-	Route::post('/userModifyQuestion', 'HomeController@userModifyQuestion')
+	Route::post('/userModifyQuestion', 'ContributeController@userModifyQuestion')
 		->name('userModifyQuestion');
 });
 

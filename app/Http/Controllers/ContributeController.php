@@ -7,7 +7,7 @@ use DB;
 use Auth;
 use Cookie;
 use Storage;
-class HomeController extends Controller
+class ContributeController extends Controller
 {
     /**
      * Create a new controller instance.
