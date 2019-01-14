@@ -78,8 +78,12 @@ $(function() {
   });
 });
 
-if (width < 550){
+if (width < 550 && width >= 300){
   $("#contact").hide();
+}
+
+if (width < 330){
+  $("#contact").html('');
 }
 function go(name){
   $(location).attr('href', `/category?Cat=${name}`);
