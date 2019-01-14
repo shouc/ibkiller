@@ -11,7 +11,7 @@
       &nbsp;
       <button class="btn btn-web" onclick='$("html, body").animate({ scrollTop: $("#main").offset().top - 120}, {duration: 400,easing: "swing"});'>Use Web Version</button>
     </a>
-    <h3 class="intro__contact"> <span>Get in touch</span> <span class="emoji pointer"></span> <span> <a href="mailto:ib@zwang.tech?subject=Inquiry about IBKiller" target="_blank" class="highlight-link" class="link">ib@zwang.tech</a> </span> </h3> 
+    <h3 class="intro__contact" id="contact"> <span>Get in touch</span> <span class="emoji pointer"></span> <span> <a href="mailto:ib@zwang.tech?subject=Inquiry about IBKiller" target="_blank" class="highlight-link" class="link">ib@zwang.tech</a> </span> </h3> 
    </header> 
 
 
@@ -77,6 +77,10 @@ $(function() {
     hand.classList.remove('wave');
   });
 });
+
+if (width < 550){
+  $("#contact").hide();
+}
 function go(name){
   $(location).attr('href', `/category?Cat=${name}`);
 }
