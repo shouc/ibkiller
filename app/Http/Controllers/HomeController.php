@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use Auth;
 use Cookie;
+use Storage;
 class HomeController extends Controller
 {
     /**
@@ -206,14 +207,15 @@ class HomeController extends Controller
             if ($fileCharater->isValid()) {
                 $ext = $fileCharater->getClientOriginalExtension();
                 $path = $fileCharater->getRealPath();
-                $filename = date('Y-m-d-h-i-s').'.'.$ext;
-                Storage::disk('public')->put($filename, file_get_contents($path));
+                $filename = 'userUpload/' . date('Y-m-d-h-i-s').'.'.$ext;
+                Storage::put($filename, file_get_contents($path));
             }
         }
         return response()->json([
             'success' => 1,
             'message' => '',
-            'url' =>  env('APP_URL') . '/storage/' . $filename]);
+            'url' =>  Storage::url($filename)
+        ]);
     }
 
     public function modify(Request $request){

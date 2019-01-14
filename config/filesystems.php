@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DRIVER', 'local'),
+    'default' => 'oss',
 
     /*
     |--------------------------------------------------------------------------
@@ -63,7 +63,15 @@ return [
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
         ],
-
+        'oss' => [
+                'driver'        => 'oss',
+                'access_id'     => 'LTAISc6lUOHoEue2',
+                'access_key'    => 'Bgid9OoyNIUhDoAQGA2VScZKTvmD14',
+                'bucket'        => 'ibkiller-pics',
+                'endpoint'      => 'oss-cn-zhangjiakou.aliyuncs.com', 
+                'ssl'           => true,
+                'debug'         => false
+        ],
     ],
 
 ];
