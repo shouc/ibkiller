@@ -150,7 +150,7 @@ function deletFavorite(id){
 function star(id){
   id = window.atob(id);
   cancelBubble();
-  if ($(`#star-${window.btoa(id)}`).hasClass('far')){
+  if ($(`#star-${window.btoa(id).replace('==', "").replace('=', "")}`).hasClass('far')){
     //not starred
     exist = false;
     for (var i = 0; i < _data.length; i++) {
@@ -161,14 +161,14 @@ function star(id){
     if (!exist){
       _data = _data.concat({'name': 'Your Favorite', 'css': '', 'data': [getImg(id)]});
       gen();
-      $(`#star-${window.btoa(id)}`).addClass('fas');
-      $(`#star-${window.btoa(id)}`).removeClass('far');
+      $(`#star-${window.btoa(id).replace('==', "").replace('=', "")}`).addClass('fas');
+      $(`#star-${window.btoa(id).replace('==', "").replace('=', "")}`).removeClass('far');
     } else {
       _data[exist]['data'] = _data[exist]['data'].concat(getImg(id));
       gen();
       for (var m = 0; m < _data[exist]['data'].length; m++) {
-        $(`#star-${window.btoa(_data[exist]['data'][m]['name'])}`).addClass('fas');
-        $(`#star-${window.btoa(_data[exist]['data'][m]['name'])}`).removeClass('far');
+        $(`#star-${window.btoa(_data[exist]['data'][m]['name']).replace('==', "").replace('=', "")}`).addClass('fas');
+        $(`#star-${window.btoa(_data[exist]['data'][m]['name']).replace('==', "").replace('=', "")}`).removeClass('far');
       }
     }
     $.get(`/userAddFavorite?Name=${id}`);
@@ -192,12 +192,12 @@ function star(id){
       } else {
         gen();
         for (var m = 0; m < _data[exist]['data'].length; m++) {
-          $(`#star-${window.btoa(_data[exist]['data'][m]['name'])}`).addClass('fas');
-          $(`#star-${window.btoa(_data[exist]['data'][m]['name'])}`).removeClass('far');
+          $(`#star-${window.btoa(_data[exist]['data'][m]['name']).replace('==', "").replace('=', "")}`).addClass('fas');
+          $(`#star-${window.btoa(_data[exist]['data'][m]['name']).replace('==', "").replace('=', "")}`).removeClass('far');
         }
       }
-      $(`#star-${window.btoa(id)}`).addClass('far');
-      $(`#star-${window.btoa(id)}`).removeClass('fas');
+      $(`#star-${window.btoa(id).replace('==', "").replace('=', "")}`).addClass('far');
+      $(`#star-${window.btoa(id).replace('==', "").replace('=', "")}`).removeClass('fas');
     } else {
       return 'error'
     }
@@ -235,7 +235,7 @@ function gen(){
                 </div>
                 ${ isLoggedIn && gname['name'] != 'Your Favorite'? `
                   <div class="heart-big" onclick=star('${window.btoa(gname["data"][i * 3]["name"])}')>
-                    <i class="${gname["data"][i * 3]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${window.btoa(gname["data"][i * 3]["name"])}'></i>
+                    <i class="${gname["data"][i * 3]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${window.btoa(gname["data"][i * 3]["name"]).replace('==', "").replace('=', "")}'></i>
                   </div>`: ``}
               </div>
             </div>
@@ -247,7 +247,7 @@ function gen(){
                 </div>
                 ${ isLoggedIn && gname['name'] != 'Your Favorite'? `
                   <div class="heart-big" onclick=star('${window.btoa(gname["data"][i * 3 + 1]["name"])}')>
-                    <i class="${gname["data"][i * 3 + 1]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${window.btoa(gname["data"][i * 3 + 1]["name"])}'></i>
+                    <i class="${gname["data"][i * 3 + 1]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${window.btoa(gname["data"][i * 3 + 1]["name"]).replace('==', "").replace('=', "")}'></i>
                   </div>`: ``}
               </div>
             </div> 
@@ -259,7 +259,7 @@ function gen(){
                 </div>
                 ${ isLoggedIn && gname['name'] != 'Your Favorite'? `
                   <div class="heart-big" onclick=star('${window.btoa(gname["data"][i * 3 + 2]["name"])}')>
-                    <i class="${gname["data"][i * 3 + 2]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${window.btoa(gname["data"][i * 3 + 2]["name"])}'></i>
+                    <i class="${gname["data"][i * 3 + 2]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${window.btoa(gname["data"][i * 3 + 2]["name"]).replace('==', "").replace('=', "")}'></i>
                   </div>`: ``}
               </div>
             </div>
@@ -276,7 +276,7 @@ function gen(){
                 </div>
                 ${ isLoggedIn && gname['name'] != 'Your Favorite'? `
                   <div class="heart-big" onclick=star('${window.btoa(gname["data"][i * 3]["name"])}')>
-                    <i class="${gname["data"][i * 3]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${window.btoa(gname["data"][i * 3]["name"])}'></i>
+                    <i class="${gname["data"][i * 3]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${window.btoa(gname["data"][i * 3]["name"]).replace('==', "").replace('=', "")}'></i>
                   </div>`: ``}
               </div>
             </div>
@@ -288,7 +288,7 @@ function gen(){
                 </div>
                 ${ isLoggedIn && gname['name'] != 'Your Favorite'? `
                   <div class="heart-big" onclick=star('${window.btoa(gname["data"][i * 3 + 1]["name"])}')>
-                    <i class="${gname["data"][i * 3 + 1]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${window.btoa(gname["data"][i * 3 + 1]["name"])}'></i>
+                    <i class="${gname["data"][i * 3 + 1]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${window.btoa(gname["data"][i * 3 + 1]["name"]).replace('==', "").replace('=', "")}'></i>
                   </div>`: ``}
               </div>
             </div>
@@ -305,7 +305,7 @@ function gen(){
                 </div>
                 ${ isLoggedIn && gname['name'] != 'Your Favorite'? `
                   <div class="heart-big" onclick=star('${window.btoa(gname["data"][i * 3]["name"])}')>
-                    <i class="${gname["data"][i * 3]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${window.btoa(gname["data"][i * 3]["name"])}'></i>
+                    <i class="${gname["data"][i * 3]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${window.btoa(gname["data"][i * 3]["name"]).replace('==', "").replace('=', "")}'></i>
                   </div>`: ``}
               </div>
             </div>
@@ -327,11 +327,11 @@ function gen(){
                 </div>
                 ${ isLoggedIn && gname['name'] != 'Your Favorite'? `
                   <div class="heart-big" onclick=star('${window.btoa(gname["data"][i * 2]["name"])}')>
-                    <i class="${gname["data"][i * 2]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${window.btoa(gname["data"][i * 2]["name"])}'></i>
+                    <i class="${gname["data"][i * 2]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${window.btoa(gname["data"][i * 2]["name"]).replace('==', "").replace('=', "")}'></i>
                   </div>`: ``}
               </div>
             </div>
-            <div class="two-block-2" onclick=go('${window.btoa(gname["data"][i * 2 + 1]["name"])}')>
+            <div class="two-block-2" onclick=go('${window.btoa(gname["data"][i * 2 + 1]["name"]).replace('==', "").replace('=', "")}')>
               <div class="container">
                 <div class="block-local">
                   <img class="picture-local" src="${gname["data"][i * 2 + 1]["picture"]}" />
@@ -339,7 +339,7 @@ function gen(){
                 </div>
                 ${ isLoggedIn && gname['name'] != 'Your Favorite'? `
                   <div class="heart-big" onclick=star('${window.btoa(gname["data"][i * 2 + 1]["name"])}')>
-                    <i class="${gname["data"][i * 2 + 1]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${window.btoa(gname["data"][i * 2 + 1]["name"])}'></i>
+                    <i class="${gname["data"][i * 2 + 1]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${window.btoa(gname["data"][i * 2 + 1]["name"]).replace('==', "").replace('=', "")}'></i>
                   </div>`: ``}
               </div>
             </div>
@@ -356,7 +356,7 @@ function gen(){
                 </div>
                 ${ isLoggedIn && gname['name'] != 'Your Favorite'? `
                   <div class="heart-big" onclick=star('${window.btoa(gname["data"][i * 2]["name"])}')>
-                    <i class="${gname["data"][i * 2]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${window.btoa(gname["data"][i * 2]["name"])}'></i>
+                    <i class="${gname["data"][i * 2]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${window.btoa(gname["data"][i * 2]["name"]).replace('==', "").replace('=', "")}'></i>
                   </div>`: ``}
               </div>
             </div>
@@ -376,7 +376,7 @@ function gen(){
               </div>
               ${ isLoggedIn && gname['name'] != 'Your Favorite'? `
                   <div class="heart-big" onclick=star('${window.btoa(gname["data"][i]["name"])}')>
-                    <i class="${gname["data"][i]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${window.btoa(gname["data"][i]["name"])}'></i>
+                    <i class="${gname["data"][i]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${window.btoa(gname["data"][i]["name"]).replace('==', "").replace('=', "")}'></i>
                   </div>`: ``}
             </div>
           </div>

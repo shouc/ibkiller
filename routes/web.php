@@ -27,6 +27,11 @@ Route::prefix('contribute')->group(function () {
 		->name('modify');
 	Route::post('/userModifyQuestion', 'ContributeController@userModifyQuestion')
 		->name('userModifyQuestion');
+	//del before publish
+	Route::post('/adminAddQuestion', 'ContributeController@adminAddQuestion')
+		->name('adminAddQuestion');
+	Route::get('/adminAdd', 'ContributeController@adminAdd')
+		->name('adminAdd');
 });
 
 #Web Pages

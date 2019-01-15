@@ -76,6 +76,17 @@ class ContributeController extends Controller
         }
     }
 
+    public function adminAdd(Request $request)
+    {
+        $_session = Cookie::get('ibkiller_session');
+        if ($_session){
+            $isLoggedIn = true;
+        } else {
+            return redirect('/');
+        }
+        return view('adminAdd', ['isLoggedIn' => $isLoggedIn]);
+    }
+
     public function userAddQuestion(Request $request)
     {
         if ($request->has(['Subject', 'Content', 'Answer', 'Chapter', 'Type'])) {
@@ -120,6 +131,37 @@ class ContributeController extends Controller
                     ->increment('amount_contributed');
             }
             return redirect('/contribute');
+        }
+    }
+
+    public function adminAddQuestion(Request $request)
+    {
+        if ($request->has(['Content', 'Answer', 'Paper', 'Type', 'QuestionType'])) {
+            $_session = Cookie::get('ibkiller_session');
+            $_content = $request->Content;
+            $_answer = $request->Answer;
+            $_paper = $request->Paper;
+            $_type = $request->Type;
+            $_qType = $request->QuestionType;
+
+            if ($_session){
+                $isLoggedIn = true;
+            } else {
+                return redirect('/');
+            }
+            //if ()
+            DB::table('questions')
+                ->insert([
+                    'question' => base64_decode($_content),
+                    'answer' => base64_decode($_answer),
+                    'type' => (int)$_type,
+                    'paper' => $_paper,
+                    'ref' => $_paper . '@' . $_qType,
+                ]
+            );
+
+            
+            return redirect('/contribute/adminAdd');
         }
     }
 

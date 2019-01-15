@@ -198,6 +198,13 @@ function goTo(i) {
             $("#l" + k).addClass("done");
         }
         localStorage.setItem("qnum", i);
+        renderMathInElement(document.getElementById('questionContainer'), {
+          delimiters: [
+              {left: "$$", right: "$$", display: true},
+              {left: "\\[", right: "\\]", display: true},
+              {left: "$", right: "$", display: false},
+          ]
+        });
     } else {
         $("#goBack").hide();
         $("#q" + localStorage.getItem("qnum")).hide();
@@ -214,6 +221,13 @@ function goTo(i) {
             $("#l" + k).addClass("done");
         }
         localStorage.setItem("qnum", i);
+        renderMathInElement(document.getElementById('questionContainer'), {
+          delimiters: [
+              {left: "$$", right: "$$", display: true},
+              {left: "\\[", right: "\\]", display: true},
+              {left: "$", right: "$", display: false},
+          ]
+        });
     }
 }
 
@@ -230,6 +244,13 @@ $("#goNext").click(function () {
         localStorage.setItem("qnum", parseInt(localStorage.getItem("qnum")) + 1);
         $("#hideAnswerButton").click();
         closeComment();
+        renderMathInElement(document.getElementById('questionContainer'), {
+          delimiters: [
+              {left: "$$", right: "$$", display: true},
+              {left: "\\[", right: "\\]", display: true},
+              {left: "$", right: "$", display: false},
+          ]
+        });
     } else {
         submit();
     }
@@ -240,11 +261,25 @@ $("#showAnswerButton").click(function () {
     $('#questionContainer').html(`${$('#questionContainer').html()} <hr> <div style="text-align: left">${BASE64.decode(question[localStorage.getItem("qnum")]['answer'])}</div>`);
     $('#showAnswerButton').hide();
     $('#hideAnswerButton').show();
+    renderMathInElement(document.getElementById('questionContainer'), {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "\\[", right: "\\]", display: true},
+            {left: "$", right: "$", display: false},
+        ]
+      });
 });
 $("#hideAnswerButton").click(function () {
     $('#questionContainer').html(BASE64.decode(question[localStorage.getItem("qnum")]['content']));
     $('#hideAnswerButton').hide();
     $('#showAnswerButton').show();
+    renderMathInElement(document.getElementById('questionContainer'), {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "\\[", right: "\\]", display: true},
+            {left: "$", right: "$", display: false},
+        ]
+      });
 });
 $("#joinDiscussionButton").click(function () {
     openComment();
@@ -263,6 +298,13 @@ $("#goBack").click(function () {
         localStorage.setItem("qnum", parseInt(localStorage.getItem("qnum")) - 1);
         $("#hideAnswerButton").click();
         closeComment();
+        renderMathInElement(document.getElementById('questionContainer'), {
+          delimiters: [
+              {left: "$$", right: "$$", display: true},
+              {left: "\\[", right: "\\]", display: true},
+              {left: "$", right: "$", display: false},
+          ]
+        });
     } else {
         $("#goBack").hide();
         $("#q" + localStorage.getItem("qnum")).hide();
@@ -275,6 +317,13 @@ $("#goBack").click(function () {
         localStorage.setItem("qnum", parseInt(localStorage.getItem("qnum")) - 1);
         $("#hideAnswerButton").click();
         closeComment();
+        renderMathInElement(document.getElementById('questionContainer'), {
+          delimiters: [
+              {left: "$$", right: "$$", display: true},
+              {left: "\\[", right: "\\]", display: true},
+              {left: "$", right: "$", display: false},
+          ]
+        });
     }
 });
 
