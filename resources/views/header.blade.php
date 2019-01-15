@@ -23,7 +23,11 @@
     <meta itemprop="image" content="/og.png" /> 
     <meta name="theme-color" content="#242433" /> 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/help/introjs.css">
+
     <script src="/js/jquery.min.js"></script> 
+    <script src="/help/intro.js"></script> 
+
     <style type="text/css">
         /* cyrillic-ext */
         @font-face {

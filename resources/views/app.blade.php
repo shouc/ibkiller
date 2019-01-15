@@ -18,7 +18,7 @@
 
    <section class="section background" id="main"> 
     <div style="width: 100%;">
-    <div class="alert alert-dismissible fade show" style="margin-top: 50px;margin-left: 5%;margin-right: 5%; background-color: #2c2c54; color: #fff;">
+    <div class="alert alert-dismissible fade show" style="margin-top: 50px;margin-left: 5%;margin-right: 5%; background-color: #2c2c54; color: #fff;" id='step1'>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -78,6 +78,7 @@ $(function() {
   });
 });
 
+
 if (width < 550 && width >= 300){
   $("#contact").hide();
 }
@@ -90,13 +91,42 @@ function go(name){
 }
 
 function cancelBubble(e) {
-  var evt = e ? e : window.event;
-  if(evt.stopPropagation) { //W3C 
-    evt.stopPropagation();
-  } else { //IE      
-    evt.cancelBubble = true;
+  try{
+    var evt = e ? e : window.event;
+    if(evt.stopPropagation) { //W3C 
+      evt.stopPropagation();
+    } else { //IE      
+      evt.cancelBubble = true;
+    }
+  } catch (err) {
+    return err;
   }
+  
 }
+function startIntro(){
+  var intro = introJs();
+  intro.setOptions({
+    steps: [
+      {
+        element: document.getElementById('step1'),
+        intro: "Each block like this represents a paper. By clicking the button get started, you could do the paper. Note that if we do not state that it is HL, then it is for both SL/HL.",
+      },
+      {
+        element: document.getElementById('step2'),
+        intro: "By clicking this block, we could lead you to the category of this subject.",
+      },
+      @if($isLoggedIn)
+      {
+        element: document.getElementById('star-Chemistry'),
+        intro: "By clicking the star, you could add this subject to your 'favorite'",
+      },
+      @endif
+    ]
+  });
+
+  intro.setOption('showProgress', true).start();
+}
+
 function getImg(id){
   for (var i = 0; i < _data.length; i++) {
     for (var j = 0; j < _data[i]['data'].length; j++) {
@@ -120,7 +150,7 @@ function deletFavorite(id){
 function star(id){
   id = window.atob(id);
   cancelBubble();
-  if ($(`#star-${id}`).hasClass('far')){
+  if ($(`#star-${window.btoa(id)}`).hasClass('far')){
     //not starred
     exist = false;
     for (var i = 0; i < _data.length; i++) {
@@ -131,14 +161,14 @@ function star(id){
     if (!exist){
       _data = _data.concat({'name': 'Your Favorite', 'css': '', 'data': [getImg(id)]});
       gen();
-      $(`#star-${id}`).addClass('fas');
-      $(`#star-${id}`).removeClass('far');
+      $(`#star-${window.btoa(id)}`).addClass('fas');
+      $(`#star-${window.btoa(id)}`).removeClass('far');
     } else {
       _data[exist]['data'] = _data[exist]['data'].concat(getImg(id));
       gen();
       for (var m = 0; m < _data[exist]['data'].length; m++) {
-        $(`#star-${_data[exist]['data'][m]['name']}`).addClass('fas');
-        $(`#star-${_data[exist]['data'][m]['name']}`).removeClass('far');
+        $(`#star-${window.btoa(_data[exist]['data'][m]['name'])}`).addClass('fas');
+        $(`#star-${window.btoa(_data[exist]['data'][m]['name'])}`).removeClass('far');
       }
     }
     $.get(`/userAddFavorite?Name=${id}`);
@@ -162,12 +192,12 @@ function star(id){
       } else {
         gen();
         for (var m = 0; m < _data[exist]['data'].length; m++) {
-          $(`#star-${_data[exist]['data'][m]['name']}`).addClass('fas');
-          $(`#star-${_data[exist]['data'][m]['name']}`).removeClass('far');
+          $(`#star-${window.btoa(_data[exist]['data'][m]['name'])}`).addClass('fas');
+          $(`#star-${window.btoa(_data[exist]['data'][m]['name'])}`).removeClass('far');
         }
       }
-      $(`#star-${id}`).addClass('far');
-      $(`#star-${id}`).removeClass('fas');
+      $(`#star-${window.btoa(id)}`).addClass('far');
+      $(`#star-${window.btoa(id)}`).removeClass('fas');
     } else {
       return 'error'
     }
@@ -192,14 +222,12 @@ function gen(){
               <a class="font-local"><font color="#eee">${gname["name"]}</font></a>
               <span class="tit-icon ${gname["css"]}-r tit-icon-r"></span> 
             </h3>`;
-    //code += `<div class="bar-local"> <a class="groupname-local font-local"><span class="tit-icon g2-l tit-icon-l"></span>${gname["name"]} -</a> </div>`;
     if (width > 840){
       for (var i = 0; i <= Math.ceil(gname["data"].length/3) - 1; i++) {
-        //alert(gname["data"].length - (i + 1)* 3 )
         if (gname["data"].length - (i + 1)* 3 >= 0) {
           code += `
           <div class="blc">
-            <div class="three-block-1" onclick=go('${window.btoa(gname["data"][i * 3]["name"])}')>
+            <div class="three-block-1" onclick=go('${window.btoa(gname["data"][i * 3]["name"])}') id=${i == 0 ? `'step2'` : 'useLess'}>
               <div class="container"> 
                 <div class="block-local"> 
                   <img class="picture-local" src="${gname["data"][i * 3]["picture"]}" /> 
@@ -207,7 +235,7 @@ function gen(){
                 </div>
                 ${ isLoggedIn && gname['name'] != 'Your Favorite'? `
                   <div class="heart-big" onclick=star('${window.btoa(gname["data"][i * 3]["name"])}')>
-                    <i class="${gname["data"][i * 3]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${gname["data"][i * 3]["name"]}'></i>
+                    <i class="${gname["data"][i * 3]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${window.btoa(gname["data"][i * 3]["name"])}'></i>
                   </div>`: ``}
               </div>
             </div>
@@ -219,7 +247,7 @@ function gen(){
                 </div>
                 ${ isLoggedIn && gname['name'] != 'Your Favorite'? `
                   <div class="heart-big" onclick=star('${window.btoa(gname["data"][i * 3 + 1]["name"])}')>
-                    <i class="${gname["data"][i * 3 + 1]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${gname["data"][i * 3 + 1]["name"]}'></i>
+                    <i class="${gname["data"][i * 3 + 1]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${window.btoa(gname["data"][i * 3 + 1]["name"])}'></i>
                   </div>`: ``}
               </div>
             </div> 
@@ -231,7 +259,7 @@ function gen(){
                 </div>
                 ${ isLoggedIn && gname['name'] != 'Your Favorite'? `
                   <div class="heart-big" onclick=star('${window.btoa(gname["data"][i * 3 + 2]["name"])}')>
-                    <i class="${gname["data"][i * 3 + 2]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${gname["data"][i * 3 + 2]["name"]}'></i>
+                    <i class="${gname["data"][i * 3 + 2]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${window.btoa(gname["data"][i * 3 + 2]["name"])}'></i>
                   </div>`: ``}
               </div>
             </div>
@@ -248,7 +276,7 @@ function gen(){
                 </div>
                 ${ isLoggedIn && gname['name'] != 'Your Favorite'? `
                   <div class="heart-big" onclick=star('${window.btoa(gname["data"][i * 3]["name"])}')>
-                    <i class="${gname["data"][i * 3]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${gname["data"][i * 3]["name"]}'></i>
+                    <i class="${gname["data"][i * 3]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${window.btoa(gname["data"][i * 3]["name"])}'></i>
                   </div>`: ``}
               </div>
             </div>
@@ -260,7 +288,7 @@ function gen(){
                 </div>
                 ${ isLoggedIn && gname['name'] != 'Your Favorite'? `
                   <div class="heart-big" onclick=star('${window.btoa(gname["data"][i * 3 + 1]["name"])}')>
-                    <i class="${gname["data"][i * 3 + 1]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${gname["data"][i * 3 + 1]["name"]}'></i>
+                    <i class="${gname["data"][i * 3 + 1]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${window.btoa(gname["data"][i * 3 + 1]["name"])}'></i>
                   </div>`: ``}
               </div>
             </div>
@@ -277,7 +305,7 @@ function gen(){
                 </div>
                 ${ isLoggedIn && gname['name'] != 'Your Favorite'? `
                   <div class="heart-big" onclick=star('${window.btoa(gname["data"][i * 3]["name"])}')>
-                    <i class="${gname["data"][i * 3]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${gname["data"][i * 3]["name"]}'></i>
+                    <i class="${gname["data"][i * 3]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${window.btoa(gname["data"][i * 3]["name"])}'></i>
                   </div>`: ``}
               </div>
             </div>
@@ -299,7 +327,7 @@ function gen(){
                 </div>
                 ${ isLoggedIn && gname['name'] != 'Your Favorite'? `
                   <div class="heart-big" onclick=star('${window.btoa(gname["data"][i * 2]["name"])}')>
-                    <i class="${gname["data"][i * 2]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${gname["data"][i * 2]["name"]}'></i>
+                    <i class="${gname["data"][i * 2]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${window.btoa(gname["data"][i * 2]["name"])}'></i>
                   </div>`: ``}
               </div>
             </div>
@@ -311,7 +339,7 @@ function gen(){
                 </div>
                 ${ isLoggedIn && gname['name'] != 'Your Favorite'? `
                   <div class="heart-big" onclick=star('${window.btoa(gname["data"][i * 2 + 1]["name"])}')>
-                    <i class="${gname["data"][i * 2 + 1]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${gname["data"][i * 2 + 1]["name"]}'></i>
+                    <i class="${gname["data"][i * 2 + 1]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${window.btoa(gname["data"][i * 2 + 1]["name"])}'></i>
                   </div>`: ``}
               </div>
             </div>
@@ -328,7 +356,7 @@ function gen(){
                 </div>
                 ${ isLoggedIn && gname['name'] != 'Your Favorite'? `
                   <div class="heart-big" onclick=star('${window.btoa(gname["data"][i * 2]["name"])}')>
-                    <i class="${gname["data"][i * 2]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${gname["data"][i * 2]["name"]}'></i>
+                    <i class="${gname["data"][i * 2]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${window.btoa(gname["data"][i * 2]["name"])}'></i>
                   </div>`: ``}
               </div>
             </div>
@@ -348,7 +376,7 @@ function gen(){
               </div>
               ${ isLoggedIn && gname['name'] != 'Your Favorite'? `
                   <div class="heart-big" onclick=star('${window.btoa(gname["data"][i]["name"])}')>
-                    <i class="${gname["data"][i]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${gname["data"][i]["name"]}'></i>
+                    <i class="${gname["data"][i]["favorite"] ? 'fas' : 'far'} fa-star heart-local" id='star-${window.btoa(gname["data"][i]["name"])}'></i>
                   </div>`: ``}
             </div>
           </div>
@@ -358,6 +386,9 @@ function gen(){
     $('#data').html(code);
   }
 }
+
+
+
 gen();
 window.onresize = function(){
   gen();

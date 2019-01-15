@@ -111,7 +111,7 @@ for (var i = 0; i < categoryData.length; i++) {
   for (var k = 0; k < categoryData[i]['paper'].length; k++) {
     categoryMenuHTML += `
     <div class="col-sm-6">
-      <div class="card cardBody">
+      <div class="card cardBody" id=${k == 0 && i == 0 ? `'step2'` : 'useLess'}>
         <div class="card-body"> 
           <h5 class="card-title">
             ${categoryData[i]['paper'][k][0]}
@@ -144,4 +144,19 @@ else {
     $("k").width($(window).width());
     $("#menu").hide();
 }
+
+function startIntro(){
+  var intro = introJs();
+  intro.setOptions({
+    steps: [
+      {
+        element: document.getElementById('step2'),
+        intro: "Each block like this represents a paper. By clicking the button get started, you could do the paper. Note that if we do not state that it is HL, then it is for both SL/HL.",
+      },
+    ]
+  });
+
+  intro.setOption('showProgress', true).start();
+}
+
 </script>

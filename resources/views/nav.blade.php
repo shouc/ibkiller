@@ -56,7 +56,7 @@
             <a class="dropdown-item" href="/history">History</a>
             <a class="dropdown-item" href="/mate">Study Mate</a>
             <a class="dropdown-item" href="/contribute">Contribute Questions</a>
-            <a class="dropdown-item">Helps</a>
+            <a class="dropdown-item" onclick="startIntro()">Helps</a>
 
           </div>
         </div>

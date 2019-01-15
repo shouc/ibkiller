@@ -5,7 +5,7 @@
   margin-right: 10%;
 }
 .commentBody {
-  z-index: 10;
+  z-index: 1000;
   overflow: auto;
   position: fixed;
   right: 0;
