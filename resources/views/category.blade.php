@@ -80,7 +80,7 @@ body {
   <div class="pageBody" id="pageBody">
     <div class="movingIcon">
       <div class="icon-local">
-        <img class="iconPicture" src="{{ $server }}/app/icon/{{ $img }}" /></div>
+        <img class="iconPicture" src="https://cdn-bucket.ibkiller.com/img/icon/{{ $img }}" /></div>
     </div>
     <h1 class="subjectTitle">{{ $subject }}</h1>
     <div class="line" id="line"></div>

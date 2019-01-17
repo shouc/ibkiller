@@ -1,13 +1,13 @@
 @include('header')
 
 @include('nav', ['q' => false])
-<link rel="stylesheet" type="text/css" href="/app/main.css">
+<link rel="stylesheet" type="text/css" href="https://cdn-bucket.ibkiller.com/css/main.css">
  <body class="homeBody"> 
    <header class="intro"> 
     <h1 class="intro__hello">Hello! <span class="emoji wave-hand animated"></span> </h1> 
-    <h2 class="intro__tagline"> <span class="name"> <img style="margin-bottom:7px;height:42px;width;border-radius:8px" src="{{ $server }}/img/icon.png" /> IBKiller </span> here, a free Questionbank for IBDP students. </h2> 
+    <h2 class="intro__tagline"> <span class="name"> <img style="margin-bottom:7px;height:42px;width;border-radius:8px" src="https://cdn-bucket.ibkiller.com/img/icon.png" /> IBKiller </span> here, a free Questionbank for IBDP students. </h2> 
     <a class="status"> 
-      <img src="{{ $server }}/img/appstore.svg" class="btn-app" onclick='alert("Developing")'/>
+      <img src="https://cdn-bucket.ibkiller.com/img/appstore.svg" class="btn-app" onclick='alert("Developing")'/>
       &nbsp;
       <button class="btn btn-web" onclick='$("html, body").animate({ scrollTop: $("#main").offset().top - 120}, {duration: 400,easing: "swing"});'>Use Web Version</button>
     </a>
@@ -48,13 +48,12 @@
     </div> 
     <div class="sharethis-inline-reaction-buttons"></div> 
     <div class="footer__links"> 
-     <a href="http://zwang.tech" target="_blank" style="fill:white" title="company"><img src="{{ $server }}/img/social/company.svg" alt="company" /> </a> 
-     <a href="https://github.com/IBKillerDev" target="_blank" title="github"><img src="{{ $server }}/img/social/github.svg" alt="github" /> </a> 
-     <a href="http:{{ $server }}/terms.html" target="_blank" title="term"><img src="{{ $server }}/img/social/term.svg" alt="term" /> </a> 
+     <a href="http://zwang.tech" target="_blank" style="fill:white" title="company"><img src="https://cdn-bucket.ibkiller.com/img/company.svg" alt="company" /> </a> 
+     <a href="https://github.com/IBKillerDev" target="_blank" title="github"><img src="https://cdn-bucket.ibkiller.com/img/github.svg" alt="github" /> </a> 
+     <a href="https://cdn-bucket.ibkiller.com/terms.html" target="_blank" title="term"><img src="https://cdn-bucket.ibkiller.com/img/term.svg" alt="term" /> </a> 
     </div> 
    </footer> 
   </div> 
-  <script src="{{ $server }}/js/jquery.min.js" type="text/javascript" charset="utf-8"></script> 
   <script>
 
 $(function() {

@@ -24,7 +24,9 @@
         </div>
         <br>
         <h5 style="font-weight: 100;">Answer</h5>
-        <input class="form-control" onkeyup="update()" id="questionAnswer" type="" value="" name="">
+        <div id="answer">  
+            <textarea id="answerTA" name="answer"></textarea>
+        </div>
         <br>
         <div class="alert alert-success">
             Real-time Preview
@@ -46,11 +48,11 @@
 <script src="/static/js/jquery.min.js"></script>
 <script src="/editor/editormd.js"></script>   
 <script type="text/javascript">
-    type=1
-    paper='T/M'
-    qT='123'
+    type=2
+    paper='Stats Basic 2'
+    qT='2'
 	function update(){
-		$("#show").html(document.getElementById("questionTA").value + "<br><strong>Answer: </strong>" + document.getElementById("questionAnswer").value)
+		$("#show").html(question.getMarkdown() + "<br><strong>Answer: </strong>" + answer.getMarkdown())
 		renderMathInElement(document.body, {delimiters:[
 		          {left: "$", right: "$", display: false},
 		        ]});
@@ -58,7 +60,7 @@
 
 
 	function submit(){
-			$("#answerForSubmit").val(btoa($("#questionAnswer").val().toUpperCase()));
+			$("#answerForSubmit").val(btoa(answer.getMarkdown()));
 			$("#contentForSubmit").val(btoa(question.getMarkdown()));
 			$("#paperForSubmit").val(paper);
 			$("#typeForSubmit").val(type);
@@ -81,6 +83,21 @@
 		    imageUploadURL : "/contribute/upload",
             onchange : function() {
             	update();
+            }
+        });
+        answer = editormd("answer", {
+            width: '97%',
+            height: 340,
+            path : '/editor/lib/',
+            theme : "day",
+            watch            : true,
+            codeFold         : true,
+            searchReplace    : true,
+            imageUpload    : true,
+            imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL : "/contribute/upload",
+            onchange : function() {
+                update();
             }
         });
         

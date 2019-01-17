@@ -52,7 +52,7 @@ class WebController extends Controller
             }
             $arr = [
                 'name' => $value->name,
-                'picture' => env('APP_URL') . '/app/icon/' . $value->img,
+                'picture' => 'https://cdn-bucket.ibkiller.com/img/icon/' . $value->img . '?x-oss-process=style/pic_process',
                 'favorite' => $this->favorite($favorites, $value),
             ];
             array_push($results, [
@@ -66,7 +66,7 @@ class WebController extends Controller
             }
             $arr = [
                 'name' => $favorite->name,
-                'picture' => env('APP_URL') . '/app/icon/' . $favorite->img,
+                'picture' => 'https://cdn-bucket.ibkiller.com/img/icon/' . $favorite->img . '?x-oss-process=style/pic_process',
                 'favorite' => 1,
             ];
             array_push($results, [

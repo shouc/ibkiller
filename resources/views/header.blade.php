@@ -5,7 +5,7 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> 
     <title>IBKiller | Questionbank for IB Students</title> 
-    <link rel="icon" type="image/png" href="/img/icon.png" hreflang="en-us" /> 
+    <link rel="icon" type="image/png" href="https://cdn-bucket.ibkiller.com/img/icon.png" hreflang="en-us" /> 
     <meta property="og:title" content="IBKiller | Questionbank for IB Students" /> 
     <meta property="og:description" content="IBKiller is a free Questionbank for IBDP students." /> 
     <meta property="og:type" content="website" /> 
@@ -22,11 +22,11 @@
     <meta itemprop="description" content="IBKiller is a free Questionbank for IBDP students." /> 
     <meta itemprop="image" content="/og.png" /> 
     <meta name="theme-color" content="#242433" /> 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/help/introjs.css">
+    <link rel="stylesheet" href="https://cdn-bucket.ibkiller.com/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn-bucket.ibkiller.com/css/introjs.css">
 
-    <script src="/js/jquery.min.js"></script> 
-    <script src="/help/intro.js"></script> 
+    <script src="https://cdn-bucket.ibkiller.com/js/jquery.min.js"></script> 
+    <script src="https://cdn-bucket.ibkiller.com/js/intro.js"></script> 
 
     <style type="text/css">
         /* cyrillic-ext */
@@ -35,7 +35,7 @@
           font-family: 'Source Sans Pro';
           font-style: normal;
           font-weight: 400;
-          src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(/fonts/6xK3dSBYKcSV-LCoeQqfX1RYOo3qNa7lujVj9_mf.woff2) format('woff2');
+          src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(https://cdn-bucket.ibkiller.com/fonts/6xK3dSBYKcSV-LCoeQqfX1RYOo3qNa7lujVj9_mf.woff2) format('woff2');
           unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
         }
         /* cyrillic */
@@ -44,7 +44,7 @@
           font-family: 'Source Sans Pro';
           font-style: normal;
           font-weight: 400;
-          src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(/fonts/6xK3dSBYKcSV-LCoeQqfX1RYOo3qPK7lujVj9_mf.woff2) format('woff2');
+          src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(https://cdn-bucket.ibkiller.com/fonts/6xK3dSBYKcSV-LCoeQqfX1RYOo3qPK7lujVj9_mf.woff2) format('woff2');
           unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
         }
         /* greek-ext */
@@ -53,7 +53,7 @@
           font-family: 'Source Sans Pro';
           font-style: normal;
           font-weight: 400;
-          src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(/fonts/6xK3dSBYKcSV-LCoeQqfX1RYOo3qNK7lujVj9_mf.woff2) format('woff2');
+          src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(https://cdn-bucket.ibkiller.com/fonts/6xK3dSBYKcSV-LCoeQqfX1RYOo3qNK7lujVj9_mf.woff2) format('woff2');
           unicode-range: U+1F00-1FFF;
         }
         /* greek */
@@ -62,7 +62,7 @@
           font-family: 'Source Sans Pro';
           font-style: normal;
           font-weight: 400;
-          src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(/fonts/6xK3dSBYKcSV-LCoeQqfX1RYOo3qO67lujVj9_mf.woff2) format('woff2');
+          src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(https://cdn-bucket.ibkiller.com/fonts/6xK3dSBYKcSV-LCoeQqfX1RYOo3qO67lujVj9_mf.woff2) format('woff2');
           unicode-range: U+0370-03FF;
         }
         /* vietnamese */
@@ -71,7 +71,7 @@
           font-family: 'Source Sans Pro';
           font-style: normal;
           font-weight: 400;
-          src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(/fonts/6xK3dSBYKcSV-LCoeQqfX1RYOo3qN67lujVj9_mf.woff2) format('woff2');
+          src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(https://cdn-bucket.ibkiller.com/fonts/6xK3dSBYKcSV-LCoeQqfX1RYOo3qN67lujVj9_mf.woff2) format('woff2');
           unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
         }
         /* latin-ext */
@@ -80,7 +80,7 @@
           font-family: 'Source Sans Pro';
           font-style: normal;
           font-weight: 400;
-          src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(/fonts/6xK3dSBYKcSV-LCoeQqfX1RYOo3qNq7lujVj9_mf.woff2) format('woff2');
+          src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(https://cdn-bucket.ibkiller.com/fonts/6xK3dSBYKcSV-LCoeQqfX1RYOo3qNq7lujVj9_mf.woff2) format('woff2');
           unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
         }
         /* latin */
@@ -89,18 +89,21 @@
           font-family: 'Source Sans Pro';
           font-style: normal;
           font-weight: 400;
-          src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(/fonts/6xK3dSBYKcSV-LCoeQqfX1RYOo3qOK7lujVj9w.woff2) format('woff2');
+          src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(https://cdn-bucket.ibkiller.com/fonts/6xK3dSBYKcSV-LCoeQqfX1RYOo3qOK7lujVj9w.woff2) format('woff2');
           unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
         }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
-    <script src="/alert/sweetalert2.all.min.js"></script>
-    <link rel="stylesheet" href="/alert/sweetalert2.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js"></script>
+    <script src="https://cdn-bucket.ibkiller.com/js/popper.min.js"></script>
+    <script src="https://cdn-bucket.ibkiller.com/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn-bucket.ibkiller.com/fontawesome/all.min.css">
+
+
+    <script src="https://cdn-bucket.ibkiller.com/js/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="https://cdn-bucket.ibkiller.com/css/sweetalert2.min.css">
+
+    <link rel="stylesheet" href="https://cdn-bucket.ibkiller.com/katex/katex.min.css">
+    <script src="https://cdn-bucket.ibkiller.com/katex/katex.min.js"></script>
+    <script src="https://cdn-bucket.ibkiller.com/katex/contrib/auto-render.min.js"></script>
 
 </head>
 <style type="text/css">
