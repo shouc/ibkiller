@@ -106,3 +106,4 @@ Table styles and files
   //$('#userQuestionModal').modal('show')
 
 </script>
+@include('foot')

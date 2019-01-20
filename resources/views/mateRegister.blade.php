@@ -129,3 +129,4 @@ body {
 
 
 </script>
+@include('foot')

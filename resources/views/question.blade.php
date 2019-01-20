@@ -331,3 +331,4 @@ $("#buttonForAnswerD").click(function () {
       }
     } 
 </script>
+@include('foot')

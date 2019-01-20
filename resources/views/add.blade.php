@@ -61,7 +61,6 @@
         <buttonNoEffect onclick="submit()" class="col-md-12 btn btn-dark click" style="margin-bottom: 20px">Add</buttonNoEffect>
     </form>
 </div>
-<script src="/static/js/jquery.min.js"></script>
 <script src="/editor/editormd.js"></script>   
 <script type="text/javascript">
 	function update(){
@@ -131,3 +130,4 @@
     });
 
 </script>
+@include('foot')

@@ -394,4 +394,6 @@ window.onresize = function(){
 };
 </script> 
  </body>
-</html>
+
+@include('foot')
+

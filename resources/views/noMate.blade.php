@@ -47,3 +47,4 @@ body {
   }
   $("#form-1").show();
 </script>
+@include('foot')

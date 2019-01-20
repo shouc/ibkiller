@@ -308,4 +308,5 @@ $('#data').html(`
 @endif
 $("#historyContainer").show();
 </script>
+@include('foot')
 

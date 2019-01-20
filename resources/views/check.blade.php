@@ -320,3 +320,4 @@ $("#question").show();
       }
     } 
 </script>
+@include('foot')

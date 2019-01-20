@@ -16,7 +16,7 @@
     <meta property="og:image:height" content="800" /> 
     <meta property="og:image:type" content="image/png" /> 
     <meta property="og:locale" content="en_US" /> 
-    <meta name="description" content="IBKiller is a free Questionbank for IBDP students." /> 
+    <meta name="description" content="IBKiller is a free Questionbank for IBDP students." />
     <meta name="keywords" content="ibdp, ibdp past papers, ib prep app, testprep, ib students" /> 
     <meta itemprop="name" content="IBKiller | Questionbank for IB Students" /> 
     <meta itemprop="description" content="IBKiller is a free Questionbank for IBDP students." /> 

@@ -160,3 +160,5 @@ function startIntro(){
 }
 
 </script>
+
+@include('foot')

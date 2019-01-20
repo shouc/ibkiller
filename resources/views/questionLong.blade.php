@@ -336,3 +336,4 @@ $("#goBack").click(function () {
       }
     } 
 </script>
+@include('foot')
