@@ -9,6 +9,7 @@ use Storage;
 use Hash;
 use Cookie;
 use App\Http\Controllers\AppController;
+use Redis;
 class WebController extends Controller
 {
     /**
@@ -23,7 +24,7 @@ class WebController extends Controller
 
     public function favorite($favorites, $subject){
         foreach ($favorites as $l=>&$favorite) {
-            if ($favorite->name == $subject->name){
+            if ($favorite->name == $subject[1]){
                 return 1;
             }
         }
@@ -38,8 +39,9 @@ class WebController extends Controller
         } else {
             $isLoggedIn = false;
         }
-        $subjects = DB::table('subjects')
-            ->get();
+        $subjects = json_decode(Redis::get('subjects'))->result;
+        //DB::table('subjects')
+        //    ->get();
         $favorites = DB::table('favorite')
             ->where('session', $_session)
             ->get();
@@ -47,16 +49,16 @@ class WebController extends Controller
         $results = [];
         $final = [];
         foreach ($subjects as $k=>&$value) {
-            if (!in_array($value->ibg, $ibgs)){
-                array_push($ibgs, $value->ibg);
+            if (!in_array($value[3], $ibgs)){
+                array_push($ibgs, $value[3]);
             }
             $arr = [
-                'name' => $value->name,
-                'picture' => 'https://cdn-bucket.ibkiller.com/img/icon/' . $value->img . '?x-oss-process=style/pic_process',
+                'name' => $value[1],
+                'picture' => 'https://cdn-bucket.ibkiller.com/img/icon/' . $value[2] . '?x-oss-process=style/pic_process',
                 'favorite' => $this->favorite($favorites, $value),
             ];
             array_push($results, [
-                'ibg' => $value->ibg,
+                'ibg' => $value[3],
                 'data' => $arr,
             ]);
         }
@@ -105,12 +107,21 @@ class WebController extends Controller
                 $isLoggedIn = false;
             }
             $api = $this->init();
+            //get the name of the subject
             $_cat = urldecode(base64_decode($request->Cat));
-            $_img = DB::table('subjects')
-                ->where('name', $_cat)
-                ->select('img')
-                ->pluck('img')
-                ->first();
+            $subject = json_decode(Redis::get('subjects'))->result;
+            //get the image of the page
+            foreach ($subject as $i => $value) {
+                // find the subject that has the same name as $_cat
+                if ($value[1] == $_cat){
+                    $_img = $value[2];
+                }
+            }
+            //DB::table('subjects')
+                //->where('name', $_cat)
+                //->select('img')
+                //->pluck('img')
+                //->first();
             $paperReq = new Request();
             $paperReq->offsetSet('Cat', $_cat);
             $paperReq->offsetSet('Session', $_session);

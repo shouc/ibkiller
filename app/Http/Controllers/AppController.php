@@ -9,7 +9,7 @@ use Storage;
 use Hash;
 use App\Mail\AuthEmail;
 use Mail;
-
+use Redis;
 class AppController extends Controller
 {
     public function sessionVal($session)
@@ -86,37 +86,63 @@ class AppController extends Controller
         if ($request->has(['Cat','Session'])) {
             $_cat = $request->Cat;
             $_session = $request->Session;
-            $allCat = DB::table('groups')
-                ->where('cat', $_cat)
-                ->get();
-            $paperStatus = DB::table('app_records')
-                ->where('session', $_session)
-                ->select('paper')
-                ->get()
-                ->pluck('paper')
-                ->toArray();
+            $category = json_decode(Redis::get('groups'))->result;
+            $allCat = array();
+            foreach ($category as $i => $value) {
+                if ($value[3] == $_cat){
+                    array_push($allCat, $value);
+                }
+            }
+            //DB::table('groups')
+            //    ->where('cat', $_cat)
+            //    ->get();
+            # check if is logged in
+            if ($_session){
+                #list all the paper status
+                $paperStatus = DB::table('app_records')
+                    ->where('session', $_session)
+                    ->select('paper')
+                    ->get()
+                    ->pluck('paper')
+                    ->toArray();
+            } else {
+                $paperStatus = [];
+            }
+            
             $allCatRes = array();
+            $papers = json_decode(Redis::get('papers'))->result;
             foreach ($allCat as $i) {
-                $allPaperInGID = DB::table('papers')
-                    ->where('group_id', $i->group_id)
-                    ->get();
+                $allPaperInGID = array();
+                // find all papers with group id $i[1]
+                foreach ($papers as $j => $value) {
+                    if ($value[2] == $i[1]) { 
+                        array_push($allPaperInGID, $value);
+                    }
+                }
+                //DB::table('papers')
+                //    ->where('group_id', $i[1]) //group id
+                //    ->get();
                 $allPaperTemp = array();
                 foreach ($allPaperInGID as $j) {
-                    if ($j->condition == 1){
-                        if (in_array($j->paper, $paperStatus)){
-                            array_push($allPaperTemp, [$j->paper,$j->totalQuestionNum,0,true, $j->_type]);
+                    // check if condition if good
+                    if ($j[4] == 1){
+                        // $j[1] is paper name
+                        // $j[3] is the total question num
+                        // $j[5] is the type of the paper
+                        if (in_array($j[1], $paperStatus)){
+                            array_push($allPaperTemp, [$j[1],$j[3], 0,true, $j[5]]);
                                 
                         } else {
-                            array_push($allPaperTemp, [$j->paper,$j->totalQuestionNum,0,false, $j->_type]);
+                            array_push($allPaperTemp, [$j[1],$j[3],0,false, $j[5]]);
                         }
                     } else {
-                        array_push($allPaperTemp, [$j->paper,$j->totalQuestionNum,1,false, 0]);
+                        array_push($allPaperTemp, [$j[1],$j[3],1,false, 0]);
                     }
-        }
+                }
                 array_push($allCatRes, [
-                        'catName' => $i->group_name,
+                        'catName' => $i[2], // group name
                         'paper' => $allPaperTemp,
-                    ]);
+                ]);
             }
             return ["result" => $allCatRes];
         }
@@ -133,15 +159,23 @@ class AppController extends Controller
         if ($request->has(['Paper'])) {
             $_paper = $request->Paper;
             $allQuestionTemp = array();
-            $allQuestion = DB::table('questions')
-                ->where('paper', $_paper)
-                ->get();
+            $questions = json_decode(Redis::get('questions'))->result;
+            $allQuestion = array();
+            // find all questions with name $_paper
+            foreach ($questions as $i => $value) {
+                if ($value[6] == $_paper) { 
+                    array_push($allQuestion, $value);
+                }
+            }
+            //DB::table('questions')
+            //    ->where('paper', $_paper)
+            //    ->get();
             foreach ($allQuestion as $key=>$i) {
                 $questionLine = [
                     "questionNum" => $key + 1, 
-                    "content" => base64_encode($i->question),
-                    "answer" => base64_encode($i->answer), 
-                    "type" => $i->type];
+                    "content" => base64_encode($i[1]),
+                    "answer" => base64_encode($i[2]), 
+                    "type" => $i[4]];
                 array_push($allQuestionTemp, $questionLine);
             }
             return ["result" => $allQuestionTemp];
