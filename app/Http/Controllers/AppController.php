@@ -159,14 +159,7 @@ class AppController extends Controller
         if ($request->has(['Paper'])) {
             $_paper = $request->Paper;
             $allQuestionTemp = array();
-            $questions = json_decode(Redis::get('questions'))->result;
-            $allQuestion = array();
-            // find all questions with name $_paper
-            foreach ($questions as $i => $value) {
-                if ($value[6] == $_paper) { 
-                    array_push($allQuestion, $value);
-                }
-            }
+            $allQuestion = json_decode(Redis::get($_paper))->result;            
             //DB::table('questions')
             //    ->where('paper', $_paper)
             //    ->get();
