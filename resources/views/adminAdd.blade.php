@@ -49,7 +49,7 @@
 <script src="/editor/editormd.js"></script>   
 <script type="text/javascript">
     type=2
-    paper='Stats Basic 2'
+    paper='Trigonometry 1'
     qT='2'
 	function update(){
 		$("#show").html(question.getMarkdown() + "<br><strong>Answer: </strong>" + answer.getMarkdown())

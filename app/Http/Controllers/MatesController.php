@@ -160,21 +160,24 @@ class MatesController extends Controller
             if ($bestMatch == null){
                 return redirect('/mate');
             } else {
-                DB::table('mate_info')
-                    ->where('session', $_session)
-                    ->update(['done' => 1]);
-                DB::table('mate_info')
-                    ->where('session', $_session)
-                    ->update(['assigned_session' => $bestMatch->session]);
-                DB::table('mate_info')
-                    ->where('session', $bestMatch->session)
-                    ->update(['done' => 1]);
-                DB::table('mate_info')
-                    ->where('session', $bestMatch->session)
-                    ->update(['assigned_session' => $_session]);
                 $bestMatchInfo = DB::table('app_users')
                     ->where('session' , $bestMatch->session)
                     ->first();
+                $matcheeInfo = DB::table('app_users')
+                    ->where('session' , $_session)
+                    ->first();
+                DB::table('mate_info')
+                    ->where('session', $_session)
+                    ->update(['assigned_session' => $bestMatch->session,
+                              'mate_email' => $bestMatchInfo->email,
+                              'done' => 1
+                ]);
+                DB::table('mate_info')
+                    ->where('session', $bestMatch->session)
+                    ->update(['assigned_session' => $_session, 
+                              'mate_email' => $matcheeInfo->email,
+                              'done' => 1
+                ]);
                 $this->sendHaveMate($bestMatchInfo->email);
                 unset($bestMatch->session);
                 unset($bestMatch->assigned_session);
@@ -186,7 +189,6 @@ class MatesController extends Controller
     }
     public function disband(Request $request)
     {   
-        return $this->sendHaveMate('scf@ieee.org');
         $_session = Cookie::get('ibkiller_session');
         $userInfo = DB::table('mate_info')
             ->where('session', $_session)
@@ -204,7 +206,7 @@ class MatesController extends Controller
                 DB::table('mate_info')
                     ->where('session', $mateInfo->session)
                     ->delete();
-                $this->sendMateAlsoDisbanded($mateInfo->email);
+                $this->sendMateAlsoDisbanded($userInfo->mate_email);
             } else {
                 DB::table('mate_info')
                     ->where('session', $_session)
@@ -212,7 +214,7 @@ class MatesController extends Controller
                 DB::table('mate_info')
                     ->where('session', $mateInfo->session)
                     ->update(['done' => 3]);
-                $this->sendDisbandMate($mateInfo->email);
+                $this->sendDisbandMate($userInfo->mate_email);
             }
         }
         return redirect('/mate');

@@ -36,7 +36,7 @@ class AppController extends Controller
 
     public function sendAuthEmail($authSession, $mailAddr)
     {
-        Mail::to($mailAddr)->send(new AuthEmail(base64_encode($authSession), 'Confirm Your Email!'));
+        Mail::to($mailAddr)->send(new AuthEmail(base64_encode($authSession), 'Welcome on board! But confirm your Email first!'));
     }
 
     public function sendAuthEmailWithSession($session)
@@ -131,7 +131,6 @@ class AppController extends Controller
                         // $j[5] is the type of the paper
                         if (in_array($j[1], $paperStatus)){
                             array_push($allPaperTemp, [$j[1],$j[3], 0,true, $j[5]]);
-                                
                         } else {
                             array_push($allPaperTemp, [$j[1],$j[3],0,false, $j[5]]);
                         }

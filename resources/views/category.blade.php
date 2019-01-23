@@ -94,6 +94,7 @@ body {
 <script type="text/javascript">
 categoryData = $.parseJSON(window.atob('{{ $data }}'));
 categoryPageHTML = "";
+adsHTML = "";
 categoryMenuHTML = "";
 for (var i = 0; i < categoryData.length; i++) {
   categoryPageHTML += `
@@ -102,6 +103,7 @@ for (var i = 0; i < categoryData.length; i++) {
       ${categoryData[i]["catName"]}
     </a>
   </li>`;
+  
   categoryMenuHTML += `
   <div id='cat${i}'>
     <h4>${categoryData[i]["catName"]}</h4>
@@ -131,6 +133,7 @@ for (var i = 0; i < categoryData.length; i++) {
   }
   categoryMenuHTML += '</div>';
 }
+categoryPageHTML += ""
 $('#menu').html(categoryPageHTML);
 $('#content').html(categoryMenuHTML);
 if ($(window).width() > 800){
