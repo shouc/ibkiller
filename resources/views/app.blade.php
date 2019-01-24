@@ -16,18 +16,20 @@
 
 
 
-   <section class="section background" id="main"> 
+   <section class="section background" id="main"  id='step1'> 
+    @if($isLoggedIn)
     <div style="width: 100%;">
-    <div class="alert alert-dismissible fade show" style="margin-top: 50px;margin-left: 5%;margin-right: 5%; background-color: #2c2c54; color: #fff;" id='step1'>
+    <div class="alert alert-dismissible fade show" style="margin-top: 50px;margin-left: 5%;margin-right: 5%; background-color: #2c2c54; color: #fff;">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
       <h4 class="alert-heading" style="color: #fff"><i class="fas fa-map-pin"></i></h4>
       <h4 class="alert-heading" style="color: #fff">A Note from CEO</h4>
-
-      <p style="color: #fff">In brief, <br><strong style="color: #fff">1. </strong>You can find a study mate here.<br><strong style="color: #fff">2. </strong>Help us enrich our question base at here.</p>
+      <p>Welcome, warrior!</p>
+      <p style="color: #fff">In brief, <br><strong style="color: #fff">1. </strong>You can find a study mate <a href="/mate" style="color:#74b9ff">here</a>.<br><strong style="color: #fff">2. </strong>Help us enrich our question base at <a style="color:#74b9ff" href="/contribute">here.</a></p>
     </div>
     </div>
+    @endif
     <div id="data"></div>
 
    </section> 
@@ -106,17 +108,14 @@ function startIntro(){
   var intro = introJs();
   intro.setOptions({
     steps: [
-      {
-        element: document.getElementById('step1'),
-        intro: "Each block like this represents a paper. By clicking the button get started, you could do the paper. Note that if we do not state that it is HL, then it is for both SL/HL.",
-      },
+      
       {
         element: document.getElementById('step2'),
         intro: "By clicking this block, we could lead you to the category of this subject.",
       },
       @if($isLoggedIn)
       {
-        element: document.getElementById('star-Chemistry'),
+        element: document.getElementById('star-TWF0aCBTTA'),
         intro: "By clicking the star, you could add this subject to your 'favorite'",
       },
       @endif
@@ -318,7 +317,7 @@ function gen(){
         if (gname["data"].length - (i + 1)* 2 >= 0) {
           code += `
           <div class="blc">
-            <div class="two-block-1" onclick=go('${window.btoa(gname["data"][i * 2]["name"])}')>
+            <div class="two-block-1" onclick=go('${window.btoa(gname["data"][i * 2]["name"])}') id=${i == 0 ? `'step2'` : 'useLess'}>
               <div class="container">
                 <div class="block-local">
                   <img class="picture-local" src="${gname["data"][i * 2]["picture"]}" />
@@ -367,7 +366,7 @@ function gen(){
       for (var i = 0; i <= Math.ceil(gname["data"].length) - 1; i++) {
         code += `
         <div class="blc">
-          <div class="one-block-1" onclick=go('${window.btoa(gname["data"][i]["name"])}')>
+          <div class="one-block-1" onclick=go('${window.btoa(gname["data"][i]["name"])}') id=${i == 0 ? `'step2'` : 'useLess'}>
             <div class="container">
               <div class="block-local">
                 <img class="picture-local" src="${gname["data"][i]["picture"]}" />

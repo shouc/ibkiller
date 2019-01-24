@@ -362,10 +362,13 @@ function leave(){
             if (url == 'Question'){
               localStorage.setItem('subject', '');
               localStorage.setItem('already', 0);
+              localStorage.setItem('needReload', 1);
               window.history.go(-4);
             } else {
               localStorage.setItem('already', 0);
               window.history.go(-2);
+              localStorage.setItem('needReload', 1);
+
             }
         }
     })

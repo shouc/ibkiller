@@ -268,11 +268,11 @@ class WebController extends Controller
                 return back()
                     ->withCookie($cookie);
             } else {
-                return back()
-                    ->withErrors(['login', $userM['info']]);
+                return [0, $userM['info']];
             }
         }
     }
+
 
     public function userRegisterAPI(Request $request)
     {
@@ -284,8 +284,7 @@ class WebController extends Controller
                 return back()
                     ->withCookie($cookie);
             } else {
-                return back()
-                    ->withErrors(['register', $userM['info']]);
+                return [0, $userM['info']];
             }
         }
     }

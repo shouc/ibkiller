@@ -68,8 +68,8 @@
         <i class="fas fa-times cross click" onclick="closeComment()"></i>
     </div>
     <br>
-    @if($isLoggedIn)
-    <div class="list">
+
+    <div class="list" id="makeCommentSeriesAfterLogged">
         <div id="beforeComment" onclick="makeComment('')">
             <button class="btn btn-primary startCommentButton">Make your comment!</button>
         </div>
@@ -83,7 +83,6 @@
             </div>
         </div>
     </div>
-    @endif
     <ul class="list" id="commentContent"></ul>
 </div>
 
