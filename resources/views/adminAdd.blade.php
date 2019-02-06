@@ -48,8 +48,8 @@
 <script src="/static/js/jquery.min.js"></script>
 <script src="/editor/editormd.js"></script>   
 <script type="text/javascript">
-    type=2
-    paper='Trigonometry 1'
+    type=1;
+    paper='Enzymes 3'
     qT='2'
 	function update(){
 		$("#show").html(question.getMarkdown() + "<br><strong>Answer: </strong>" + answer.getMarkdown())
@@ -60,8 +60,8 @@
 
 
 	function submit(){
-			$("#answerForSubmit").val(btoa(answer.getMarkdown()));
-			$("#contentForSubmit").val(btoa(question.getMarkdown()));
+			$("#answerForSubmit").val(BASE64.encode(answer.getMarkdown()));
+			$("#contentForSubmit").val(BASE64.encode(question.getMarkdown()));
 			$("#paperForSubmit").val(paper);
 			$("#typeForSubmit").val(type);
             $("#questionTypeForSubmit").val(qT);

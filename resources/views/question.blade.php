@@ -136,6 +136,8 @@ if (width < 700) {
 $("#questionBody").css("margin-bottom", (width / 15) + "px");
 questionHTML = "";
 timelineHTML = '<div class="ball done"><p onclick="goTo(0)">1</p></div>';
+
+
 for (var i = 0; i < question.length; i++) {
     questionHTML += "<div id='q" + i + "'>" + window.atob(question[i]["content"]) + "</div>";
 }
