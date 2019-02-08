@@ -253,6 +253,13 @@ class WebController extends Controller
             $isLoggedIn = false;
             return redirect('/');
         }
+        $api = $this->init();
+        $isPaid = $api->sessionVal($_session)
+            ->first()
+            ->is_pro;
+        if ($isPaid){
+            return redirect('/');
+        }
 
         return view('pricing', ['server' => env('APP_URL'),
             'isLoggedIn' => $isLoggedIn,
