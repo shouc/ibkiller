@@ -10,6 +10,7 @@ use Hash;
 use Cookie;
 use App\Http\Controllers\AppController;
 use Redis;
+
 class WebController extends Controller
 {
     /**
@@ -240,6 +241,21 @@ class WebController extends Controller
             'isLoggedIn' => $isLoggedIn,
             'isExist' => $result['isExist'],
             'pageNum' => $result['pageNum']
+        ]);
+    }
+
+    public function pricing(Request $request)
+    {
+        $_session = Cookie::get('ibkiller_session');
+        if ($_session){
+            $isLoggedIn = true;
+        } else {
+            $isLoggedIn = false;
+            return redirect('/');
+        }
+
+        return view('pricing', ['server' => env('APP_URL'),
+            'isLoggedIn' => $isLoggedIn,
         ]);
     }
 
@@ -527,5 +543,7 @@ class WebController extends Controller
         $request->offsetSet('Session', $_session);
         $result = $api->countUnreadMessageAPI($request);
         return $result;
-    }   
+    }
+
+
 }

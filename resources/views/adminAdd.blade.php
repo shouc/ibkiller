@@ -48,8 +48,8 @@
 <script src="/static/js/jquery.min.js"></script>
 <script src="/editor/editormd.js"></script>   
 <script type="text/javascript">
-    type=1;
-    paper='Enzymes 3'
+    type=2;
+    paper='老树画画（2）'
     qT='2'
 	function update(){
 		$("#show").html(question.getMarkdown() + "<br><strong>Answer: </strong>" + answer.getMarkdown())

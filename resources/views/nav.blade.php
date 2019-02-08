@@ -102,9 +102,15 @@
 <script>
   $("#errorLog").hide();
   $("#errorReg").hide();
-  @if($isLoggedIn)
+  @if($q)
+    questionNav = true;
+  @else
     localStorage.removeItem('already');
     localStorage.removeItem('subject');
+    questionNav = false;
+  @endif
+
+  @if($isLoggedIn)
     isLoggedIn = true;
   @else
     isLoggedIn = false;
@@ -169,7 +175,7 @@
           <button type="submit" class="btn btn-success" id="logoutButton">
             Logout
           </button>
-        </form>`:``}`
+        </form>`:``}`;
     @endif
     $("#navBar").html(navBarHTML);
   }

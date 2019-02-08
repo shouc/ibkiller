@@ -45,6 +45,8 @@ Route::get('/question', 'WebController@question')
 	->name('web.question');
 Route::get('/check', 'WebController@check')
 	->name('web.check');
+Route::get('/pricing', 'WebController@pricing')
+    ->name('web.pricing');
 
 #Mate Section
 Route::get('/mate', 'MatesController@index')
@@ -92,4 +94,8 @@ Route::get('/readAllMessage', 'WebController@readAllMessageAPI')
 Route::get('/countUnreadMessage', 'WebController@countUnreadMessageAPI')
 	->name('web.countUnreadMessage');
 
+Route::get('/payWithPaypal', 'PayController@payWithPaypal')
+    ->name('pay.payWithPaypal');
 
+Route::get('/payWithPaypalCompleted', 'PayController@payWithPaypalCompleted')
+    ->name('pay.payWithPaypalCompleted');
