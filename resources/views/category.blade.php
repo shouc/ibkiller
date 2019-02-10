@@ -74,6 +74,10 @@ body {
 .cardBody {
   margin-bottom: 20px;
 }
+.getProButton{
+  background-color: #341f97;
+  color: #fff;
+}
 </style>
 
 <body>
@@ -123,10 +127,16 @@ for (var i = 0; i < categoryData.length; i++) {
             Total Question Number: <strong>${categoryData[i]['paper'][k][1]}</strong>
             <br>
             Paper Type: <em>${categoryData[i]['paper'][k][4] == 1 ? 'Multiple Choice' : categoryData[i]['paper'][k][4] == 2 ? 'Short Answer' : 'Essay'}</em>
+            ${categoryData[i]['paper'][k][5] ? '<span class="badge proBadge">Pro</span>' : ''}
           </p>
-          <a class="btn btn-primary" href="/question?Paper=${window.btoa(window.encodeURIComponent(categoryData[i]['paper'][k][0]))}">
+          ${ categoryData[i]['paper'][k][5] && (!categoryData[i]['paper'][k][6])?
+          `<a class="btn btn-outline-primary" href="/pricing">
+            Get Pro
+          </a>`
+            :
+          `<a class="btn btn-primary" href="/question?Paper=${window.btoa(window.encodeURIComponent(categoryData[i]['paper'][k][0]))}">
             Get Started
-          </a>
+          </a>`}
         </div>
       </div>
     </div>`;

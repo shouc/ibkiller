@@ -127,17 +127,17 @@
           <div class="card pricing-box pricing-premium">
             <div class="card-block">
               <h4 class="card-title">
-                Premium
+                Pro
               </h4>
               <h6 class="card-text">
                 <sup class="currency">
                   $
                 </sup>
                 <span class="amount">
-                    9
+                    1.99
                 </span>
                 <span class="month">
-                    / 3 years
+                    / mo
                 </span>
               </h6>
             </div>
@@ -149,16 +149,24 @@
                 Access to questions from past paper
               </li>
               <li class="list-group-item text-center d-inline-block">
-                Pro badge <span class="badge badge-primary">Pro</span>
+                Pro badge <span class="badge proBadge">Pro</span>
+              </li>
+              <li class="list-group-item text-center d-inline-block">
+                No ads
               </li>
               <li class="list-group-item text-center d-inline-block">
                 More to be developed...
               </li>
             </ul>
             <div class="card-block">
-              <button class="btn btn-outline-success" data-toggle="modal" data-target="#payModal">
-                Get Started
-              </button>
+              @if ($isPro)
+                <button class="btn btn-success" disabled data-toggle="modal" data-target="#payModal" id="proTill">
+                </button>
+              @else
+                <button class="btn btn-outline-success" data-toggle="modal" data-target="#payModal">
+                  Get Started
+                </button>
+              @endif
             </div>
           </div>
         </div>
@@ -178,7 +186,9 @@
           </button>
         </div>
         <div class="modal-body">
-          <img src="https://cdn-bucket.ibkiller.com/img/PayPal.svg" onclick="window.location.href='/payWithPaypal'">
+          <a href="/payWithPaypal">
+            <img src="https://cdn-bucket.ibkiller.com/img/PayPal.svg">
+          </a>
           <img src="https://cdn-bucket.ibkiller.com/img/AliPay_logo.svg" class="payMethod">
           <img src="http://www.hangzhouredcross.org/themes/redcross/img/payments/wxpay.png" class="payMethod">
 
@@ -189,5 +199,6 @@
 </body>
 
 <script type="text/javascript">
+  $("#proTill").html('Pro till ' + timestampToTime({{$proSince}} + 2678400));
 </script>
 

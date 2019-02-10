@@ -254,14 +254,20 @@ class WebController extends Controller
             return redirect('/');
         }
         $api = $this->init();
-        $isPaid = $api->sessionVal($_session)
+        $proSince = $api->sessionVal($_session)
             ->first()
-            ->is_pro;
-        if ($isPaid){
-            return redirect('/');
+            ->pro_since;
+        if ($proSince){
+            if ((int) time() - $proSince < 2678400){
+                $isPro = 1;
+            }
+        } else {
+            $isPro = 0;
         }
 
         return view('pricing', ['server' => env('APP_URL'),
+            'isPro' => $isPro,
+            'proSince' => $proSince,
             'isLoggedIn' => $isLoggedIn,
         ]);
     }

@@ -19,6 +19,19 @@ class AppController extends Controller
             ->get();
     }
 
+    public function isPro($session)
+    {
+        $proSince = $this->sessionVal($session)
+            ->first()
+            ->pro_since;
+        if ($proSince){
+            return (int) time() - $proSince < 2678400;
+        } else {
+            return 0;
+        }
+
+    }
+
     public function getQuestionNum($paper)
     {
         return count(DB::table('questions')
@@ -86,7 +99,8 @@ class AppController extends Controller
         if ($request->has(['Cat','Session'])) {
             $_cat = $request->Cat;
             $_session = $request->Session;
-            $category = json_decode(Redis::get('groups'))->result;
+            $category = json_decode(Redis::get('groups'))
+                ->result;
             $allCat = array();
             foreach ($category as $i => $value) {
                 if ($value[3] == $_cat){
@@ -105,10 +119,12 @@ class AppController extends Controller
                     ->get()
                     ->pluck('paper')
                     ->toArray();
+                $isPro = $this->isPro($_session);
             } else {
                 $paperStatus = [];
+                $isPro = 0;
             }
-            
+
             $allCatRes = array();
             $papers = json_decode(Redis::get('papers'))->result;
             foreach ($allCat as $i) {
@@ -130,12 +146,12 @@ class AppController extends Controller
                         // $j[3] is the total question num
                         // $j[5] is the type of the paper
                         if (in_array($j[1], $paperStatus)){
-                            array_push($allPaperTemp, [$j[1],$j[3], 0,true, $j[5]]);
+                            array_push($allPaperTemp, [$j[1],$j[3], 0,true, $j[5], $j[6], $isPro]);
                         } else {
-                            array_push($allPaperTemp, [$j[1],$j[3],0,false, $j[5]]);
+                            array_push($allPaperTemp, [$j[1],$j[3],0,false, $j[5], $j[6], $isPro]);
                         }
                     } else {
-                        array_push($allPaperTemp, [$j[1],$j[3],1,false, 0]);
+                        array_push($allPaperTemp, [$j[1],$j[3],1,false, 0, $j[6], $isPro]);
                     }
                 }
                 array_push($allCatRes, [

@@ -152,6 +152,7 @@
               <a class="dropdown-item" href="/history">History</a>
               <a class="dropdown-item" href="/mate">Study Mate</a>
               <a class="dropdown-item" href="/contribute">Contribute Questions</a>
+              <a class="dropdown-item" href="/pricing">Get Pro <span class="badge proBadge">Pro</span></a>
               <a class="dropdown-item" onclick="startIntro()">Helps</a>
             </div>
           </div>` : `<li class="nav-item" id="helpButton">
@@ -234,6 +235,26 @@
         location.reload();
         @endif
       }
+    });
+  }
+  if ($_GET['smsg']){
+    swal({
+      title: 'Success!',
+      text: BASE64.decode($_GET['smsg']),
+      type: 'success',
+      showCancelButton: false,
+      confirmButtonColor: '#3085d6',
+      confirmButtonText: 'OK'
+    });
+  }
+  if ($_GET['fmsg']) {
+    swal({
+      title: 'Error!',
+      text: BASE64.decode($_GET['fmsg']),
+      type: 'error',
+      showCancelButton: false,
+      confirmButtonColor: '#3085d6',
+      confirmButtonText: 'OK'
     });
   }
 </script>

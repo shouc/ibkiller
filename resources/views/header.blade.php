@@ -165,6 +165,10 @@
       margin-top:100px;
 
     }
+    .proBadge {
+        background: #10ac84;
+        color: #fff;
+    }
 </style>
 <script type="text/javascript">
     window.onload=function(){ 
