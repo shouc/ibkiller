@@ -60,6 +60,21 @@ body {
   border-width:1px;
   border-color:#000;
 }
+.questionContainer{
+    text-align: left;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #aaa;
+    border-radius: 5px 0px 0px 5px;
+    margin-bottom: 20px;
+    border-right-width: 15px;
+
+}
+.questionText{
+    margin-top: 15px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
 </style>
 <body>
 
@@ -74,7 +89,9 @@ body {
 
       </div>
       <div class="questionContent">
-        <div><p id="questionContainer"></p></div>
+          <div class="questionContainer">
+              <p id="questionContainer" class="questionText"></p>
+          </div>
         <div>
             <div class="btn-group">
               <button type="button" id="joinDiscussionButton" class="btn joinDiscussionButton">Join Discussion</button>

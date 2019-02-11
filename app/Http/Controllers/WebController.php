@@ -558,5 +558,19 @@ class WebController extends Controller
         return $result;
     }
 
+    public function countUnreadMessageAPI(Request $request)
+    {
+        $_session = Cookie::get('ibkiller_session');
+        $api = $this->init();
+        if (!$_session) {
+            return ["success" => false,
+                "info" => "Not Logged In"
+            ];
+        }
+        $request->offsetSet('Session', $_session);
+        $result = $api->countUnreadMessageAPI($request);
+        return $result;
+    }
+
 
 }

@@ -79,19 +79,36 @@ body {
   color: #666;
   font-size: 18;
 }
+.questionContainer{
+    text-align: left;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #aaa;
+    border-radius: 5px 0px 0px 5px;
+    margin-bottom: 20px;
+    border-right-width: 15px;
+
+}
+.questionText{
+    margin-top: 15px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
 </style>
 <body>
-    <div class="question checkContainer" id="question">
+    <div class="checkContainer" id="question">
         <div class="alert alert-warning alert-dismissible fade show notlogged" role="alert" id="notlogged">
-        <h>You are not logged in! Your workings may not be recorded!!!</h>
-        <br>
-        <small>You can click button at right corner to dismiss this information or try to register or login</small>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+            <h>You are not logged in! Your workings may not be recorded!!!</h>
+            <br>
+            <small>You can click button at right corner to dismiss this information or try to register or login</small>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
 
-      </div>
-        <div><p id="questionContainer"></p></div>
+        </div>
+        <div class="questionContainer">
+            <p id="questionContainer" class="questionText"></p>
+        </div>
         <div class="userAnswerBar" id="userAnswerBar">
           <p class="userAnswerContent">Your Answer: <userAnswer></userAnswer></p>
         </div>
@@ -110,8 +127,8 @@ body {
 $("#notlogged").hide();
 window.onbeforeunload = function(){ return 'Wrong'; };
 
-question = $.parseJSON(window.atob('{{ $data }}'))["info"];
-score = $.parseJSON(window.atob('{{ $data }}'))["score"];
+question = $.parseJSON(BASE64.decode('{{ $data }}'))["info"];
+score = $.parseJSON(BASE64.decode('{{ $data }}'))["score"];
 localStorage.setItem("qnum", 0);
 $("#goBack").hide();
 $(function () {
@@ -176,7 +193,7 @@ function goTo(i) {
             $("#userAnswerBar").removeClass("wrong");
         }
         $("userAnswer").html(convertNum(question[i]["userAnswer"]));
-        $("correctAnswer").html(atob(question[i]["answer"]));
+        $("correctAnswer").html(BASE64.decode(question[i]["answer"]));
         localStorage.setItem("qnum", i);
     } else {
         $("#goBack").hide();
@@ -197,7 +214,7 @@ function goTo(i) {
             $("#userAnswerBar").removeClass("wrong");
         }
         $("userAnswer").html(convertNum(question[i]["userAnswer"]));
-        $("correctAnswer").html(atob(question[i]["answer"]));
+        $("correctAnswer").html(BASE64.decode(question[i]["answer"]));
         localStorage.setItem("qnum", i);
     }
 
@@ -219,7 +236,7 @@ $("#goNext").click(function () {
             $("#userAnswerBar").removeClass("wrong");
         }
         $("userAnswer").html(convertNum(question[parseInt(localStorage.getItem("qnum")) + 1]["userAnswer"]));
-        $("correctAnswer").html(atob(question[parseInt(localStorage.getItem("qnum")) + 1]["answer"]));
+        $("correctAnswer").html(BASE64.decode(question[parseInt(localStorage.getItem("qnum")) + 1]["answer"]));
         localStorage.setItem("qnum", parseInt(localStorage.getItem("qnum")) + 1);
         closeComment();
     } else {
@@ -239,7 +256,7 @@ $("#goBack").click(function () {
             $("#userAnswerBar").removeClass("wrong");
         }
         $("userAnswer").html(convertNum(question[parseInt(localStorage.getItem("qnum")) - 1]["userAnswer"]));
-        $("correctAnswer").html(atob(question[parseInt(localStorage.getItem("qnum")) - 1]["answer"]));
+        $("correctAnswer").html(BASE64.decode(question[parseInt(localStorage.getItem("qnum")) - 1]["answer"]));
         $("#ba" + (parseInt(localStorage.getItem("qnum")))).removeClass("done");
         $("#l" + (parseInt(localStorage.getItem("qnum")))).removeClass("done");
         localStorage.setItem("qnum", parseInt(localStorage.getItem("qnum")) - 1);
@@ -258,12 +275,13 @@ $("#goBack").click(function () {
             $("#userAnswerBar").removeClass("wrong");
         }
         $("userAnswer").html(convertNum(question[parseInt(localStorage.getItem("qnum")) - 1]["userAnswer"]));
-        $("correctAnswer").html(atob(question[parseInt(localStorage.getItem("qnum")) - 1]["answer"]));
+        $("correctAnswer").html(BASE64.decode(question[parseInt(localStorage.getItem("qnum")) - 1]["answer"]));
         localStorage.setItem("qnum", parseInt(localStorage.getItem("qnum")) - 1);
         closeComment();
     }
 
 });
+
 $("#question").css("margin-right", (width / 15) + "px");
 $("#question").css("margin-left", (width / 10) + "px");
 if (width < 700) {
@@ -271,10 +289,10 @@ if (width < 700) {
 }
 $("#question").css("margin-bottom", (width / 15) + "px");
 if (width > 700) {
-    $("#userAnswerBar").css("margin-right", (width / 3.8) + "px");
-    $("#userAnswerBar").css("margin-left", (width / 3.8) + "px");
-    $("#correctAnswerBar").css("margin-right", (width / 3.8) + "px");
-    $("#correctAnswerBar").css("margin-left", (width / 3.8) + "px");
+    $("#userAnswerBar").css("margin-right",  "50px");
+    $("#userAnswerBar").css("margin-left",  "50px");
+    $("#correctAnswerBar").css("margin-right", "50px");
+    $("#correctAnswerBar").css("margin-left", "50px");
 } else {
     $("#userAnswerBar").css("margin-right", (width / 10) + "px");
     $("#userAnswerBar").css("margin-left", (width / 10) + "px");
@@ -285,23 +303,25 @@ if (width > 700) {
 questionHTML = "";
 timelineHTML = '<div class="ball done"><p onclick="goTo(0)">1</p></div>';
 for (var i = 0; i < question.length; i++) {
-    questionHTML += "<div id='q" + i + "'>" + window.atob(question[i]["content"]) + "</div>";
+    questionHTML += "<div id='q" + i + "'>" + BASE64.decode(question[i]["content"]) + "</div>";
 }
+
+
 
 $("#questionContainer").html(questionHTML);
 for (var i = 1; i < question.length; i++) {
     $("#q" + i).hide();
     timelineHTML += '<div class="line" id="l' + i + '"></div> <div class="ball" id="ba' + i + '"><p onclick="goTo(' + i + ')">' + (i + 1) + '</p></div>';
 }
+if (width >= 700) {
+    $("#question").css("margin-right", (width / 7.5) + "px");
+    $("#question").css("margin-left", (width / 5) + "px");
+} else {
+    $("timeline").hide();
+}
 $("timeline").html(timelineHTML);
 if ($("#questionContainer").height() < height && height >= 600) {
     $("#question").css("margin-top", (-$("#question").height() / 2 + height / 2 - 20) + "px");
-}
-if (height < 600) {
-    $("#question")
-}
-if (width < 700) {
-    $("timeline").hide();
 }
 if (!question[0]["correct"]) {
     $("#userAnswerBar").addClass("wrong");
@@ -309,7 +329,7 @@ if (!question[0]["correct"]) {
     $("#userAnswerBar").removeClass("wrong");
 }
 $("userAnswer").html(convertNum(question[0]["userAnswer"]));
-$("correctAnswer").html(atob(question[0]["answer"]));
+$("correctAnswer").html(BASE64.decode(question[0]["answer"]));
 $("#question").show();
 </script>
 <script type="text/javascript">

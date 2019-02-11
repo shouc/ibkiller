@@ -64,6 +64,23 @@ body {
     background-color:#fff;
     color: #000;
 }
+.questionContainer{
+    text-align: left;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #aaa;
+    border-radius: 5px 0px 0px 5px;
+    margin-bottom: 20px;
+    border-right-width: 15px;
+
+}
+.questionText{
+    font-family: "Times New Roman";
+    margin-top: 15px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
 </style>
 <body>
     <div class="questionBody" id="questionBody">
@@ -76,8 +93,10 @@ body {
         </button>
       </div>
       <div class="questionContent">
-        <div><p class="q-c" id="questionContainer"></p></div>
-        <div >
+        <div class="questionContainer">
+            <p id="questionContainer" class="questionText"></p>
+        </div>
+        <div class="buttonForSelection">
             <div class="btn-group">
               <button type="button" id="buttonForAnswerA" class="btn choiceButton">A</button>
             </div>
@@ -124,7 +143,7 @@ $(function () {
 });
 window.onbeforeunload = function(){ return 'Wrong'; };
 
-question = $.parseJSON(window.atob('{{ $data }}'));
+question = $.parseJSON(BASE64.decode('{{ $data }}'));
 localStorage.setItem("qnum", 0);
 $("#goBack").hide();
 clearRecord();
@@ -139,7 +158,7 @@ timelineHTML = '<div class="ball done"><p onclick="goTo(0)">1</p></div>';
 
 
 for (var i = 0; i < question.length; i++) {
-    questionHTML += "<div id='q" + i + "'>" + window.atob(question[i]["content"]) + "</div>";
+    questionHTML += "<div id='q" + i + "'>" + BASE64.decode(question[i]["content"]) + "</div>";
 }
 $("#questionContainer").html(questionHTML);
 for (var i = 1; i < question.length; i++) {
@@ -163,13 +182,13 @@ $("#questionBody").show();
 function submit() {
     arr = '{"answer" : ['
     for (var i = 0; i < question.length; i++) {
-        arr += `["${i}", "${localStorage.getItem("ans" + i)}", "${localStorage.getItem("ans" + i) == convertSymb(window.atob(question[i]["answer"])) ? 1 : 0}"]`
+        arr += `["${i}", "${localStorage.getItem("ans" + i)}", "${localStorage.getItem("ans" + i) == convertSymb(BASE64.decode(question[i]["answer"])) ? 1 : 0}"]`
         if (i != question.length - 1) {
             arr += ",";
         }
     }
     answer = arr + "]}";
-    paper = window.atob($_GET['Paper']);
+    paper = BASE64.decode($_GET['Paper']);
     $('#subPaper').val(paper);
     $('#subAnswer').val(answer);
     swal({
