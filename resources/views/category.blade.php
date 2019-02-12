@@ -78,6 +78,15 @@ body {
   background-color: #341f97;
   color: #fff;
 }
+.radioGroup{
+  float: right;
+  margin-right: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.content{
+  margin-top: 30px;
+}
 </style>
 
 <body>
@@ -87,7 +96,16 @@ body {
         <img class="iconPicture" src="https://cdn-bucket.ibkiller.com/img/icon/{{ $img }}" /></div>
     </div>
     <h1 class="subjectTitle">{{ $subject }}</h1>
+
     <div class="line" id="line"></div>
+    <!--
+    <div class="radioGroup" id="radioGroup">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="showProPapers" checked>
+        <label class="form-check-label" for="showProPapers">Show Pro Papers</label>
+      </div>
+    </div>
+    -->
     <div class="content" id="content"></div>
   </div>
   <div class="menuBody">
@@ -156,6 +174,7 @@ else {
     $("#menu").width(0);
     $("k").width($(window).width());
     $("#menu").hide();
+    $("#radioGroup").hide();
 }
 
 function startIntro(){

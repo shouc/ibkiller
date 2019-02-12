@@ -320,7 +320,7 @@ if (width >= 700) {
     $("timeline").hide();
 }
 $("timeline").html(timelineHTML);
-if ($("#questionContainer").height() < height && height >= 600) {
+if ($("#question").height() < height && height >= 600) {
     $("#question").css("margin-top", (-$("#question").height() / 2 + height / 2 - 20) + "px");
 }
 if (!question[0]["correct"]) {

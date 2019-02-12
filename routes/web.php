@@ -99,3 +99,8 @@ Route::get('/payWithPaypal', 'PayController@payWithPaypal')
 
 Route::get('/payWithPaypalCompleted', 'PayController@payWithPaypalCompleted')
     ->name('pay.payWithPaypalCompleted');
+Route::get('/payWithAlipay', 'PayController@payWithAlipay')
+    ->name('pay.payWithAlipay');
+
+Route::get('/payWithAlipayCompleted', 'PayController@payWithAlipayCompleted')
+    ->name('pay.payWithAlipayCompleted');
