@@ -189,8 +189,12 @@
           <a href="/payWithPaypal">
             <img src="https://cdn-bucket.ibkiller.com/img/PayPal.svg">
           </a>
-          <img src="https://cdn-bucket.ibkiller.com/img/AliPay_logo.svg" class="payMethod">
+          <a href="/payWithAlipay">
+            <img src="https://cdn-bucket.ibkiller.com/img/AliPay_logo.svg" class="payMethod">
+          </a>
+          <!--
           <img src="http://www.hangzhouredcross.org/themes/redcross/img/payments/wxpay.png" class="payMethod">
+          -->
 
         </div>
       </div>
