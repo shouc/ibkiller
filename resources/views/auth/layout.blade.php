@@ -28,10 +28,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="http://cdn-bucket.ibkiller.com/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn-bucket.ibkiller.com/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/static/css/my-login.css">
-    <script src="http://cdn-bucket.ibkiller.com/js/jquery.min.js"></script>
-    <script src="http://cdn-bucket.ibkiller.com/js/bootstrap.min.js"></script>
+    <script src="https://cdn-bucket.ibkiller.com/js/jquery.min.js"></script>
+    <script src="https://cdn-bucket.ibkiller.com/js/bootstrap.min.js"></script>
     <script src="/static/js/my-login.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <style>
