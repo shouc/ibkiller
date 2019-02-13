@@ -31,14 +31,12 @@
     <link rel="stylesheet" type="text/css" href="https://cdn-bucket.ibkiller.com/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/static/css/my-login.css">
     <script src="https://cdn-bucket.ibkiller.com/js/jquery.min.js"></script>
-    <script src="https://cdn-bucket.ibkiller.com/js/bootstrap.min.js"></script>
     <script src="/static/js/my-login.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <style>
         body.my-login-page {
             background-color: #f7f9fb;
             font-size: 14px;
-            background-image: url("/static/img/backgroud1.png");
             background-position: center 0;
             background-repeat: no-repeat;
             background-attachment: fixed;

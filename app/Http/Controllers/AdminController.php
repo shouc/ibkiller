@@ -130,9 +130,9 @@ class AdminController extends Controller
         //return $question;
         foreach ($question as &$value) {
             if (strpos($value->ok_by, Auth::user()->name ) > 0){
-                $res = $res . $value->question . 'Answer: <strong>' . $value->answer . '</strong><br>Ref: <a href=modify?ref=' . base64_encode($value->ref) . '><em>' . $value->ref . '</em><a><br>Validated by: <a><em>' . str_replace('@', ', ', substr($value->ok_by, 1)) . '</em><a><br><br>';
+                $res = $res . $value->question . 'Answer: <strong>' . $value->answer . '</strong><br>Ref: <a href=/admin/modify?ref=' . base64_encode($value->ref) . '><em>' . $value->ref . '</em><a><br>Validated by: <a><em>' . str_replace('@', ', ', substr($value->ok_by, 1)) . '</em><a><br><br>';
             } else {
-                $res = $res . $value->question . 'Answer: <strong>' . $value->answer . '</strong><br>Ref: <a href=modify?ref=' . base64_encode($value->ref) . '><em>' . $value->ref . '</em><a><br>Validated by: <a><em>' . str_replace('@', ', ', substr($value->ok_by, 1)) . '</em><a><br><a href=/admin/api/val?ref=' . base64_encode($value->ref) . '><button class="btn btn-secondary">Validate</button></a>&nbsp;&nbsp;<a href=modify?ref=' . base64_encode($value->ref) . '><button class="btn btn-primary">Modify</button></a><br><br>';
+                $res = $res . $value->question . 'Answer: <strong>' . $value->answer . '</strong><br>Ref: <a href=/admin/modify?ref=' . base64_encode($value->ref) . '><em>' . $value->ref . '</em><a><br>Validated by: <a><em>' . str_replace('@', ', ', substr($value->ok_by, 1)) . '</em><a><br><a href=/admin/api/val?ref=' . base64_encode($value->ref) . '><button class="btn btn-secondary">Validate</button></a>&nbsp;&nbsp;<a href=/admin/modify?ref=' . base64_encode($value->ref) . '><button class="btn btn-primary">Modify</button></a><br><br>';
             }
 
         }
@@ -157,7 +157,7 @@ class AdminController extends Controller
                 ->get();
 
             if ($paper[0] == substr($request->cat,0,1)){
-                $value->mod = '<a href=modify?ref=' . base64_encode($value->ref) . '><button class="btn btn-primary"> Modify </button></a>';
+                $value->mod = '<a href=/admin/modify?ref=' . base64_encode($value->ref) . '><button class="btn btn-primary"> Modify </button></a>';
                 $value->ok_by = str_replace('@', ', ', substr($value->ok_by, 1));
             } else {
 
@@ -248,9 +248,9 @@ class AdminController extends Controller
         $html = "";
         foreach ($questions as $question){
             if (strpos($question->ok_by, Auth::user()->name ) > 0){
-                $html = $html . $question->question . 'Answer: <strong>' . $question->answer . '</strong><br>Ref: <a href=modify?ref=' . base64_encode($question->ref) . '><em>' . $question->ref . '</em><a><br>Validated by: <a><em>' . str_replace('@', ', ', substr($question->ok_by, 1)) . '</em><a><br><a onclick=del("' . base64_encode($question->ref) . '","' . $request->ref .'")><button class="btn btn-secondary">Delete</button></a><br><br>';
+                $html = $html . $question->question . 'Answer: <strong>' . $question->answer . '</strong><br>Ref: <a href=/admin/modify?ref=' . base64_encode($question->ref) . '><em>' . $question->ref . '</em><a><br>Validated by: <a><em>' . str_replace('@', ', ', substr($question->ok_by, 1)) . '</em><a><br><a onclick=del("' . base64_encode($question->ref) . '","' . $request->ref .'")><button class="btn btn-secondary">Delete</button></a><br><br>';
             } else {
-                $html = $html . $question->question . 'Answer: <strong>' . $question->answer . '</strong><br>Ref: <a href=modify?ref=' . base64_encode($question->ref) . '><em>' . $question->ref . '</em><a><br>Validated by: <a><em>' . str_replace('@', ', ', substr($question->ok_by, 1)) . '</em><a><br><br><a href=/admin/api/val?ref=' . base64_encode($question->ref) . '><button class="btn btn-primary">Validate</button></a>&nbsp;&nbsp;<a onclick=del("' . base64_encode($question->ref) . '","' . $request->ref .'")><button class="btn btn-secondary">Delete</button></a><br><br>';
+                $html = $html . $question->question . 'Answer: <strong>' . $question->answer . '</strong><br>Ref: <a href=/admin/modify?ref=' . base64_encode($question->ref) . '><em>' . $question->ref . '</em><a><br>Validated by: <a><em>' . str_replace('@', ', ', substr($question->ok_by, 1)) . '</em><a><br><br><a href=/admin/api/val?ref=' . base64_encode($question->ref) . '><button class="btn btn-primary">Validate</button></a>&nbsp;&nbsp;<a onclick=del("' . base64_encode($question->ref) . '","' . $request->ref .'")><button class="btn btn-secondary">Delete</button></a><br><br>';
             }
         }
         return [$request->ref, $html];
