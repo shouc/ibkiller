@@ -104,3 +104,36 @@ Route::get('/payWithAlipay', 'PayController@payWithAlipay')
 
 Route::get('/payWithAlipayCompleted', 'PayController@payWithAlipayCompleted')
     ->name('pay.payWithAlipayCompleted');
+
+
+Route::prefix('admin')->group(function () {
+    Route::post('login', ['uses' => 'AuthController@login']);
+    Auth::routes();
+    Route::get('/', 'AdminController@indexOld')
+        ->name('home');
+    Route::get('/bulk', 'AdminController@bulkOld')
+        ->name('bulk');
+    Route::get('/add', 'AdminController@addOld')
+        ->name('add');
+    Route::get('/modify', 'AdminController@modifyOld')
+        ->name('modify');
+
+    Route::get('/api/questions', 'AdminController@questionsJSON')
+        ->name('api.questions');
+    Route::get('/api/stats', 'AdminController@stats')
+        ->name('api.stats');
+    Route::post('/api/modify', 'AdminController@modify')
+        ->name('api.modify');
+    Route::post('/api/add', 'AdminController@add')
+        ->name('api.add');
+    Route::get('/api/val', 'AdminController@val')
+        ->name('api.val');
+    Route::post('/api/pic_upload', 'AdminController@upload')
+        ->name('api.upload');
+    Route::get('/api/papers', 'AdminController@papersJSON')
+        ->name('api.papers');
+    Route::get('/api/paperModify', 'AdminController@paperModify')
+        ->name('api.pm');
+    Route::get('/api/del', 'AdminController@del')
+        ->name('api.del');
+});
