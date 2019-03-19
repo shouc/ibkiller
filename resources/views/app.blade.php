@@ -3,7 +3,7 @@
 @include('nav', ['q' => false])
 <link rel="stylesheet" type="text/css" href="https://cdn-bucket.ibkiller.com/css/main.css">
  <body class="homeBody"> 
-   <header class="intro"> 
+   <header class="intro">
     <h1 class="intro__hello">Hello! <span class="emoji wave-hand animated"></span> </h1> 
     <h2 class="intro__tagline"> <span class="name"> <img style="margin-bottom:7px;height:42px;width;border-radius:8px" src="https://cdn-bucket.ibkiller.com/img/icon.png" /> IBKiller </span> here, a free Questionbank for IBDP students. </h2> 
     <a class="status"> 
@@ -16,7 +16,7 @@
 
 
 
-   <section class="section background" id="main"  id='step1'> 
+   <section class="section background" id="main"  id='step1' style="display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-orient: vertical; -webkit-box-direction: normal; -ms-flex-direction: column; flex-direction: column; -ms-flex-pack: distribute; justify-content: space-around; max-width: 1440px; margin: 0 auto">
     @if($isLoggedIn)
     <div style="width: 100%;">
     <div class="alert alert-dismissible fade show" style="margin-top: 50px;margin-left: 5%;margin-right: 5%; background-color: #2c2c54; color: #fff;">
@@ -31,29 +31,28 @@
     </div>
     @endif
     <div id="data"></div>
-
-   </section> 
-
+   </section>
 
 
-   <section class="section featured-projects"> 
-    
-   </section> 
-   <footer class="footer"> 
-    <div class="footer__copyright"> 
-     <div class="top"> 
-      <span>Developed with ❤ by </span> 
-     </div> 
-     <div class="bottom"> 
-      <span>Zhanwang Tech.</span>
-     </div> 
-    </div> 
+   <footer class="footer" style="float: left;display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-orient: vertical; -webkit-box-direction: normal; -ms-flex-direction: column; flex-direction: column; -ms-flex-pack: distribute; justify-content: space-around; max-width: 1440px;">
+       <div class="footer__links">
+         <div class="top">
+          <a style="color: #FFF !IMPORTANT;text-decoration: none;" href="https://cdn-bucket.ibkiller.com/LICENSE.HTML">License Issues</a> /
+          <a style="color: #FFF !IMPORTANT;text-decoration: none;" href="https://cdn-bucket.ibkiller.com/TERM.HTML">Terms</a> /
+          <a style="color: #FFF !IMPORTANT;text-decoration: none;" href="http://zwang.tech">About Us</a>
+
+         </div>
+           <p style="color: #aaa;">Disclaimer: IBO and IB are registered trademarks in the United States and other countries. Trademarks are cited here simply for information purpose. The appearance of such trademarks does not represent an affiliation with any of the Trademark owners, and it is not an endorsement from their part.</p>
+
+        </div>
+       <!--
     <div class="sharethis-inline-reaction-buttons"></div> 
-    <div class="footer__links"> 
-     <a href="http://zwang.tech" target="_blank" style="fill:white" title="company"><img src="https://cdn-bucket.ibkiller.com/img/company.svg" alt="company" /> </a> 
-     <a href="https://github.com/IBKillerDev" target="_blank" title="github"><img src="https://cdn-bucket.ibkiller.com/img/github.svg" alt="github" /> </a> 
-     <a href="https://cdn-bucket.ibkiller.com/terms.html" target="_blank" title="term"><img src="https://cdn-bucket.ibkiller.com/img/term.svg" alt="term" /> </a> 
-    </div> 
+    <div class="footer__links">
+     <a href="http://zwang.tech" target="_blank" style="fill:white" title="company"><img src="https://cdn-bucket.ibkiller.com/img/company.svg" alt="company" /> </a>
+     <a href="https://github.com/IBKillerDev" target="_blank" title="github"><img src="https://cdn-bucket.ibkiller.com/img/github.svg" alt="github" /> </a>
+     <a href="https://cdn-bucket.ibkiller.com/terms.html" target="_blank" title="term"><img src="https://cdn-bucket.ibkiller.com/img/term.svg" alt="term" /> </a>
+    </div>
+    -->
    </footer> 
   </div> 
   <script>

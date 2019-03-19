@@ -116,6 +116,8 @@ class WebController extends Controller
                 // find the subject that has the same name as $_cat
                 if ($value[1] == $_cat){
                     $_img = $value[2];
+                    $_notice = $value[4];
+
                 }
             }
             //DB::table('subjects')
@@ -132,6 +134,7 @@ class WebController extends Controller
                 )),
                 'subject' => $_cat,
                 'img' => $_img,
+                'notice' => $_notice,
                 'isLoggedIn' => $isLoggedIn,
             ]);
         } else {
@@ -251,7 +254,7 @@ class WebController extends Controller
             $isLoggedIn = true;
         } else {
             $isLoggedIn = false;
-            return redirect('/');
+            return redirect('/?fmsg=TG9nIGluIGZpcnN0IHBsZWFzZSE=');
         }
         $api = $this->init();
         $proSince = $api->sessionVal($_session)

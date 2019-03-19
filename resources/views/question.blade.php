@@ -75,12 +75,12 @@ body {
 
 }
 .questionText{
-    font-family: "Times New Roman";
+    font-size: inherit !important;
+    font-size: 16px;
     margin-top: 15px;
     margin-left: 20px;
     margin-right: 20px;
 }
-
 </style>
 <body>
     <div class="questionBody" id="questionBody">

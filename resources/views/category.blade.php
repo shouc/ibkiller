@@ -98,14 +98,15 @@ body {
     <h1 class="subjectTitle">{{ $subject }}</h1>
 
     <div class="line" id="line"></div>
-    <!--
-    <div class="radioGroup" id="radioGroup">
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="showProPapers" checked>
-        <label class="form-check-label" for="showProPapers">Show Pro Papers</label>
-      </div>
+    @if($notice)
+    <div class="alert alert-success alert-dismissible fade show content" role="alert">
+      <strong>Note:</strong>
+      <br>{{$notice}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
-    -->
+    @endif
     <div class="content" id="content"></div>
   </div>
   <div class="menuBody">

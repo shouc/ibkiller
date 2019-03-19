@@ -138,7 +138,6 @@
       font-weight: 200;
     }
     .notlogged {
-      margin-left: 2.5em;
       text-align: left;
       display: none;
     }
@@ -176,6 +175,7 @@
         delimiters: [
             {left: "$$", right: "$$", display: true},
             {left: "\\[", right: "\\]", display: true},
+            {left: "\\(", right: "\\)", display: false},
             {left: "$", right: "$", display: false},
         ]
       });
