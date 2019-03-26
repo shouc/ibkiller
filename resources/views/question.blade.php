@@ -81,6 +81,13 @@ body {
     margin-left: 20px;
     margin-right: 20px;
 }
+.questionHelps{
+    margin-bottom: 15px;
+    margin-left: 20px;
+}
+.questionHelpButton{
+    margin-right: 8px;
+}
 </style>
 <body>
     <div class="questionBody" id="questionBody">
@@ -95,6 +102,12 @@ body {
       <div class="questionContent">
         <div class="questionContainer">
             <p id="questionContainer" class="questionText"></p>
+            <div class="questionHelps">
+                <keyboard class="questionHelpButton" onclick="openDataBooklet()">D</keyboard>
+                <keyboard class="questionHelpButton" onclick="openResBooklet()">R</keyboard>
+                <keyboard class="questionHelpButton" onclick="alertHelp(false)">H</keyboard>
+
+            </div>
         </div>
         <div class="buttonForSelection">
             <div class="btn-group">
@@ -117,8 +130,6 @@ body {
             </div>
         </div>
         <button class="btn changePageButton" id="goBack">Back</button>
-        &nbsp;
-        &nbsp;
         <button class="btn changePageButton" id="goNext">Next</button>
     </div>
   </div>
@@ -211,50 +222,47 @@ function submit() {
 }
 
 function goTo(i) {
-    if (parseInt(localStorage.getItem("ans" + i)) == 10) {
-        alert("Why not finish the foregoing part first!");
-    } else {
-        if (i > 0) {
-            $("#goBack").fadeIn();
-            $("#q" + localStorage.getItem("qnum")).hide();
-            $("#questionBody").hide();
-            ans = parseInt(localStorage.getItem(("ans" + i)));
-            changeColor("buttonForAnswerA", ans == 0);
-            changeColor("buttonForAnswerB", ans == 1);
-            changeColor("buttonForAnswerC", ans == 2);
-            changeColor("buttonForAnswerD", ans == 3);
-            $("#q" + i).fadeIn();
-            $("#questionBody").fadeIn();
-            for (var k = question.length; k != i; k--) {
-                $("#ba" + k).removeClass("done");
-                $("#l" + k).removeClass("done");
-            }
-            for (var k = i; k != 0; k--) {
-                $("#ba" + k).addClass("done");
-                $("#l" + k).addClass("done");
-            }
-            localStorage.setItem("qnum", i);
-        } else {
-            $("#goBack").hide();
-            $("#q" + localStorage.getItem("qnum")).hide();
-            $("#questionBody").hide();
-            ans = parseInt(localStorage.getItem("ans0"));
-            changeColor("buttonForAnswerA", ans == 0);
-            changeColor("buttonForAnswerB", ans == 1);
-            changeColor("buttonForAnswerC", ans == 2);
-            changeColor("buttonForAnswerD", ans == 3);
-            $("#q" + i).fadeIn();
-            $("#questionBody").fadeIn();
-            for (var k = question.length; k != i; k--) {
-                $("#ba" + k).removeClass("done");
-                $("#l" + k).removeClass("done");
-            }
-            for (var k = i; k != 0; k--) {
-                $("#ba" + k).addClass("done");
-                $("#l" + k).addClass("done");
-            }
-            localStorage.setItem("qnum", i);
+
+    if (i > 0) {
+        $("#goBack").fadeIn();
+        $("#q" + localStorage.getItem("qnum")).hide();
+        $("#questionBody").hide();
+        ans = parseInt(localStorage.getItem(("ans" + i)));
+        changeColor("buttonForAnswerA", ans == 0);
+        changeColor("buttonForAnswerB", ans == 1);
+        changeColor("buttonForAnswerC", ans == 2);
+        changeColor("buttonForAnswerD", ans == 3);
+        $("#q" + i).fadeIn();
+        $("#questionBody").fadeIn();
+        for (var k = question.length; k != i; k--) {
+            $("#ba" + k).removeClass("done");
+            $("#l" + k).removeClass("done");
         }
+        for (var k = i; k != 0; k--) {
+            $("#ba" + k).addClass("done");
+            $("#l" + k).addClass("done");
+        }
+        localStorage.setItem("qnum", i);
+    } else {
+        $("#goBack").hide();
+        $("#q" + localStorage.getItem("qnum")).hide();
+        $("#questionBody").hide();
+        ans = parseInt(localStorage.getItem("ans0"));
+        changeColor("buttonForAnswerA", ans == 0);
+        changeColor("buttonForAnswerB", ans == 1);
+        changeColor("buttonForAnswerC", ans == 2);
+        changeColor("buttonForAnswerD", ans == 3);
+        $("#q" + i).fadeIn();
+        $("#questionBody").fadeIn();
+        for (var k = question.length; k != i; k--) {
+            $("#ba" + k).removeClass("done");
+            $("#l" + k).removeClass("done");
+        }
+        for (var k = i; k != 0; k--) {
+            $("#ba" + k).addClass("done");
+            $("#l" + k).addClass("done");
+        }
+        localStorage.setItem("qnum", i);
     }
 }
 
@@ -343,13 +351,84 @@ $("#buttonForAnswerD").click(function () {
     changeColor('buttonForAnswerD', 1);
     localStorage.setItem("ans" + localStorage.getItem("qnum"), parseInt(3));
 });
-</script>
-<script>
-    if(!{{$isLoggedIn ? 1 : 0}}){
-      $("#notlogged").fadeIn();
-      if ($("#questionContainer").height() < height && height >= 700){
-        $("#questionBody").css("margin-top",(- $("#questionBody").height() / 2 + height / 2 - 40) + "px");
-      }
-    } 
+if(!{{$isLoggedIn ? 1 : 0}}){
+  $("#notlogged").fadeIn();
+  if ($("#questionContainer").height() < height && height >= 700){
+    $("#questionBody").css("margin-top",(- $("#questionBody").height() / 2 + height / 2 - 40) + "px");
+  }
+}
+$(document).keydown(function(event){
+    if(event.keyCode == 78){
+        $("#goNext").click();
+    }
+    if(event.keyCode == 66){
+        $("#goBack").click();
+    }
+    if(event.keyCode == 49){
+        $("#buttonForAnswerA").click();
+    }
+    if(event.keyCode == 50){
+        $("#buttonForAnswerB").click();
+    }
+    if(event.keyCode == 51){
+        $("#buttonForAnswerC").click();
+    }
+    if(event.keyCode == 52){
+        $("#buttonForAnswerD").click();
+    }
+    if(event.keyCode == 67){
+        openComment();
+    }
+    if(event.keyCode == 88){
+        closeComment();
+    }
+    if(event.keyCode == 68){
+        openDataBooklet();
+    }
+    if(event.keyCode == 82){
+        openResBooklet();
+    }
+    if(event.keyCode == 72){
+        alertHelp();
+    }
+});
+function alertHelp(isNeverShow){
+    swal({
+        title: "About Hotkeys",
+        html: "<br><div><keyboard>N</keyboard>&nbsp;&nbsp;Next Question</div><br>" +
+            "<div><keyboard>B</keyboard>&nbsp;&nbsp;Last Question</div><br>" +
+            "<div><keyboard>D</keyboard>&nbsp;&nbsp;Data Booklet</div><br>" +
+            "<div><keyboard>R</keyboard>&nbsp;&nbsp;Resource Booklet</div><br>" +
+            "<div><keyboard>C</keyboard>&nbsp;&nbsp;Open Comment</div><br>" +
+            "<div><keyboard>X</keyboard>&nbsp;&nbsp;Close Comment</div>",
+        timer: 10000,
+        showConfirmButton: isNeverShow,
+        confirmButtonText: "Never Show Again",
+        showCancelButton: true,
+
+    }).then(function(isConfirm){
+        if (isConfirm.value) {
+            localStorage.setItem("hotkey2", 1)
+        }
+    });
+}
+const questionBankURL = "https://ib-questionbank-attachments.s3.amazonaws.com/uploads/supplemental_material/file_attachment/";
+localStorage.getItem('hotkey2') ? console.log('No hotkey needed') : alertHelp(true);
+function openDataBooklet() {
+    swal({
+        title: "Data booklet",
+        html: `<p>Math HL/FM Formula Booklet: <a target="_blank" href="${questionBankURL}`+
+              `9/d_5_mathl_inf_1206_3_e.pdf">Here</a></p>`+
+              `<p>Math SL Formula Booklet: <a target="_blank" href="${questionBankURL}`+
+              `8/d_5_matsl_inf_1203_1_e.pdf">Here</a></p>`+
+              `<p>Physics Data Booklet: <a target="_blank" href="${questionBankURL}`+
+              `46/Physics_data_booklet.pdf">Here</a></p>`+
+              `<p>Chemistry Data Booklet: <a target="_blank" href="`+
+              `https://www.ibchem.com/root_pdf/data_booklet_2016.pdf">Here</a></p>`
+    })
+}
+function openResBooklet() {
+    swal('Oops', 'No resource booklet for this question!', 'warning')
+}
 </script>
 @include('foot')

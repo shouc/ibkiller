@@ -442,6 +442,13 @@ em.search_highlight {
     margin-left: 32px;
     margin-right: 2px
 }
+.questionHelps{
+    margin-bottom: 15px;
+    margin-left: 20px;
+}
+.questionHelpButton{
+    margin-right: 8px;
+}
 
 </style>
 <body>
@@ -459,6 +466,12 @@ em.search_highlight {
       <div class="questionContent">
           <div class="questionContainer">
               <p id="questionContainer" class="questionText"></p>
+              <div class="questionHelps">
+                  <keyboard class="questionHelpButton" onclick="openDataBooklet()">D</keyboard>
+                  <keyboard class="questionHelpButton" onclick="openResBooklet()">R</keyboard>
+                  <keyboard class="questionHelpButton" onclick="alertHelp(false)">H</keyboard>
+
+              </div>
           </div>
         <div>
             <div class="btn-group">
@@ -726,13 +739,78 @@ $("#goBack").click(function () {
     }
 });
 
-</script>
-<script>
-    if(!{{$isLoggedIn ? 1 : 0}}){
-      $("#notlogged").fadeIn();
-      if ($("#questionContainer").height() < height && height >= 700){
-        $("#questionBody").css("margin-top",(- $("#questionBody").height() / 2 + height / 2 - 40) + "px");
-      }
-    } 
+
+if(!{{$isLoggedIn ? 1 : 0}}){
+  $("#notlogged").fadeIn();
+  if ($("#questionContainer").height() < height && height >= 700){
+    $("#questionBody").css("margin-top",(- $("#questionBody").height() / 2 + height / 2 - 40) + "px");
+  }
+}
+$(document).keydown(function(event){
+    if(event.keyCode == 78){
+        $("#goNext").click();
+    }
+    if(event.keyCode == 66){
+        $("#goBack").click();
+    }
+    if(event.keyCode == 67){
+        openComment();
+    }
+    if(event.keyCode == 88){
+        closeComment();
+    }
+    if(event.keyCode == 68){
+        openDataBooklet();
+    }
+    if(event.keyCode == 82){
+        openResBooklet();
+    }
+    if(event.keyCode == 72){
+        alertHelp();
+    }
+});
+
+localStorage.getItem('hotkey') ? console.log('No hotkey needed') : alertHelp(true);
+
+function alertHelp(isNeverShow){
+    swal({
+        title: "About Hotkeys",
+        html: "<br><div><keyboard>N</keyboard>&nbsp;&nbsp;Next Question</div><br>" +
+            "<div><keyboard>B</keyboard>&nbsp;&nbsp;Last Question</div><br>" +
+            "<div><keyboard>D</keyboard>&nbsp;&nbsp;Data Booklet</div><br>" +
+            "<div><keyboard>R</keyboard>&nbsp;&nbsp;Resource Booklet</div><br>" +
+            "<div><keyboard>C</keyboard>&nbsp;&nbsp;Open Comment</div><br>" +
+            "<div><keyboard>X</keyboard>&nbsp;&nbsp;Close Comment</div>",
+        timer: 10000,
+        showConfirmButton: isNeverShow,
+        confirmButtonText: "Never Show Again",
+        showCancelButton: true,
+
+    }).then(function(isConfirm){
+        if (isConfirm.value) {
+            localStorage.setItem("hotkey", 1)
+        }
+    });
+}
+
+
+const questionBankURL = "https://ib-questionbank-attachments.s3.amazonaws.com/uploads/supplemental_material/file_attachment/";
+localStorage.getItem('hotkey2') ? console.log('No hotkey needed') : alertHelp(true);
+function openDataBooklet() {
+    swal({
+        title: "Data booklet",
+        html: `<p>Math HL/FM Formula Booklet: <a target="_blank" href="${questionBankURL}`+
+            `9/d_5_mathl_inf_1206_3_e.pdf">Here</a></p>`+
+            `<p>Math SL Formula Booklet: <a target="_blank" href="${questionBankURL}`+
+            `8/d_5_matsl_inf_1203_1_e.pdf">Here</a></p>`+
+            `<p>Physics Data Booklet: <a target="_blank" href="${questionBankURL}`+
+            `46/Physics_data_booklet.pdf">Here</a></p>`+
+            `<p>Chemistry Data Booklet: <a target="_blank" href="`+
+            `https://www.ibchem.com/root_pdf/data_booklet_2016.pdf">Here</a></p>`
+    })
+}
+function openResBooklet() {
+    swal('Oops', 'No resource booklet for this question!', 'warning')
+}
 </script>
 @include('foot')
