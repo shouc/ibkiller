@@ -5,7 +5,7 @@
  <body class="homeBody"> 
    <header class="intro">
     <h1 class="intro__hello">Hello! <span class="emoji wave-hand animated"></span> </h1> 
-    <h2 class="intro__tagline"> <span class="name"> <img style="margin-bottom:7px;height:42px;width;border-radius:8px" src="https://cdn-bucket.ibkiller.com/img/icon.png" /> IBKiller </span> here, a free Questionbank for IBDP students. </h2> 
+    <h2 class="intro__tagline"> <span class="name"> <img style="margin-bottom:7px;height:42px;width;border-radius:8px" src="https://cdn-bucket.ibkiller.com/img/icon.png" /> IBKiller </span> here, yet another Questionbank for IBDP students. </h2>
     <a class="status"> 
       <img src="https://cdn-bucket.ibkiller.com/img/appstore.svg" class="btn-app" onclick='alert("Developing")'/>
       &nbsp;

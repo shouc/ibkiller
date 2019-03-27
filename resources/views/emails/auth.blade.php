@@ -8,8 +8,7 @@
 		<div style="width: 100%; height: 1px; background-color: #aaa;margin-top: 10px;"></div>
 		<p>Welcome!</p>
 		<p>Confirm your mail at <a style="color: #0984e3" href="https://ibkiller.com/confirm?s={{ $session }}">here</a>.</p>
-		<p>It is said that one who clicks the link could get 7s.</p>
-		<p>On the other hand, if you do not confirm your email, we could not provide you access to services like Finding Study Mate, etc. : (</p>
+		<p>If you do not confirm your email, we could not provide you access to services like Finding Study Mate, etc. : (</p>
 		<p>Sincerely,<br>
 			Guys who developed IBKiller
 		</p>
