@@ -137,3 +137,10 @@ Route::prefix('admin')->group(function () {
     Route::get('/api/del', 'AdminController@del')
         ->name('api.del');
 });
+
+Route::prefix('mail')->group(function () {
+    Route::get('/tracing', 'WebController@tracing')
+        ->name('mail.tracing');
+    Route::get('/redirecting', 'WebController@redirecting')
+        ->name('mail.redirecting');
+});

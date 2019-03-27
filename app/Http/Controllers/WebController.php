@@ -562,5 +562,56 @@ class WebController extends Controller
         return $result;
     }
 
+    public function tracing(Request $request)
+    {
+        if ($request->has(['Email'])) {
+            $_email = $request->Email;
+            $emailStatus = DB::table('mail_tracing')
+                ->where('email', $_email)
+                ->select('email')
+                ->get()
+                ->count();
+            if (!$emailStatus){
+                DB::table('mail_tracing')->insert(
+                    [
+                        'email' => $_email,
+                        'is_redirect' => 0,
+                        'is_open' => 1,
+                    ]
+                );
+            } else {
+                DB::table('mail_tracing')
+                    ->where('email', $_email)
+                    ->increment('is_open');
+            }
+        }
+    }
+
+    public function redirecting(Request $request)
+    {
+        if ($request->has(['Email'])) {
+            $_email = $request->Email;
+            $emailStatus = DB::table('mail_tracing')
+                ->where('email', $_email)
+                ->select('email')
+                ->get()
+                ->count();
+            if (!$emailStatus){
+                DB::table('mail_tracing')->insert(
+                    [
+                        'email' => $_email,
+                        'is_redirect' => 1,
+                        'is_open' => 0,
+                    ]
+                );
+            } else {
+                DB::table('mail_tracing')
+                    ->where('email', $_email)
+                    ->increment('is_redirect');
+            }
+            return redirect("/");
+        }
+    }
+
 
 }
