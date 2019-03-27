@@ -260,12 +260,13 @@ class WebController extends Controller
         $proSince = $api->sessionVal($_session)
             ->first()
             ->pro_since;
+        $isPro = 0;
+
         if ($proSince){
-            if ((int) time() - $proSince < 2678400){
+            if ((int) time() - (int) $proSince < 2678400){
                 $isPro = 1;
+
             }
-        } else {
-            $isPro = 0;
         }
 
         return view('pricing', ['server' => env('APP_URL'),
