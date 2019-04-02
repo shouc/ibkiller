@@ -770,7 +770,6 @@ $(document).keydown(function(event){
     }
 });
 
-localStorage.getItem('hotkey') ? console.log('No hotkey needed') : alertHelp(true);
 
 function alertHelp(isNeverShow){
     swal({
@@ -788,14 +787,15 @@ function alertHelp(isNeverShow){
 
     }).then(function(isConfirm){
         if (isConfirm.value) {
-            localStorage.setItem("hotkey", 1)
+            localStorage.setItem("hotkey1", 1)
         }
     });
 }
 
+localStorage.getItem('hotkey1') === "1" ? console.log('No hotkey needed') : alertHelp(true);
+
 
 const questionBankURL = "https://ib-questionbank-attachments.s3.amazonaws.com/uploads/supplemental_material/file_attachment/";
-localStorage.getItem('hotkey2') ? console.log('No hotkey needed') : alertHelp(true);
 function openDataBooklet() {
     swal({
         title: "Data booklet",

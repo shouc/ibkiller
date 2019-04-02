@@ -413,7 +413,7 @@ function alertHelp(isNeverShow){
     });
 }
 const questionBankURL = "https://ib-questionbank-attachments.s3.amazonaws.com/uploads/supplemental_material/file_attachment/";
-localStorage.getItem('hotkey2') ? console.log('No hotkey needed') : alertHelp(true);
+localStorage.getItem('hotkey2') === "1" ? console.log('No hotkey needed') : alertHelp(true);
 function openDataBooklet() {
     swal({
         title: "Data booklet",

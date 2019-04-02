@@ -31,29 +31,30 @@
     </div>
     @endif
     <div id="data"></div>
+    <footer class="footer" style="float: left;display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-orient: vertical; -webkit-box-direction: normal; -ms-flex-direction: column; flex-direction: column; -ms-flex-pack: distribute; justify-content: space-around; max-width: 1440px;">
+        <div class="footer__links">
+            <div class="top">
+                <a style="color: #FFF !IMPORTANT;text-decoration: none;" href="https://cdn-bucket.ibkiller.com/LICENSE.HTML">License Issues</a> /
+                <a style="color: #FFF !IMPORTANT;text-decoration: none;" href="https://cdn-bucket.ibkiller.com/TERM.HTML">Terms</a> /
+                <a style="color: #FFF !IMPORTANT;text-decoration: none;" href="http://zwang.tech">About Us</a>
+
+            </div>
+            <p style="color: #aaa;">Disclaimer: IBO and IB are registered trademarks in the United States and other countries. Trademarks are cited here simply for information purpose. The appearance of such trademarks does not represent an affiliation with any of the Trademark owners, and it is not an endorsement from their part.</p>
+
+        </div>
+        <!--
+     <div class="sharethis-inline-reaction-buttons"></div>
+     <div class="footer__links">
+      <a href="http://zwang.tech" target="_blank" style="fill:white" title="company"><img src="https://cdn-bucket.ibkiller.com/img/company.svg" alt="company" /> </a>
+      <a href="https://github.com/IBKillerDev" target="_blank" title="github"><img src="https://cdn-bucket.ibkiller.com/img/github.svg" alt="github" /> </a>
+      <a href="https://cdn-bucket.ibkiller.com/terms.html" target="_blank" title="term"><img src="https://cdn-bucket.ibkiller.com/img/term.svg" alt="term" /> </a>
+     </div>
+     -->
+    </footer>
    </section>
 
 
-   <footer class="footer" style="float: left;display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-orient: vertical; -webkit-box-direction: normal; -ms-flex-direction: column; flex-direction: column; -ms-flex-pack: distribute; justify-content: space-around; max-width: 1440px;">
-       <div class="footer__links">
-         <div class="top">
-          <a style="color: #FFF !IMPORTANT;text-decoration: none;" href="https://cdn-bucket.ibkiller.com/LICENSE.HTML">License Issues</a> /
-          <a style="color: #FFF !IMPORTANT;text-decoration: none;" href="https://cdn-bucket.ibkiller.com/TERM.HTML">Terms</a> /
-          <a style="color: #FFF !IMPORTANT;text-decoration: none;" href="http://zwang.tech">About Us</a>
 
-         </div>
-           <p style="color: #aaa;">Disclaimer: IBO and IB are registered trademarks in the United States and other countries. Trademarks are cited here simply for information purpose. The appearance of such trademarks does not represent an affiliation with any of the Trademark owners, and it is not an endorsement from their part.</p>
-
-        </div>
-       <!--
-    <div class="sharethis-inline-reaction-buttons"></div> 
-    <div class="footer__links">
-     <a href="http://zwang.tech" target="_blank" style="fill:white" title="company"><img src="https://cdn-bucket.ibkiller.com/img/company.svg" alt="company" /> </a>
-     <a href="https://github.com/IBKillerDev" target="_blank" title="github"><img src="https://cdn-bucket.ibkiller.com/img/github.svg" alt="github" /> </a>
-     <a href="https://cdn-bucket.ibkiller.com/terms.html" target="_blank" title="term"><img src="https://cdn-bucket.ibkiller.com/img/term.svg" alt="term" /> </a>
-    </div>
-    -->
-   </footer> 
   </div> 
   <script>
 
